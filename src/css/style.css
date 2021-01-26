@@ -1,0 +1,68 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.menu{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn{
+    border: 1px solid #3498db;
+    backround: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family: "montserrat";
+    margin: 10px;
+}
+
+.btn1,.btn2,.btn3{
+    color: #3498db;
+}
+
+.btn4{
+    color: #fff;
+}
+
+.btn1:hover,.btn2:hover,.btn3:hover{
+    color: #fff;
+}
+
+.btn4:hover{
+    color: #3498db;
+}
+
+p{
+  color:black;
+  background:none;
+}
+
+.items{
+    position: relative;
+    left: 80px;
+}
+
+.ordering-list{
+    position: fixed;
+    top: 150px;
+    right: 200px;
+}
+
+
+table{
+    width: 400px;
+}
+
+th{
+    text-align: left;
+}
+
+table,th,td{
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+table,td{
+    padding: 10px;
+}
