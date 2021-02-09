@@ -26,9 +26,18 @@ window.onload = function(){
     }
   }
   //TODO: make a script that callse model for all added items in cart
+
+  var footerElement = document.createElement('div')
+  var footer = document.getElementById("footer");
+  var footerContent = `
+    <button id="settings">settings</button>
+    <button id="login">login</button>`
+  footerElement.innerHTML = footerContent;
+  footer.append(footerElement);
 }
 
 function finish(){
   window.location.href = "index.html";
+  alert ("Checkout success!");
   //TODO: update model
 }
