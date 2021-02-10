@@ -28,6 +28,9 @@ Date: 2021-02-8 to 2021-02-19
 ### Group 1 tasks
 
 - Basic version of Customer (VIP and normal)
+View: Pontus
+Control: Victoria
+Model: Henrik
 
 ### Group 2 tasks
 
