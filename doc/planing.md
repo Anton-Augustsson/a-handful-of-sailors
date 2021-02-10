@@ -4,14 +4,14 @@
 
 ### Group 1
 
-- Victoria
-- Henrik
-- Pontus
+- Victoria v7
+- Henrik v8
+- Pontus v6
 
 ## Group 2
 
-- Isak
-- Anton
+- Isak v5
+- Anton v9
 
 ## Plan
 
