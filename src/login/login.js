@@ -1,3 +1,8 @@
+//https://www.youtube.com/watch?v=3GsKEtBcGTk&t=2001s
+//var vip = "../index.html";
+//var employee = "../index.html";
+//var manager = "../index.html";
+
 function setFormMessage(formElement, type, message) {
     const messageElement = formElement.querySelector(".form__message");
 
@@ -36,8 +41,32 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         // Perform your AJAX/Fetch login
+        var user = document.getElementById("user").value;
+        var password = document.getElementById("password").value;
+        var mode = document.getElementById("mode").value;
+       
+        // VIP
+        if(user=="u" && password=="p" && mode==1){
+          window.location.href =  "../index.html";
+        }
 
-        setFormMessage(loginForm, "error", "Invalid username/password combination");
+        // Manager
+        else if (user=="u" && password=="p" && mode==2){
+          window.location.href =  "../index.html";
+        } 
+
+        // Employee
+        else if (user=="u" && password=="p" && mode==3){
+          window.location.href =  "../index.html";
+        }
+        
+        // Error
+        else{
+          setFormMessage(loginForm, 
+            "error",
+            "Invalid username/password/mode combination");
+        }
+
     });
 
     document.querySelectorAll(".form__input").forEach(inputElement => {
