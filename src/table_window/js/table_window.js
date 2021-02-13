@@ -1,4 +1,5 @@
 var tableNr = 3;
+var tableInfo = "table_info.html";
 
 function createTable(tableNr) {
     var tableElement = document.createElement('div');
@@ -10,7 +11,7 @@ function createTable(tableNr) {
           <p>Antal personer: 3</p>
           <p>Pris: 500kr</p>
         </div>
-      </div> `
+      </div> `;
     tableElement.innerHTML= newTable;
     tableBody.append(tableElement);
 }
@@ -21,5 +22,5 @@ function addTable() {
 }
 
 function clickTable() {
-    window.location.href = "table_information.html"
+    window.location.href = tableInfo;
 }

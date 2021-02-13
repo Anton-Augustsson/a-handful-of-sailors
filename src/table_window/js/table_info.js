@@ -1,3 +1,4 @@
+var tableWindow = "table_window.html";
 
 window.onload = function(){
   var modal = document.getElementById("myModal");
@@ -30,7 +31,7 @@ window.onload = function(){
 };
 
 function finish(){
-  window.location.href = "index.html";
+  window.location.href = tableWindow;
   alert ("Checkout success!");
   //TODO: update model
 }
