@@ -1,3 +1,6 @@
+@import "../css/color-scheme.css";
+
+/*
 :root {
     --color-one:#290001;
     --color-two:#87431d;
@@ -6,11 +9,11 @@
     --color-btn:#dbcbbd;
     --color-btn-hover:#87431d;
     --color-btn-txt:#290001;
-    --border-size:3px;
-} 
+} */
 
 html{
   background-color: var(--color-one);
+    --border-size:3px;
 }
 
 body{
