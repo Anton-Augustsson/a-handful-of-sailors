@@ -1,0 +1,68 @@
+html {
+    height: 100%;
+    scroll-behavior: unset;
+    overflow: hidden;
+}
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+div{
+    flex-grow: 1;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    background-color: #3498db;
+    height: 100%;
+    align-items: stretch;
+}
+
+.header{
+    background-color: gray;
+}
+
+.footer{
+    background-color: black;
+}
+
+.customer{
+    display: flex;
+    flex-direction: row;
+    background-color: hotpink;
+    flex-grow: 8;
+}
+
+.table-wrapper{
+    display: flex;
+    flex-direction: column;
+    background-color: silver;
+}
+
+.table{
+    flex-grow: 1;
+    width: 80%;
+    align-self: center;
+}
+
+.cart{
+    flex-shrink: 1;
+}
+
+.menu{
+    background-color: brown;
+    flex-direction: column;
+}
+
+.menu_header{
+    position: static;
+    height: 10%;
+    background-color: powderblue;
+}
+
+.menu_options{
+    flex-direction: column;
+}
