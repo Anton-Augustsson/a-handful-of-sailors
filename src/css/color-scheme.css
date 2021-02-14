@@ -1,0 +1,11 @@
+/* Color scheme for project*/
+/* @import "color-scheme.css"; */
+:root {
+    --color-one:#290001; /* Use this for the majority of page */
+    --color-two:#87431d;
+    --color-three:#C87941;
+    --color-four:#dbcbbd; /* Use the least */
+    --color-btn:#dbcbbd; /* Button color */
+    --color-btn-hover:#87431d; /* When hovering over button */
+    --color-btn-txt:#290001; /* The color of the text of the button */
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Color pallet</title>
+    <script src="../js/header-footer.js"></script>
+    <script src="js/table_window.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/table_window.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+  </head>
+  <body>
+    <div class="menu">
+      <p>menu</p>
+    </div>
+    <div class="tables" id="extraTables">
+      <div class="table" id="table1" onclick=clickTable()>
+        <span>table1</span>
+        <div class="dropdown">
+          <p>Antal personer: 3</p>
+          <p>Pris: 500kr</p>
+        </div>
+      </div>
+      <div class="table" id="table2" onclick=clickTable()>
+        <span>table1</span>
+        <div class="dropdown">
+          <p>Antal personer: 10</p>
+          <p>Pris: 1000kr</p>
+        </div>
+      </div>
+    <div class="options">
+      <button id="addTable" onclick=addTable()>Add Table</button>
+    </div>
+  <footer id="footer"></footer>
+  </body>
+</html>
