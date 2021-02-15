@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Manager
         else if (user=="u" && password=="p" && mode==2){
           window.location.href =  manager;
-        } 
+        }
 
         // Employee
         else if (user=="u" && password=="p" && mode==3){
