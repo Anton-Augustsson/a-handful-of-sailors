@@ -1,7 +1,7 @@
 //https://www.youtube.com/watch?v=3GsKEtBcGTk&t=2001s
-//var vip = "../index.html";
-//var employee = "../index.html";
-//var manager = "../index.html";
+var vip = "../index.html";
+var employee = "../table_window/table_window.html";
+var manager = "../index.html";
 
 function setFormMessage(formElement, type, message) {
     const messageElement = formElement.querySelector(".form__message");
@@ -47,17 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
        
         // VIP
         if(user=="u" && password=="p" && mode==1){
-          window.location.href =  "../index.html";
+          window.location.href =  vip;
         }
 
         // Manager
         else if (user=="u" && password=="p" && mode==2){
-          window.location.href =  "../index.html";
+          window.location.href =  manager;
         } 
 
         // Employee
         else if (user=="u" && password=="p" && mode==3){
-          window.location.href =  "../index.html";
+          window.location.href =  employee; // "../index.html";
         }
         
         // Error
