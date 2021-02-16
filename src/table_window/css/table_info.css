@@ -1,18 +1,54 @@
 @import "../../css/color-scheme.css";
 
-.orders{
+#content{
+  position: relative;
+}
+
+#orders{
   background-color: var(--color-three);
   margin: 10px;
   padding: 9px;
   border: var(--border-size) solid var(--color-four);
+  width: 60%;
 }
 
-.options{
+#options{
+  position: fixed;
   background-color: var(--color-three);
   margin: 10px;
-  top: 2px;
+  top: 30px;
   padding: 30px;
   border: var(--border-size) solid var(--color-four);
+  right: 10px;
+  width: 20%;
+}
+
+.header {
+  padding: 10px;
+  text-align: center;
+  background: ;
+}
+
+.item{
+  position: relative;
+  border: var(--border-size) solid var(--color-four);
+}
+
+.name, .info, .stats{
+  background: var(--color-four);
+  text-indent: 30px;
+  border: var(--border-size) solid var(--color-three);
+}
+
+.stats{
+  position: absolute;
+  height: 95%;
+  width: 30%;
+  top: 0;
+  right: 0;
+}
+
+.add, .checkout{
 }
 
 .modal {
