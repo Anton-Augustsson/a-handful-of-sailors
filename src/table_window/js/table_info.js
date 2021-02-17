@@ -1,5 +1,10 @@
 var tableWindow = "table_window.html";
 
+function allTableItems(){
+  setItem("orders", "name", "where when who", "alcahol package");
+  setItem("orders", "some name", "some info", "some stats");
+}
+
 window.onload = function(){
   var modal = document.getElementById("myModal");
   var span = document.getElementsByClassName("close")[0];
@@ -26,6 +31,8 @@ window.onload = function(){
         modal.style.display = "none";
     }
   };
+
+  allTableItems();
   //TODO: make a script that callse model for all added items in cart
 
 };
