@@ -1,0 +1,33 @@
+html{
+    background-color: #f4f2f3;
+    /*background-color: #c0a9bd;*/
+}
+
+body{
+    background-color: #c0a9bd;
+    margin: 10px;
+    padding: 10px;
+}
+
+.menu{
+    background-color: #94a7ae;
+    margin: 10px;
+    padding: 9px;
+    border: 6px solid #f4f2f3;
+}
+
+.inventory{
+    background-color: #64766a;
+    margin: 10px;
+    top: 2px;
+    padding: 30px;
+    border: 6px solid #f4f2f3;
+}
+
+.spririts{
+    background-color: #c0a9bd;
+    /* border-color: #f4f2f3;*/
+    padding: 20px;
+    border: 3px solid #64766a;
+    opacity: 1;
+}
