@@ -4,7 +4,7 @@ function allTableItems(){
   //setItem("orders", "name", "where when who", "alcahol package");
   //setItem("orders", "some name", "some info", "some stats");
   var item1 = 25053;
-  var item2 = 190719;
+  var item2 = 638574;
   var details1 = itemDetails(item1);
   var details2 = itemDetails(item2);
   setItem("orders", details1.name, details1.info, details1.stats);
