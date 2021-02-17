@@ -1,8 +1,15 @@
 var tableWindow = "table_window.html";
 
 function allTableItems(){
-  setItem("orders", "name", "where when who", "alcahol package");
-  setItem("orders", "some name", "some info", "some stats");
+  //setItem("orders", "name", "where when who", "alcahol package");
+  //setItem("orders", "some name", "some info", "some stats");
+  var item1 = 25053;
+  var item2 = 190719;
+  var details1 = itemDetails(item1);
+  var details2 = itemDetails(item2);
+  setItem("orders", details1.name, details1.info, details1.stats);
+  setItem("orders", details2.name, details2.info, details2.stats);
+
 }
 
 window.onload = function(){
