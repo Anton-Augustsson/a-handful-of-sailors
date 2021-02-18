@@ -30,24 +30,39 @@ function itemDetails(artikelid){
     return details;
 }
 
+function getTableidIndex(tableid){
+    return tableid-1;
+}
 
-// new table
-// new order for table
-// remove table
-// empty table
-// remove order
-//
-//
-function newTable(){
+function updateDB(articleid, qty){
     //TODO:
+}
+
+// creates a new table and inserts it to the database
+function newTable(){
+    var length = DBTable.tables.length;
+    var newTableObj = {
+        tableid: length+1,
+        orders: [{}]
+    };
+
+    var newTableJSON = JSON.stringify(newTableObj);
+    console.log(newTableJSON);
+    DBTable.tables[length] = newTableObj;
 }
 
 // creates a new order for a table
 // use articleid to point to the item in the order
 // qty>0 or faliure
+// tableid starts from 1
 //
-function newOrder(tableid, articleid, qty){
-    //TODO:
+function newOrder(tableid, artdicleid, qty){
+    var newOrderObj = {
+        "articleno": articleid,
+        "qty": qty
+    };
+
+    DBTable.tables[getTableidIndex(tableid)].orders = newOrderObj;
 }
 
 // change the stock of an item
@@ -57,12 +72,25 @@ function newOrder(tableid, articleid, qty){
 //
 function replenishOrder(tableid, articleid, qty){
     //TODO:
+    var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
+    for(int i=0; i < length; ++i){
+        if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid &&
+           DBTable.tables[getTableidIndex(tableid)].orders[i].qty > -qty){
+            DBTable.tables[getTableidIndex(tableid)].orders[i].qty += qty;
+        }
+    }
 }
 
 // remove order regardless of quantaty
 //
 function removeOrder(tableid, articleid){
     //TODO:
+    var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
+    for(int i=0; i < length; ++i){
+        if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid){
+            delete DBTable.tables[getTableidIndex(tableid)].orders[i];
+        }
+    }
 }
 
 // remove all orders of tableid
@@ -70,10 +98,18 @@ function removeOrder(tableid, articleid){
 //
 function checkoutTable(tableid){
     //TODO:
+    var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
+    for(int i=0; i < length; ++i){
+        articleno = DBTable.tables[getTableidIndex(tableid)].orders[i].articleno;
+        qty = DBTable.tables[getTableidIndex(tableid)].order[i].qty;
+        updateDB(articleno, qty);
+        delete DBTable.tables[getTableidIndex(tableid)].orders[i];
+    }
 }
 
 // remove table from database
 //
 function removeTable(tableid){
-
+    checkoutTable(tableid);
+    delete DBTable.tables[getTableidIndex(tableid)];
 }
