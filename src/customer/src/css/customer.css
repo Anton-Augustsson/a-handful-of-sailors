@@ -2,8 +2,6 @@
 
 html{
     height: 100%;
-    scroll-behavior: unset;
-    overflow: hidden;
 }
 body{
     height: 100%;
@@ -170,6 +168,9 @@ div{
 .shop-item {
     display: flex;
     flex-direction: row;
+    border: 3px solid;
+    border-radius: 10px;
+    margin: 10px;
 }
 
 .shop-item-title {
@@ -199,6 +200,7 @@ div{
 
 .shop-items {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
 }

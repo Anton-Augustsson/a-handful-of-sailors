@@ -16,7 +16,46 @@ $('document').ready(function() {
         var button = addToCartButtons[i]
         button.addEventListener('click', addToCartClicked)
     }
+
+    printAllDrinks();
 });
+
+function getAllBeverages() {
+
+    // Using a local variable to collect the items.
+    var collector = [];
+
+    // The DB is stored in the variable DB2, with "spirits" as key element. If you need to select only certain
+    // items, you may introduce filter functions in the loop... see the template within comments.
+    //
+    for (i = 0; i < DB2.spirits.length && i < 10; i++) {
+        collector.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms]);
+    };
+    //
+    return collector;
+}
+
+function printAllDrinks() {
+    var allDrinks = getAllBeverages();
+    var shopItems = document.getElementsByClassName('shop-items')[0]
+
+    for (var i = 0; i < allDrinks.length; i++) {
+        var drink = allDrinks[i];
+        var name = drink[0]
+        var price = drink[1]
+        var shopItem = document.createElement('div')
+        shopItem.classList.add('shop-item')
+        var shopItemContents = `
+        <span class="shop-item-title">${name}</span>
+        <div class="shop-item-details">
+            <span class="shop-item-price">${price}</span>
+            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+        </div>`
+        shopItem.innerHTML = shopItemContents
+        shopItems.append(shopItem)
+        shopItem.getElementsByClassName('shop-item-button')[0].addEventListener('click', addToCartClicked)
+    }
+}
 
 function addToCartClicked(event) {
     var button = event.target
