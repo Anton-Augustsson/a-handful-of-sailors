@@ -17,12 +17,28 @@
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
 </head>
 <body>
-    <header>
-    <div class="header">
-        <button id="undo">undo</button>
-        <button id="redo">redo</button>
-        <button id="language">language</button>
-    </div>
+    <header class="header">
+        <nav>
+            <button id="undo">undo</button>
+            <button id="redo">redo</button>
+            <button id="language">language</button>
+            <div class="lang">
+            <div class="lang-menu">
+                <div class="selected-lang">
+                    English
+                </div>
+                    <ul>
+                        <li>
+                            <a href="#" class="se">Svenska</a>
+                        </li>
+                        <li>
+                            <a href="" class="en">English</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        <nav>
+    </header>
     <div id="content">
     <div id="orders"></div>
     <div id="options">
