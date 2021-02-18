@@ -31,7 +31,13 @@ function itemDetails(artikelid){
 }
 
 function getTableidIndex(tableid){
-    return tableid-1;
+    var length = DBTable.tables.length;
+    for(i=0; i < length; ++i){
+        if(DBTable.tables[i].tableid == tableid){
+            return i;
+        }
+    }
+    throw "Tableid dosen't exist";    // throw a text
 }
 
 function updateDB(articleid, qty){
@@ -56,13 +62,14 @@ function newTable(){
 // qty>0 or faliure
 // tableid starts from 1
 //
-function newOrder(tableid, artdicleid, qty){
+function newOrder(tableid, articleid, qty){
+    var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
     var newOrderObj = {
         "articleno": articleid,
         "qty": qty
     };
 
-    DBTable.tables[getTableidIndex(tableid)].orders = newOrderObj;
+    DBTable.tables[getTableidIndex(tableid)].orders[length] = newOrderObj;
 }
 
 // change the stock of an item
@@ -71,39 +78,44 @@ function newOrder(tableid, artdicleid, qty){
 // stock<0 is not allowed
 //
 function replenishOrder(tableid, articleid, qty){
-    //TODO:
     var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
-    for(int i=0; i < length; ++i){
-        if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid &&
-           DBTable.tables[getTableidIndex(tableid)].orders[i].qty > -qty){
-            DBTable.tables[getTableidIndex(tableid)].orders[i].qty += qty;
+    for(i=0; i < length; ++i){
+        if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid){
+            if(DBTable.tables[getTableidIndex(tableid)].orders[i].qty > -qty){
+                DBTable.tables[getTableidIndex(tableid)].orders[i].qty += qty;
+                break;
+            }
+            else{
+                throw "replenish exided order (replenishOrder)";
+            }
         }
     }
+    throw "articleno dosent exist (replenishOrder)";
 }
 
 // remove order regardless of quantaty
 //
 function removeOrder(tableid, articleid){
-    //TODO:
     var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
-    for(int i=0; i < length; ++i){
+    for(i=0; i < length; ++i){
         if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid){
-            delete DBTable.tables[getTableidIndex(tableid)].orders[i];
+            DBTable.tables[getTableidIndex(tableid)].orders.splice(i,1);
+            break;
         }
     }
+    throw "articleno dosent exist (removeOrder)";
 }
 
 // remove all orders of tableid
 // update quantaty in database
 //
 function checkoutTable(tableid){
-    //TODO:
     var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
-    for(int i=0; i < length; ++i){
-        articleno = DBTable.tables[getTableidIndex(tableid)].orders[i].articleno;
-        qty = DBTable.tables[getTableidIndex(tableid)].order[i].qty;
+    for(i=0; i < length; ++i){
+        articleno = DBTable.tables[getTableidIndex(tableid)].orders[0].articleno;
+        qty = DBTable.tables[getTableidIndex(tableid)].orders[0].qty;
         updateDB(articleno, qty);
-        delete DBTable.tables[getTableidIndex(tableid)].orders[i];
+        DBTable.tables[getTableidIndex(tableid)].orders.splice(0,1);
     }
 }
 
@@ -111,5 +123,5 @@ function checkoutTable(tableid){
 //
 function removeTable(tableid){
     checkoutTable(tableid);
-    delete DBTable.tables[getTableidIndex(tableid)];
+    DBTable.tables.splice(getTableidIndex(tableid),1);
 }
