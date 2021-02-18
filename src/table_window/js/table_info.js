@@ -49,3 +49,15 @@ function finish(){
   alert ("Checkout success!");
   //TODO: update model
 }
+
+function swedish(){
+  changeLanguage("Svenska");
+}
+
+function english(){
+  changeLanguage("English");
+}
+
+function changeLanguage(lang){
+  document.getElementById("selected-language").innerHTML = lang;
+}
