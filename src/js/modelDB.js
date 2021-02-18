@@ -29,3 +29,51 @@ function itemDetails(artikelid){
 
     return details;
 }
+
+
+// new table
+// new order for table
+// remove table
+// empty table
+// remove order
+//
+//
+function newTable(){
+    //TODO:
+}
+
+// creates a new order for a table
+// use articleid to point to the item in the order
+// qty>0 or faliure
+//
+function newOrder(tableid, articleid, qty){
+    //TODO:
+}
+
+// change the stock of an item
+// qty>0 will increse the stock
+// qty<0 will decrese the stock
+// stock<0 is not allowed
+//
+function replenishOrder(tableid, articleid, qty){
+    //TODO:
+}
+
+// remove order regardless of quantaty
+//
+function removeOrder(tableid, articleid){
+    //TODO:
+}
+
+// remove all orders of tableid
+// update quantaty in database
+//
+function checkoutTable(tableid){
+    //TODO:
+}
+
+// remove table from database
+//
+function removeTable(tableid){
+
+}
