@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Color pallet</title>
+    <title>Inventory management</title>
+    <script type="text/javascript" src="../resources/db/Beverages.js"></script>
     <script src="inventory_functions.js"></script>
     <link rel="stylesheet" href="inventory_style.css">
 </head>
-<body>
-<select id="myselect" onchange="change_myselect(this.value)">
-    <option value="">Choose an option:</option>
-    <option value="R\u00c3\u00b6tt vin">Customers</option>
-    <option value="Vitt vin">Products</option>
-    <option value="Cognac">Suppliers</option>
-</select>
+<body onload="beverageList()">
+<div class="beverages" id="spirits">
+    <div class="spirits" id="hataliv" >
+                <span> Namn: Vodka Article Nr: 0000 <span>
+    </div>
+</div>
 </body>
 </html>
