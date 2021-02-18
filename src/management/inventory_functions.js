@@ -1,6 +1,6 @@
 
 function beverageList(){
-    var beveragelist = document.getElementById("beverages");
+    var beveragelist = document.getElementById("spirits");
     for (i = 0; i < DB2.spirits.length; i++) {
         var name = DB2.spirits[i].namn;
         var artikelid = DB2.spirits[i].artikelid;
@@ -12,5 +12,4 @@ function beverageList(){
         beverageElement.innerHTML= bevaregeContent;
         beveragelist.appendChild(beverageElement);
     }
-
 }
