@@ -1,11 +1,9 @@
-html {
+@import "../../../css/color-scheme.css";
+
+html{
     height: 100%;
-    scroll-behavior: unset;
-    overflow: hidden;
 }
 body{
-    margin: 0;
-    padding: 0;
     height: 100%;
 }
 
@@ -16,36 +14,53 @@ div{
 .content{
     display: flex;
     flex-direction: column;
-    background-color: #3498db;
     height: 100%;
     align-items: stretch;
 }
 
 .header{
-    background-color: gray;
+    background-color: var(--color-two);
 }
 
-.footer{
-    background-color: black;
+.footer-temp{
+    background-color: var(--color-two);
 }
 
 .customer{
     display: flex;
     flex-direction: row;
-    background-color: hotpink;
     flex-grow: 8;
 }
 
-.table-wrapper{
+.menu-wrapper{
     display: flex;
-    flex-direction: column;
-    background-color: silver;
+    flex-direction: row;
 }
 
-.table{
-    flex-grow: 1;
-    width: 80%;
-    align-self: center;
+.categories{
+    flex-direction: column;
+    background-color: var(--color-three);
+}
+
+.category{
+    height: 10%;
+    background-color: var(--color-three);
+    border: 6px solid var(--color-four);
+    border-bottom: 0;
+    border-right: 0;
+}
+
+.category:last-child{
+    border: 6px solid var(--color-four);
+    border-right: 0;
+}
+.menu{
+    flex-grow: 3;
+    background-color: var(--color-four);
+}
+
+.cart{
+    background-color: var(--color-three);
 }
 
 .section-header{
@@ -150,24 +165,12 @@ div{
     font-size: 1.75em;
 }
 
-.menu{
-    background-color: brown;
-    flex-direction: column;
-}
-
-.menu_header{
-    position: static;
-    height: 10%;
-    background-color: powderblue;
-}
-
-.menu_options{
-    flex-direction: column;
-}
-
 .shop-item {
     display: flex;
     flex-direction: row;
+    border: 3px solid;
+    border-radius: 10px;
+    margin: 10px;
 }
 
 .shop-item-title {
@@ -197,6 +200,7 @@ div{
 
 .shop-items {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
 }

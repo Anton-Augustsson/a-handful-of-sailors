@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Customer</title>
+    <link rel="stylesheet" href="../../css/style.css">  <!--Tror de flesta sidorna brukar vara att body är margin 0?-->
     <link rel="stylesheet" href="css/customer.css">
+
     <script src="../../../doc/proj/Dutchman Files/jquery-3.3.1.min.js"></script>
+    <script src="../../../doc/proj/Dutchman Files/Beverages.js"></script>
+    <script src="../../js/header-footer.js"></script>
     <script src="js/customer.js" async></script>
 </head>
 <body>
@@ -15,9 +19,33 @@
         header
     </div>
     <div class="customer">
-        <div class="table-wrapper">
-            <div class="table">
-                table, onclick button show cart?
+        <div class="menu-wrapper">
+            <div class="categories">
+                categories
+                <div class="category">DRINKS</div>
+                <div class="category">FOOD</div>
+                <div class="category"></div>
+            </div>
+            <div class="menu">
+                <section class="container content-section">
+                    <h2 class="section-header">BEER</h2>
+                    <div class="shop-items">
+                        <div class="shop-item">
+                            <span class="shop-item-title">Norrlands</span>
+                            <div class="shop-item-details">
+                                <span class="shop-item-price">$2.00</span>
+                                <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+                            </div>
+                        </div>
+                        <div class="shop-item">
+                            <span class="shop-item-title">IPA</span>
+                            <div class="shop-item-details">
+                                <span class="shop-item-price">$6.99</span>
+                                <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
             <!--<div class="cart">
                 <div class="cart-row">
@@ -40,22 +68,7 @@
                     order
                 </button>
             </div>-->
-            <section class="container content-section">
-                <h3 class="section-header">CART</h3>
-                <div class="cart-row">
-                    <span class="cart-item cart-header cart-column">ITEM</span>
-                    <span class="cart-price cart-header cart-column">PRICE</span>
-                    <span class="cart-quantity cart-header cart-column">QUANTITY</span>
-                </div>
-                <div class="cart-items">
 
-                </div>
-                <div class="cart-total">
-                    <strong class="cart-total-title">Total</strong>
-                    <span class="cart-total-price">$0.00</span>
-                </div>
-                <button class="btn btn-primary btn-purchase" type="button">PURCHASE</button>
-            </section>
         </div>
         <!--<div class="menu">
             <div class="menu_header">
@@ -66,29 +79,28 @@
             </div>
 
         </div>-->
-        <section class="container content-section">
-            <h2 class="section-header">MERCH</h2>
-            <div class="shop-items">
-                <div class="shop-item">
-                    <span class="shop-item-title">T-Shirt</span>
-                    <div class="shop-item-details">
-                        <span class="shop-item-price">$19.99</span>
-                        <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-                    </div>
-                </div>
-                <div class="shop-item">
-                    <span class="shop-item-title">Coffee Cup</span>
-                    <div class="shop-item-details">
-                        <span class="shop-item-price">$6.99</span>
-                        <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-                    </div>
-                </div>
+        <section class="cart">
+            <h3 class="section-header">CART</h3>
+            <div class="cart-row">
+                <span class="cart-item cart-header cart-column">ITEM</span>
+                <span class="cart-price cart-header cart-column">PRICE</span>
+                <span class="cart-quantity cart-header cart-column">QUANTITY</span>
             </div>
+            <div class="cart-items">
+
+            </div>
+            <div class="cart-total">
+                <strong class="cart-total-title">Total</strong>
+                <span class="cart-total-price">$0.00</span>
+            </div>
+            <button class="btn btn-primary btn-purchase" type="button">ORDER</button>
         </section>
+
     </div>
-    <div class="footer">
+    <!--<div class="footer-temp">
         footer
-    </div>
+    </div>-->
 </div>
+<footer id="footer"></footer>
 </body>
 </html>
