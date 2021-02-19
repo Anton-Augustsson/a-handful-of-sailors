@@ -47,17 +47,41 @@ function printAllDrinks() {
         var shopItem = document.createElement('div')
         shopItem.classList.add('shop-item')
         var shopItemContents = `
-        <span class="shop-item-title" id="${articleId}">${name}</span>
-        <div class="shop-item-details">
-            <span class="shop-item-price">${price}</span>
-            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-        </div>`
+            <span class="shop-item-title" id="${articleId}">${name}</span>
+            <div class="shop-item-details">
+                <span class="shop-item-price">${price}</span>
+                <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+            </div>
+            <div class="shop-item-more-info shop-item-more-info-hide">
+                <div class="extra-info">producer</div>
+                <div class="extra-info">country</div>
+                <div class="extra-info">type</div>
+                <div class="extra-info">strength</div>
+                <div class="extra-info">size</div>
+            </div>`
         shopItem.innerHTML = shopItemContents
         shopItems.append(shopItem)
         shopItem.getElementsByClassName('shop-item-button')[0].addEventListener('click', addToCartClicked)
+        shopItem.addEventListener("click", clickItemForMoreInfo);
     }
 }
 
+function clickItemForMoreInfo(event) {
+    console.log("test")
+    var shopItem = event.target.parentElement
+    console.log(shopItem)
+    var moreInfo = shopItem.getElementsByClassName('shop-item-more-info')[0]
+    console.log(moreInfo)
+    if (moreInfo.classList.contains('shop-item-more-info-hide')) {
+        moreInfo.classList.remove('shop-item-more-info-hide')
+        moreInfo.classList.add('shop-item-more-info-show')
+    }
+    else {
+        moreInfo.classList.remove('shop-item-more-info-show')
+        moreInfo.classList.add('shop-item-more-info-hide')
+    }
+    console.log("test2")
+}
 function addToCartClicked(event) {
     var button = event.target
     var shopItem = button.parentElement.parentElement
