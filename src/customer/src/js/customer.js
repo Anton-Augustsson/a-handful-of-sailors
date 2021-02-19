@@ -6,13 +6,13 @@ $('document').ready(function() {
     }
 
     var quantityInputs = document.getElementsByClassName('cart-quantity-input')
-    for (var i = 0; i < quantityInputs.length; i++) {
+    for (i = 0; i < quantityInputs.length; i++) {
         var input = quantityInputs[i]
         input.addEventListener('change', quantityChanged)
     }
 
     var addToCartButtons = document.getElementsByClassName('shop-item-button')
-    for (var i = 0; i < addToCartButtons.length; i++) {
+    for (i = 0; i < addToCartButtons.length; i++) {
         var button = addToCartButtons[i]
         button.addEventListener('click', addToCartClicked)
     }
@@ -28,9 +28,9 @@ function getAllBeverages() {
     // The DB is stored in the variable DB2, with "spirits" as key element. If you need to select only certain
     // items, you may introduce filter functions in the loop... see the template within comments.
     //
-    for (i = 0; i < DB2.spirits.length && i < 10; i++) {
-        collector.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms]);
-    };
+    for (var i = 0; i < DB2.spirits.length && i < 10; i++) {
+        collector.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms, DB2.spirits[i].artikelid]);
+    }
     //
     return collector;
 }
@@ -43,10 +43,11 @@ function printAllDrinks() {
         var drink = allDrinks[i];
         var name = drink[0]
         var price = drink[1]
+        var articleId = drink[2]
         var shopItem = document.createElement('div')
         shopItem.classList.add('shop-item')
         var shopItemContents = `
-        <span class="shop-item-title">${name}</span>
+        <span class="shop-item-title" id="${articleId}">${name}</span>
         <div class="shop-item-details">
             <span class="shop-item-price">${price}</span>
             <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
