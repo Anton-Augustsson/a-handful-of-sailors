@@ -171,11 +171,12 @@ div{
     border: 3px solid;
     border-radius: 10px;
     margin: 10px;
+    height: 80px;
 }
 
 .shop-item-title {
     display: block;
-    width: 100%;
+    width: 200px;
     text-align: center;
     font-weight: bold;
     font-size: 1.5em;
@@ -196,6 +197,9 @@ div{
 .shop-item-price {
     flex-grow: 1;
     color: #333;
+    text-align: end;
+    width: 60px;
+    margin-right: 5px;
 }
 
 .shop-items {
@@ -203,4 +207,16 @@ div{
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+
+.shop-item-more-info-hide{
+    display: none;
+}
+
+.shop-item-more-info-show{
+    display: block;
+}
+
+.extra-info{
+
 }
