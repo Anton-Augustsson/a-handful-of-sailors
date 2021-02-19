@@ -5,22 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Table Info</title>
+
+    <script type="text/javascript" src="../resources/db/Beverages.js"></script>
+    <script type="text/javascript" src="../resources/db/DBTable.js"></script>
     <script src="../js/header-footer.js"></script>
+    <script src="../js/items.js"></script>
+    <script src="../js/modelDB.js"></script>
+
     <script src="js/table_info.js"></script>
     <link rel="stylesheet" type="text/css" href="css/table_info.css" />
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
 </head>
 <body>
-    <div class="orders">
-        <div class="one_order">
-            <span>Maträtter</span>
-        </div>
-        <div class="one_order">
-            <span>drinkar</span>
-        </div>
+    <header>
+    <div class="header">
+        <button id="undo">undo</button>
+        <button id="redo">redo</button>
+        <button id="language">language</button>
     </div>
-    <div class="options">
-        <button>Add</button>
+    <div id="content">
+    <div id="orders"></div>
+    <div id="options">
+        <button id="add">Add</button>
         <button id="checkout">Checkout</button>
         <div id="myModal" class="modal">
             <div class="modal-content">
@@ -30,6 +36,7 @@
                 <button id="cancel">Cancel</button>
             </div>
         </div>
+   </div>
    </div>
   <footer id="footer"></footer>
 </body>
