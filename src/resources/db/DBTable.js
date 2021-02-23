@@ -1,4 +1,4 @@
-var DBTable = {
+var DB3 = {
     "tables" :  [{
         "tableid": 1,
         "orders":  [{
