@@ -4,11 +4,13 @@ function setFooter(){
   /* In each file import this js file and add a empty footer at the end */
   var footerElement = document.createElement('div');
   var footer = document.getElementById("footer");
+  var user = localStorage.getItem("username");
   var footerContent = `
     <div id="footer-options">
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
        <button id="settings"></button>
-       <button id="login" onclick=goToLoginPage()></button>
+       <button id="logout" onclick=goToLoginPage()></button>
+       <span id="username">${user}</span>
     </div>`;
   footerElement.innerHTML = footerContent;
   footer.append(footerElement);
@@ -45,6 +47,7 @@ function setHeader(){
 }
 
 function goToLoginPage() {
+  localStorage.setItem("username", null);
   window.location.href = logInPage;
 }
 

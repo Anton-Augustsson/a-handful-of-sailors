@@ -15,7 +15,7 @@ dict = {
     'id': {
 
         'keys' : ['selected-language', 'undo','redo', 'add', 'checkout',
-              'login', 'settings'],       // keys for strings
+                  'login', 'settings', 'logout'],       // keys for strings
         //'keys': ['add', 'checkout'],
 
         // We use one JSON substructure for each language. If we have
@@ -30,7 +30,8 @@ dict = {
             'add': "Add",
             'checkout': "Checkout",
             'login': "Login",
-            'settings': "Settings"
+            'settings': "Settings",
+            'logout': "Logout",
         },
         'sv' : {
             'selected-language': "Svenska",
@@ -39,7 +40,8 @@ dict = {
             'add': "Lägg till",
             'checkout': "Checka ut",
             'login': "Logga in",
-            'settings': "Inställningar"
+            'settings': "Inställningar",
+            'logout': "Logga ut",
         }
     },
 

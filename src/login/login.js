@@ -1,5 +1,4 @@
 //https://www.youtube.com/watch?v=3GsKEtBcGTk&t=2001s
-var user; // The username of the loged in user
 var vip = "../index.html";
 var employee = "../table_window/table_window.html";
 var manager = "../index.html";
