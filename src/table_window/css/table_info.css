@@ -1,4 +1,6 @@
 @import "../../css/color-scheme.css";
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css');
 
 #content{
   position: relative;
@@ -16,17 +18,11 @@
   position: fixed;
   background-color: var(--color-three);
   margin: 10px;
-  top: 30px;
+  top: 160px;
   padding: 30px;
   border: var(--border-size) solid var(--color-four);
   right: 10px;
   width: 20%;
-}
-
-.header {
-  padding: 10px;
-  text-align: center;
-  background: ;
 }
 
 .item{
@@ -88,3 +84,4 @@
   text-decoration: none;
   cursor: pointer;
 }
+

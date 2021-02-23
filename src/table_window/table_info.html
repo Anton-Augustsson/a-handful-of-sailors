@@ -6,28 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Table Info</title>
 
+    <script src="../js/jquery-1.11.1.js"></script>
+    <script src="js/table_info.js"></script>
+
     <script type="text/javascript" src="../resources/db/Beverages.js"></script>
     <script type="text/javascript" src="../resources/db/DBTable.js"></script>
     <script src="../js/header-footer.js"></script>
     <script src="../js/items.js"></script>
     <script src="../js/modelDB.js"></script>
+    <script src="../js/Dictionary.js"></script>
 
-    <script src="js/table_info.js"></script>
     <link rel="stylesheet" type="text/css" href="css/table_info.css" />
     <link rel="stylesheet" type="text/css" href="../css/style.css" />
 </head>
 <body>
-    <header>
-    <div class="header">
-        <button id="undo">undo</button>
-        <button id="redo">redo</button>
-        <button id="language">language</button>
-    </div>
+    <header id="header"></header>
     <div id="content">
     <div id="orders"></div>
     <div id="options">
-        <button id="add">Add</button>
-        <button id="checkout">Checkout</button>
+        <button id="add"></button>
+        <button id="checkout"></button>
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -38,6 +36,6 @@
         </div>
    </div>
    </div>
-  <footer id="footer"></footer>
+   <footer id="footer"></footer>
 </body>
 </html>
