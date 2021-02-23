@@ -2,8 +2,10 @@
 
 // DB: users account ...
 // DB2: beverages
+// DB3: table
 
-
+// =====================================================================================================
+// model DB for DB2
 function itemDetails(artikelid){
 
 
@@ -30,6 +32,22 @@ function itemDetails(artikelid){
     return details;
 }
 
+
+// =====================================================================================================
+// model DB for tableDB
+//
+
+// get the local DB
+var DBTable = localStorage.getItem("DBTable");
+
+// if there is no local DB then use the default one
+if(DBTable == null){
+    DBTable = DB3;
+    localStorage.setItem("DBTable", DBTable);
+}
+
+//  Get the index of a table
+//
 function getTableidIndex(tableid){
     var length = DBTable.tables.length;
     for(i=0; i < length; ++i){
@@ -125,3 +143,9 @@ function removeTable(tableid){
     checkoutTable(tableid);
     DBTable.tables.splice(getTableidIndex(tableid),1);
 }
+
+// =====================================================================================================
+// =====================================================================================================
+// END OF FILE
+// =====================================================================================================
+// =====================================================================================================
