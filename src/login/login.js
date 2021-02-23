@@ -1,4 +1,5 @@
 //https://www.youtube.com/watch?v=3GsKEtBcGTk&t=2001s
+var user; // The username of the loged in user
 var vip = "../index.html";
 var employee = "../table_window/table_window.html";
 var manager = "../index.html";
@@ -44,7 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
         var user = document.getElementById("user").value;
         var password = document.getElementById("password").value;
         var mode = document.getElementById("mode").value;
-       
+
+        localStorage.setItem("username", user);
+
         // VIP
         if(user=="u" && password=="p" && mode==1){
           window.location.href =  vip;
