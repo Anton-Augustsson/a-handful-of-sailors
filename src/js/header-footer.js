@@ -23,7 +23,6 @@ function setHeader(){
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
       <button id="undo"></button>
       <button id="redo"></button>
-      <button id="language">language</button>
       <div class="lang">
       <div class="lang-menu">
         <div class="selected-lang" id="selected-language">

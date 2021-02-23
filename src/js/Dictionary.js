@@ -4,14 +4,16 @@
 // How to do this with more than two languages, is left as an
 // exercise.
 //
-var language = 'en';
+var language;
+
 
 // ==========================================================================
 // The dictionary consists of a simple JSON structure. It also keeps
 // track of the different keys that are available  for IDs.
 //
 dict = {
-    'keys' : ['undo','redo', 'add', 'checkout', 'login', 'settings'],       // keys for strings
+    'keys' : ['selected-language', 'undo','redo', 'add', 'checkout',
+              'login', 'settings'],       // keys for strings
     //'keys': ['add', 'checkout'],
 
     // We use one JSON substructure for each language. If we have
@@ -20,6 +22,7 @@ dict = {
     // request.
     //
     'en': {
+        'selected-language': "English",
         'undo': "Undo",
         'redo': "Redo",
         'add': "Add",
@@ -28,6 +31,7 @@ dict = {
         'settings': "Settings"
     },
     'sv' : {
+        'selected-language': "Svenska",
         'undo': "Ångra",
         'redo': "Åter gör",
         'add': "Lägg till",
@@ -69,6 +73,13 @@ function update_view_dictionary() {
 }
 
 $(document).ready(function() {
+    language = localStorage.getItem("lang");
+
+    if(language == null){
+        language = 'en';
+        localStorage.setItem("lang", "en");
+    }
+
     update_view_dictionary();
 });
 
@@ -81,11 +92,13 @@ function change_lang() {
 }
 function swedish(){
     language = 'sv';
+    localStorage.setItem("lang", "sv");
     changeLanguage("Svenska");
 }
 
 function english(){
     language = 'en';
+    localStorage.setItem("lang", "en");
     changeLanguage("English");
 }
 
