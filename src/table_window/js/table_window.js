@@ -1,26 +1,42 @@
-var tableNr = 3;
+var tableNr = 0;
 var tableInfo = "table_info.html";
 
 function createTable(tableNr) {
-    var tableElement = document.createElement('div');
-    var tableBody = document.getElementById("extraTables");
     var newTable = `
     <div class="table" id="table${tableNr}" onclick=clickTable()>
-        <span>${tableNr}</span>
+        <span>Table ${tableNr}</span>
         <div class="dropdown">
           <p>Antal personer: 3</p>
           <p>Pris: 500kr</p>
         </div>
       </div> `;
-    tableElement.innerHTML= newTable;
+    return newTable;
+}
+
+function setTable(tableNr){
+    var tableElement = document.createElement('div');
+    var tableBody = document.getElementById("extraTables");
+    tableElement.innerHTML= createTable(tableNr);
     tableBody.append(tableElement);
 }
 
+function update_view_table(){
+    for(i = 0; i < getNumTables(); i++){
+        tableid = getTableId(i);
+        setTable(tableid);
+    }
+}
+
 function addTable() {
-    createTable(tableNr);
+    var tableid = newTable();
+    setTable(tableid);
     tableNr = tableNr + 1;
 }
 
 function clickTable() {
     window.location.href = tableInfo;
 }
+
+$(document).ready(function(){
+    update_view_table();
+});
