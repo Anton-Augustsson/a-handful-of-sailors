@@ -7,8 +7,8 @@ function setFooter(){
   var footerContent = `
     <div id="footer-options">
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
-       <button id="settings">settings</button>
-       <button id="login" onclick=goToLoginPage()>login</button>
+       <button id="settings"></button>
+       <button id="login" onclick=goToLoginPage()></button>
     </div>`;
   footerElement.innerHTML = footerContent;
   footer.append(footerElement);
@@ -21,8 +21,8 @@ function setHeader(){
   var headerContent = `
     <nav>
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
-      <button id="undo">undo</button>
-      <button id="redo">redo</button>
+      <button id="undo"></button>
+      <button id="redo"></button>
       <button id="language">language</button>
       <div class="lang">
       <div class="lang-menu">
@@ -49,19 +49,7 @@ function goToLoginPage() {
   window.location.href = logInPage;
 }
 
-function swedish(){
-  changeLanguage("Svenska");
-}
-
-function english(){
-  changeLanguage("English");
-}
-
-function changeLanguage(lang){
-  document.getElementById("selected-language").innerHTML = lang;
-}
-
-window.addEventListener("load",function(){
+$(document).ready(function(){
   setFooter();
   setHeader();
-}, false);
+});
