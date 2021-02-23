@@ -12,40 +12,54 @@ var language;
 // track of the different keys that are available  for IDs.
 //
 dict = {
-    'keys' : ['selected-language', 'undo','redo', 'add', 'checkout',
-              'login', 'settings'],       // keys for strings
-    //'keys': ['add', 'checkout'],
+    'id': {
 
-    // We use one JSON substructure for each language. If we have
-    // many different languages and a large set of strings we might
-    // need to store a JSON file for each language to be loaded on
-    // request.
-    //
-    'en': {
-        'selected-language': "English",
-        'undo': "Undo",
-        'redo': "Redo",
-        'add': "Add",
-        'checkout': "Checkout",
-        'login': "Login",
-        'settings': "Settings"
+        'keys' : ['selected-language', 'undo','redo', 'add', 'checkout',
+              'login', 'settings'],       // keys for strings
+        //'keys': ['add', 'checkout'],
+
+        // We use one JSON substructure for each language. If we have
+        // many different languages and a large set of strings we might
+        // need to store a JSON file for each language to be loaded on
+        // request.
+        //
+        'en': {
+            'selected-language': "English",
+            'undo': "Undo",
+            'redo': "Redo",
+            'add': "Add",
+            'checkout': "Checkout",
+            'login': "Login",
+            'settings': "Settings"
+        },
+        'sv' : {
+            'selected-language': "Svenska",
+            'undo': "Ångra",
+            'redo': "Åter gör",
+            'add': "Lägg till",
+            'checkout': "Checka ut",
+            'login': "Logga in",
+            'settings': "Inställningar"
+        }
     },
-    'sv' : {
-        'selected-language': "Svenska",
-        'undo': "Ångra",
-        'redo': "Åter gör",
-        'add': "Lägg till",
-        'checkout': "Checka ut",
-        'login': "Logga in",
-        'settings': "Inställningar"
+
+    'cl': {
+        'keys' : ['test'],
+
+        'en': {
+            'test': "Text",
+        },
+        'sv': {
+            'test': "svergie text",
+        }
     }
 };
 
 // This function will return the appropriate string for each
 // key. The language handling is made "automatic".
 //
-function get_string(key) {
-    return dict[language][key];
+function get_string(type, key) {
+    return dict[type][language][key];
 }
 
 // This function is the simplest possible. However, in order
@@ -58,17 +72,19 @@ function get_string(key) {
 
 
 function update_view_dictionary() {
-    keys = dict['keys'];
     var idx;
 
-    for (idx in keys) {
-        key = keys[idx];
-        $("#" + key).text(get_string(key));
+    keys_id = dict.id['keys'];
+    for (idx in keys_id) {
+        key = keys_id[idx];
+        $("#" + key).text(get_string('id', key));
     }
-    pics = dict['pics'];
-    for (idx in pics) {
-        pic = pics[idx];
-        $("#" + pic).attr('src', get_string(pic));
+
+    keys_cl = dict.cl['keys'];
+    for (idx in keys_cl) {
+        key = keys_cl[idx];
+        console.log(key);
+        $("." + key).text(get_string('cl', key));
     }
 }
 
