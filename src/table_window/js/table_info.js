@@ -37,13 +37,24 @@ function finish(){
 function setAllTableItems(){
   //setItem("orders", "name", "where when who", "alcahol package");
   //setItem("orders", "some name", "some info", "some stats");
-  var item1 = 25053;
+  /*var item1 = 25053;
   var item2 = 638574;
   var details1 = itemDetails(item1);
   var details2 = itemDetails(item2);
   setItem("orders", details1.name, details1.info, details1.stats);
   setItem("orders", details2.name, details2.info, details2.stats);
+  */
 
+  var table = localStorage.getItem("selectedTable");
+  var locationOfOrders = "orders";
+  var item;
+  var articleno;
+
+  for(var i = 0; i < getNumOfOrders(table); ++i){
+    articleno = getOrderByIndex(table,i);
+    item = itemDetails(articleno);
+    setItem(locationOfOrders, item.name, item.info, item.stats);
+  }
 }
 
 // create the chekcout menue and popup

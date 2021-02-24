@@ -1,9 +1,12 @@
 var tableNr = 0;
 var tableInfo = "table_info.html";
 
+//TODO: update_view should be a general function that is caled appon in undomanager
+
 function createTable(tableNr) {
+    var table = "table" + tableNr;
     var newTable = `
-    <div class="table" id="table${tableNr}" onclick=clickTable()>
+    <div class="table" id=${table} onclick=clickTable(${tableNr})>
         <span>Table ${tableNr}</span>
         <div class="dropdown">
           <p>Antal personer: 3</p>
@@ -14,10 +17,7 @@ function createTable(tableNr) {
 }
 
 function setTable(tableNr){
-    var tableElement = document.createElement('div');
-    var tableBody = document.getElementById("extraTables");
-    tableElement.innerHTML= createTable(tableNr);
-    tableBody.append(tableElement);
+    $('#extraTables').append(createTable(tableNr));
 }
 
 function clear_view(){
@@ -78,7 +78,12 @@ function addTableUD() {
     return temp;
 }
 
-function clickTable() {
+// Got to the table info page for a spesific table
+// tableid is the same as tableNr
+// "selectedTable" is the name of the table with we are curently in
+function clickTable(tableid) {
+    localStorage.setItem("selectedTable", tableid);
+    //  selected table
     window.location.href = tableInfo;
 }
 
