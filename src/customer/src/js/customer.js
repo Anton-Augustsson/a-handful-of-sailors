@@ -171,9 +171,15 @@ function printAllDrinks(allDrinks) {
         var size = drink[7]
         var shopItem = document.createElement('div')
         shopItem.classList.add('shop-item')
+		shopItem.setAttribute('draggable', 'true');
+        shopItem.setAttribute('ondragover', 'onDragOver(event)');
+        shopItem.setAttribute('ondragstart', 'onDragStart(event)');
+        shopItem.id = articleId;
+		
+		
         var shopItemContents = `
             <div class="shop-item-default">
-                <span class="shop-item-title" id="${articleId}">${name}</span>
+                <span class="shop-item-title">${name}</span>
                 <div class="shop-item-details">
                     <span class="shop-item-price">${price}</span>
                     <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
@@ -226,6 +232,30 @@ function clickItemForMoreInfo(event) {
         content.style.maxHeight = content.scrollHeight + "px";
     }
 }
+
+
+function onDragStart(event) {
+    event.dataTransfer.setData('text', event.target.id);
+}
+
+function onDragOver(event) {
+    event.preventDefault();
+}
+
+function onDrop(event) {
+
+    const id = event.dataTransfer.getData('text');
+
+    const draggableElement = document.getElementById(id);
+
+    var title = draggableElement.getElementsByClassName('shop-item-title')[0].innerText
+    var price = draggableElement.getElementsByClassName('shop-item-price')[0].innerText
+
+    addItemToCart(title, price);
+    updateCartTotal();
+}
+
+
 function addToCartClicked(event) {
     var button = event.target
     var shopItem = button.parentElement.parentElement
