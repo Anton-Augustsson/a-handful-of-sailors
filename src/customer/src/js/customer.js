@@ -6,19 +6,30 @@ $('document').ready(function() {
     }
 
     var quantityInputs = document.getElementsByClassName('cart-quantity-input')
-    for (var i = 0; i < quantityInputs.length; i++) {
+    for (i = 0; i < quantityInputs.length; i++) {
         var input = quantityInputs[i]
         input.addEventListener('change', quantityChanged)
     }
 
     var addToCartButtons = document.getElementsByClassName('shop-item-button')
-    for (var i = 0; i < addToCartButtons.length; i++) {
+    for (i = 0; i < addToCartButtons.length; i++) {
         var button = addToCartButtons[i]
         button.addEventListener('click', addToCartClicked)
     }
 
+    document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order)
+
     printAllDrinks();
 });
+
+function order() {
+    alert("Thank you for ordering!")
+    var cartItems = document.getElementsByClassName('cart-items')[0]
+    while (cartItems.hasChildNodes()) {
+        cartItems.removeChild(cartItems.firstChild)
+    }
+    updateCartTotal()
+}
 
 function getAllBeverages() {
 
@@ -28,35 +39,86 @@ function getAllBeverages() {
     // The DB is stored in the variable DB2, with "spirits" as key element. If you need to select only certain
     // items, you may introduce filter functions in the loop... see the template within comments.
     //
-    for (i = 0; i < DB2.spirits.length && i < 10; i++) {
-        collector.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms]);
-    };
+    for (var i = 0; i < DB2.spirits.length && i < 10; i++) {
+        collector.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms,
+            DB2.spirits[i].artikelid, DB2.spirits[i].producent,
+            DB2.spirits[i].ursprunglandnamn, DB2.spirits[i].varugrupp,
+            DB2.spirits[i].alkoholhalt, DB2.spirits[i].volymiml]);
+    }
     //
     return collector;
 }
 
 function printAllDrinks() {
     var allDrinks = getAllBeverages();
-    var shopItems = document.getElementsByClassName('shop-items')[0]
 
     for (var i = 0; i < allDrinks.length; i++) {
         var drink = allDrinks[i];
         var name = drink[0]
         var price = drink[1]
+        var articleId = drink[2]
+        var producer = drink[3]
+        var country = drink[4]
+        var type = drink[5]
+        var strength = drink[6]
+        var size = drink[7]
         var shopItem = document.createElement('div')
         shopItem.classList.add('shop-item')
         var shopItemContents = `
-        <span class="shop-item-title">${name}</span>
-        <div class="shop-item-details">
-            <span class="shop-item-price">${price}</span>
-            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-        </div>`
+            <div class="shop-item-default">
+                <span class="shop-item-title" id="${articleId}">${name}</span>
+                <div class="shop-item-details">
+                    <span class="shop-item-price">${price}</span>
+                    <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+                </div>
+            </div>
+            <div class="shop-item-more-info">
+                <div class="extra-info">Producer: ${producer}</div>
+                <div class="extra-info">Country: ${country}</div>
+                <div class="extra-info">Type: ${type}</div>
+                <div class="extra-info">Strength: ${strength}</div>
+                <div class="extra-info">Size: ${size}</div>
+            </div>`
         shopItem.innerHTML = shopItemContents
-        shopItems.append(shopItem)
+        if (i % 2 == 0) {
+            document.getElementsByClassName('shop-items-column-1')[0].append(shopItem)
+        }
+        else {
+            document.getElementsByClassName('shop-items-column-2')[0].append(shopItem)
+        }
+
         shopItem.getElementsByClassName('shop-item-button')[0].addEventListener('click', addToCartClicked)
+        shopItem.getElementsByClassName('shop-item-title')[0].addEventListener("click", clickItemForMoreInfo);
     }
 }
-
+/*
+function clickItemForMoreInfo(event) {
+    var shopItem = event.target.parentElement.parentElement
+    console.log(shopItem)
+    var moreInfo = shopItem.getElementsByClassName('shop-item-more-info')[0]
+    console.log(moreInfo)
+    if (moreInfo.classList.contains('shop-item-more-info-hide')) {
+        moreInfo.classList.remove('shop-item-more-info-hide')
+        moreInfo.classList.add('shop-item-more-info-show')
+    }
+    else {
+        moreInfo.classList.remove('shop-item-more-info-show')
+        moreInfo.classList.add('shop-item-more-info-hide')
+    }
+    console.log("test2")
+}*/
+function clickItemForMoreInfo(event) {
+    this.classList.toggle("active");
+    var content = this.parentElement.parentElement.children[1]
+    console.log(content)
+    if (content.style.maxHeight){
+        content.style.display = 'none'
+        content.style.maxHeight = null;
+    } else {
+        content.style.display = 'block'
+        content.style.maxHeight = content.scrollHeight + "px";
+    }
+}
 function addToCartClicked(event) {
     var button = event.target
     var shopItem = button.parentElement.parentElement
