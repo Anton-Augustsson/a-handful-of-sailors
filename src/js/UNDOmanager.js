@@ -34,9 +34,14 @@ function doit(funcobj) {
 // UNDO-function and stores the function object on the REDO-stack.
 //
 function undoit() {
-    funcobj = undostack.pop();
-    funcobj.unexecute();
-    redostack.push(funcobj);
+    if(undostack.length > 0){
+        funcobj = undostack.pop();
+        funcobj.unexecute();
+        redostack.push(funcobj);
+    }
+    else{
+        console.log("Unable to undoit, empty undostack");
+    }
 }
 
 // ==========================================================================
@@ -44,7 +49,12 @@ function undoit() {
 // the REDO-function and then pushes the function object onto the UNDO-stack.
 //
 function redoit() {
-    funcobj = redostack.pop();
-    funcobj.reexecute();
-    undostack.push(funcobj);
+    if(redostack.length > 0){
+        funcobj = redostack.pop();
+        funcobj.reexecute();
+        undostack.push(funcobj);
+    }
+    else{
+        console.log("Unable to undoit, empty undostack");
+    }
 }

@@ -53,11 +53,15 @@ function addTable(){
 function addTableUD() {
     var temp = {
         oldDB: JSON.stringify(getDBTable()),
+        newDB: null, // dummy value will be updated in execute
         oldTableNr: tableNr,
+        newTableNr: null, //nummy value will be updated in execute
 
         execute: function (){
             var tableid = newTable();
             tableNr = tableNr + 1;
+            this.newDB = JSON.stringify(getDBTable());
+            this.newTableNr = tableNr;
             update_view_table();//setTable(tableid);
         },
         unexecute: function (){
@@ -66,7 +70,9 @@ function addTableUD() {
             update_view_table();
         },
         reexecute: function () {
-
+            tableNr = this.newTableNr;
+            setDBTable(JSON.parse(this.newDB));
+            update_view_table();
         },
     };
     return temp;
