@@ -43,7 +43,7 @@ div{
 }
 
 .category{
-    height: 10%;
+    height: 100px;
     background-color: var(--color-three);
     border: 6px solid var(--color-four);
     border-bottom: 0;
@@ -102,12 +102,6 @@ div{
     color: #333;
     margin-left: .5em;
     font-size: 1.2em;
-}
-
-.cart-item-image {
-    width: 75px;
-    height: auto;
-    border-radius: 10px;
 }
 
 .remove-item-from-cart {
@@ -214,15 +208,16 @@ div{
     justify-content: space-around;
 }
 
-.shop-item-more-info-hide{
+.shop-item-more-info{
     display: none;
-}
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
 
-.shop-item-more-info-show{
-    display: block;
 }
 
 .extra-info{
     padding: 5px;
-
+    border-top: 1px solid black;
+    width: 30%;
+    margin-left: 5px;
 }

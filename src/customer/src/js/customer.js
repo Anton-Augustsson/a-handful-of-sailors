@@ -17,8 +17,19 @@ $('document').ready(function() {
         button.addEventListener('click', addToCartClicked)
     }
 
+    document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order)
+
     printAllDrinks();
 });
+
+function order() {
+    alert("Thank you for ordering!")
+    var cartItems = document.getElementsByClassName('cart-items')[0]
+    while (cartItems.hasChildNodes()) {
+        cartItems.removeChild(cartItems.firstChild)
+    }
+    updateCartTotal()
+}
 
 function getAllBeverages() {
 
@@ -40,7 +51,6 @@ function getAllBeverages() {
 
 function printAllDrinks() {
     var allDrinks = getAllBeverages();
-    var shopItems = document.getElementsByClassName('shop-items')[0]
 
     for (var i = 0; i < allDrinks.length; i++) {
         var drink = allDrinks[i];
@@ -62,20 +72,26 @@ function printAllDrinks() {
                     <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
                 </div>
             </div>
-            <div class="shop-item-more-info shop-item-more-info-hide">
-                <div class="extra-info">${producer}</div>
-                <div class="extra-info">${country}</div>
-                <div class="extra-info">${type}</div>
-                <div class="extra-info">${strength}</div>
-                <div class="extra-info">${size}</div>
+            <div class="shop-item-more-info">
+                <div class="extra-info">Producer: ${producer}</div>
+                <div class="extra-info">Country: ${country}</div>
+                <div class="extra-info">Type: ${type}</div>
+                <div class="extra-info">Strength: ${strength}</div>
+                <div class="extra-info">Size: ${size}</div>
             </div>`
         shopItem.innerHTML = shopItemContents
-        shopItems.append(shopItem)
+        if (i % 2 == 0) {
+            document.getElementsByClassName('shop-items-column-1')[0].append(shopItem)
+        }
+        else {
+            document.getElementsByClassName('shop-items-column-2')[0].append(shopItem)
+        }
+
         shopItem.getElementsByClassName('shop-item-button')[0].addEventListener('click', addToCartClicked)
-        shopItem.addEventListener("click", clickItemForMoreInfo);
+        shopItem.getElementsByClassName('shop-item-title')[0].addEventListener("click", clickItemForMoreInfo);
     }
 }
-
+/*
 function clickItemForMoreInfo(event) {
     var shopItem = event.target.parentElement.parentElement
     console.log(shopItem)
@@ -90,6 +106,18 @@ function clickItemForMoreInfo(event) {
         moreInfo.classList.add('shop-item-more-info-hide')
     }
     console.log("test2")
+}*/
+function clickItemForMoreInfo(event) {
+    this.classList.toggle("active");
+    var content = this.parentElement.parentElement.children[1]
+    console.log(content)
+    if (content.style.maxHeight){
+        content.style.display = 'none'
+        content.style.maxHeight = null;
+    } else {
+        content.style.display = 'block'
+        content.style.maxHeight = content.scrollHeight + "px";
+    }
 }
 function addToCartClicked(event) {
     var button = event.target
