@@ -1,6 +1,40 @@
 var tableWindow = "table_window.html";
 
-function allTableItems(){
+// create new item with its content
+function createItem(name, info, stats){
+  var newItem = `
+        <div class="item">
+            <div class="name"><p>${name}</p></div>
+            <div class="info"><p>${info}</p></div>
+            <div class="stats"><p>${stats}</p></div>
+            <button ></button>
+        </div>`;
+  return newItem;
+}
+
+// inserts new item in view
+function setItem(idParent, name, info, stats){
+  var itemElement = document.createElement('div');
+  var itemBody = document.getElementById(idParent);
+  var newItem = createItem(name, info, stats);
+  itemElement.innerHTML= newItem;
+  itemBody.append(itemElement);
+}
+
+// update the database and view with new quantity value
+function changeItemQty(){
+
+}
+
+// checkout all items and update the database
+function finish(){
+  window.location.href = tableWindow;
+  alert ("Checkout success!");
+  //TODO: update model
+}
+
+// update view with items of the tables stock
+function setAllTableItems(){
   //setItem("orders", "name", "where when who", "alcahol package");
   //setItem("orders", "some name", "some info", "some stats");
   var item1 = 25053;
@@ -12,7 +46,8 @@ function allTableItems(){
 
 }
 
-window.onload = function(){
+// create the chekcout menue and popup
+function setCheckout(){
   var modal = document.getElementById("myModal");
   var span = document.getElementsByClassName("close")[0];
   var checkout = document.getElementById("checkout");
@@ -39,13 +74,10 @@ window.onload = function(){
     }
   };
 
-  allTableItems();
-  //TODO: make a script that callse model for all added items in cart
-
-};
-
-function finish(){
-  window.location.href = tableWindow;
-  alert ("Checkout success!");
-  //TODO: update model
 }
+
+// when document has loaded execute the following commands
+$(document).ready(function () {
+  setCheckout();
+  setAllTableItems();
+});
