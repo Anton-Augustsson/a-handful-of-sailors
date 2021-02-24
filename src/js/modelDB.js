@@ -103,7 +103,7 @@ function newTable(){
     var length = DBTable.tables.length;
     var newTableObj = {
         tableid: length+1,
-        orders: [{}]
+        orders: null
     };
 
     var newTableJSON = JSON.stringify(newTableObj);
@@ -112,6 +112,22 @@ function newTable(){
 
     update_model();
     return newTableObj.tableid;
+}
+
+// return the number of orders in frrom a table
+function getNumOfOrders(tableid){
+    var orders = getTableByID(tableid).orders;
+    if(orders == null){
+        return 0;
+    }
+    else{
+        return orders.length;
+    }
+}
+
+// returns the article number for the item with the order index of ...
+function getOrderByIndex(tableid, orderIndex){
+    return getTableByID(tableid).orders[orderIndex].articleno;
 }
 
 // creates a new order for a table
