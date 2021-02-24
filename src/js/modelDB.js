@@ -2,8 +2,10 @@
 
 // DB: users account ...
 // DB2: beverages
+// DB3: table
 
-
+// =====================================================================================================
+// model DB for DB2
 function itemDetails(artikelid){
 
 
@@ -30,6 +32,30 @@ function itemDetails(artikelid){
     return details;
 }
 
+
+// =====================================================================================================
+// model DB for tableDB
+//
+
+// Need to update model whenever making a change to the database
+function update_model(){
+    localStorage.setItem("DBTable", JSON.stringify(DBTable));
+}
+
+// get the local DB
+var DBTable = JSON.parse(localStorage.getItem("DBTable"));
+
+// if there is no local DB then use the default one
+if(DBTable == null){
+    DBTable = DB3;
+    update_model();
+}
+
+
+//  Get the index of a table
+//  Loops throw and finds the tableid in the json notation varible
+//  then retorn where it found it
+//
 function getTableidIndex(tableid){
     var length = DBTable.tables.length;
     for(i=0; i < length; ++i){
@@ -40,11 +66,30 @@ function getTableidIndex(tableid){
     throw "Tableid dosen't exist";    // throw a text
 }
 
+// get table by table id
+function getTableByID(tableid){
+    return DBTable.tables[getTableidIndex(tableid)];
+}
+
+function getTableByIndex(tableindex){
+    return DBTable.tables[tableindex];
+}
+
+// get the number of tables
+function getNumTables(){
+    return DBTable.tables.length;
+}
+
+function getTableId(tableindex){
+    return getTableByIndex(tableindex).tableid;
+}
+
 function updateDB(articleid, qty){
     //TODO:
 }
 
 // creates a new table and inserts it to the database
+// return the table id
 function newTable(){
     var length = DBTable.tables.length;
     var newTableObj = {
@@ -55,6 +100,9 @@ function newTable(){
     var newTableJSON = JSON.stringify(newTableObj);
     console.log(newTableJSON);
     DBTable.tables[length] = newTableObj;
+
+    update_model();
+    return newTableObj.tableid;
 }
 
 // creates a new order for a table
@@ -70,6 +118,8 @@ function newOrder(tableid, articleid, qty){
     };
 
     DBTable.tables[getTableidIndex(tableid)].orders[length] = newOrderObj;
+
+    update_model();
 }
 
 // change the stock of an item
@@ -83,6 +133,8 @@ function replenishOrder(tableid, articleid, qty){
         if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid){
             if(DBTable.tables[getTableidIndex(tableid)].orders[i].qty > -qty){
                 DBTable.tables[getTableidIndex(tableid)].orders[i].qty += qty;
+
+                update_model();
                 break;
             }
             else{
@@ -100,6 +152,8 @@ function removeOrder(tableid, articleid){
     for(i=0; i < length; ++i){
         if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid){
             DBTable.tables[getTableidIndex(tableid)].orders.splice(i,1);
+
+            update_model();
             break;
         }
     }
@@ -117,6 +171,8 @@ function checkoutTable(tableid){
         updateDB(articleno, qty);
         DBTable.tables[getTableidIndex(tableid)].orders.splice(0,1);
     }
+
+    update_model();
 }
 
 // remove table from database
@@ -124,4 +180,12 @@ function checkoutTable(tableid){
 function removeTable(tableid){
     checkoutTable(tableid);
     DBTable.tables.splice(getTableidIndex(tableid),1);
+
+    update_model();
 }
+
+// =====================================================================================================
+// =====================================================================================================
+// END OF FILE
+// =====================================================================================================
+// =====================================================================================================
