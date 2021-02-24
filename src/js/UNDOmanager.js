@@ -1,6 +1,16 @@
+// =====================================================================================================
+// Control, for table info.
+// =====================================================================================================
+// Author: Anton Augustsson, 2021
+//
+// You need to implement update_view for the spesific javascript file for the control of the html page
 /* Requires
-* update_vew()
+* update_view()
 */
+//
+// =====================================================================================================
+// Varibles
+
 
 // The data base for the UNDO-REDO mechanism is stored in two stacks
 // Both of these are empty to start with.
