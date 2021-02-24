@@ -29,7 +29,10 @@ function fetchFromDb(str){
     for (let i = 0; i < DB2.spirits.length; i++) {
 
         if(eval(str)){
-            items.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms, DB2.spirits[i].varugrupp]);
+            items.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms,
+                DB2.spirits[i].artikelid, DB2.spirits[i].producent,
+                DB2.spirits[i].ursprunglandnamn, DB2.spirits[i].varugrupp,
+                DB2.spirits[i].alkoholhalt, DB2.spirits[i].volymiml]);
         }
     }
 
@@ -239,7 +242,8 @@ function addItemToCart(title, price) {
     var cartItemNames = cartItems.getElementsByClassName('cart-item-title')
     for (var i = 0; i < cartItemNames.length; i++) {
         if (cartItemNames[i].innerText == title) {
-            alert('This item is already added to the cart')
+            //quantityChanged('_change')
+            cartItemNames[i].parentElement.parentElement.getElementsByClassName('cart-quantity-input')[0].stepUp();
             return
         }
     }
