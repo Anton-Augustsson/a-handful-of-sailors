@@ -1,3 +1,7 @@
+/* Requires
+* update_vew()
+*/
+
 // The data base for the UNDO-REDO mechanism is stored in two stacks
 // Both of these are empty to start with.
 //
@@ -27,6 +31,7 @@ function doit(funcobj) {
     funcobj.execute();
     undostack.push(funcobj);
     redostack = [];
+    update_view();
 }
 
 // ==========================================================================
@@ -38,6 +43,7 @@ function undoit() {
         funcobj = undostack.pop();
         funcobj.unexecute();
         redostack.push(funcobj);
+        update_view();
     }
     else{
         console.log("Unable to undoit, empty undostack");
@@ -53,6 +59,7 @@ function redoit() {
         funcobj = redostack.pop();
         funcobj.reexecute();
         undostack.push(funcobj);
+        update_view();
     }
     else{
         console.log("Unable to undoit, empty undostack");

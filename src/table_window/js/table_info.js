@@ -25,12 +25,6 @@ function createItem(name, info, stats){
   return newItem;
 }
 
-// inserts new item in view
-function setItem(idParent, name, info, stats){
-  $("#"+idParent).append(createItem(name, info, stats));
-}
-
-
 // =====================================================================================================
 // Event functions
 
@@ -49,6 +43,11 @@ function changeItemQty(){
 
 // =====================================================================================================
 // View update
+
+// inserts new item in view
+function setItem(idParent, name, info, stats){
+  $("#"+idParent).append(createItem(name, info, stats));
+}
 
 // update view with items of the tables stock
 function setAllTableItems(){

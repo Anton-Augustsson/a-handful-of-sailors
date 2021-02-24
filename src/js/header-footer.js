@@ -1,3 +1,8 @@
+/* Requires
+ * UNDOmanager
+ */
+
+
 var logInPage = "../login/login.html";
 
 function setFooter(){
@@ -24,8 +29,8 @@ function setHeader(){
   var headerContent = `
     <nav>
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
-      <button id="undo" onclick=header_undo()></button>
-      <button id="redo" onclick=header_redo()></button>
+      <button id="undo" onclick=undoit()></button>
+      <button id="redo" onclick=redoit()></button>
       <div class="lang">
       <div class="lang-menu">
         <div class="selected-lang" id="selected-language">
