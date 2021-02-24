@@ -25,7 +25,7 @@ function setHeader(){
     <nav>
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
       <button id="undo" onclick=header_undo()></button>
-      <button id="redo" onclick=header_redoit()></button>
+      <button id="redo" onclick=header_redo()></button>
       <div class="lang">
       <div class="lang-menu">
         <div class="selected-lang" id="selected-language">
