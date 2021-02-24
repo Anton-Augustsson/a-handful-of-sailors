@@ -167,10 +167,15 @@ div{
 
 .shop-item {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border: 3px solid;
     border-radius: 10px;
     margin: 10px;
+}
+
+.shop-item-default{
+    display: flex;
+    flex-direction: row;
     height: 80px;
 }
 
@@ -218,5 +223,6 @@ div{
 }
 
 .extra-info{
+    padding: 5px;
 
 }

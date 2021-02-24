@@ -29,7 +29,10 @@ function getAllBeverages() {
     // items, you may introduce filter functions in the loop... see the template within comments.
     //
     for (var i = 0; i < DB2.spirits.length && i < 10; i++) {
-        collector.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms, DB2.spirits[i].artikelid]);
+        collector.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms,
+            DB2.spirits[i].artikelid, DB2.spirits[i].producent,
+            DB2.spirits[i].ursprunglandnamn, DB2.spirits[i].varugrupp,
+            DB2.spirits[i].alkoholhalt, DB2.spirits[i].volymiml]);
     }
     //
     return collector;
@@ -44,20 +47,27 @@ function printAllDrinks() {
         var name = drink[0]
         var price = drink[1]
         var articleId = drink[2]
+        var producer = drink[3]
+        var country = drink[4]
+        var type = drink[5]
+        var strength = drink[6]
+        var size = drink[7]
         var shopItem = document.createElement('div')
         shopItem.classList.add('shop-item')
         var shopItemContents = `
-            <span class="shop-item-title" id="${articleId}">${name}</span>
-            <div class="shop-item-details">
-                <span class="shop-item-price">${price}</span>
-                <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+            <div class="shop-item-default">
+                <span class="shop-item-title" id="${articleId}">${name}</span>
+                <div class="shop-item-details">
+                    <span class="shop-item-price">${price}</span>
+                    <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+                </div>
             </div>
             <div class="shop-item-more-info shop-item-more-info-hide">
-                <div class="extra-info">producer</div>
-                <div class="extra-info">country</div>
-                <div class="extra-info">type</div>
-                <div class="extra-info">strength</div>
-                <div class="extra-info">size</div>
+                <div class="extra-info">${producer}</div>
+                <div class="extra-info">${country}</div>
+                <div class="extra-info">${type}</div>
+                <div class="extra-info">${strength}</div>
+                <div class="extra-info">${size}</div>
             </div>`
         shopItem.innerHTML = shopItemContents
         shopItems.append(shopItem)
@@ -67,8 +77,7 @@ function printAllDrinks() {
 }
 
 function clickItemForMoreInfo(event) {
-    console.log("test")
-    var shopItem = event.target.parentElement
+    var shopItem = event.target.parentElement.parentElement
     console.log(shopItem)
     var moreInfo = shopItem.getElementsByClassName('shop-item-more-info')[0]
     console.log(moreInfo)
