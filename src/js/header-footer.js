@@ -1,32 +1,33 @@
+// =====================================================================================================
+// Control, for table info.
+// =====================================================================================================
+// Author: Anton Augustsson, 2021
+//
 /* Requires
  * UNDOmanager
  */
+//
+// =====================================================================================================
+// Varibles
 
-
+// the href for the login page
 var logInPage = "../login/login.html";
 
-function setFooter(){
-  /* In each file import this js file and add a empty footer at the end */
-  var footerElement = document.createElement('div');
-  var footer = document.getElementById("footer");
-  var user = localStorage.getItem("username");
-  var footerContent = `
+// =====================================================================================================
+// Helper functions
+
+function createFooter(user){
+  return `
     <div id="footer-options">
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
        <button id="settings"></button>
        <button id="logout" onclick=goToLoginPage()></button>
        <span id="username">${user}</span>
     </div>`;
-  footerElement.innerHTML = footerContent;
-  footer.append(footerElement);
 }
 
-// there needs to exist a header_undo() and a header_redo() function in the imported page
-function setHeader(){
-  /* In each file import this js file and add a empty footer at the end */
-  var headerElement = document.createElement('div');
-  var header = document.getElementById("header");
-  var headerContent = `
+function createHeader(){
+  return `
     <nav>
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
       <button id="undo" onclick=undoit()></button>
@@ -48,16 +49,40 @@ function setHeader(){
       </div>
     </nav>
   `;
-  headerElement.innerHTML = headerContent;
-  header.append(headerElement);
 }
 
+// =====================================================================================================
+// Event functions
+
+// Go to the login page
 function goToLoginPage() {
   localStorage.setItem("username", null);
   window.location.href = logInPage;
 }
 
+// =====================================================================================================
+// View update
+
+// insert the footer html elemnt on top of the screen
+function setFooter(){
+  /* In each file import this js file and add a empty footer at the end */
+  $("#footer").append(createFooter(localStorage.getItem("username")));
+}
+
+// there needs to exist a header_undo() and a header_redo() function in the imported page
+function setHeader(){
+  /* In each file import this js file and add a empty footer at the end */
+  $("#header").append(createHeader());
+}
+
+// insert the header and footer when the page has loaded
 $(document).ready(function(){
   setFooter();
   setHeader();
 });
+
+// =====================================================================================================
+// =====================================================================================================
+// END OF FILE
+// =====================================================================================================
+// =====================================================================================================

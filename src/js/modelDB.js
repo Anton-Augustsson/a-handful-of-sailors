@@ -1,14 +1,19 @@
-
-
-// DB: users account ...
+// =====================================================================================================
+// Model, for managing database.
+// =====================================================================================================
+// Author: Anton Augustsson, 2021
+//
+// DB: users account
 // DB2: beverages
 // DB3: table
-
+//
 // =====================================================================================================
-// model DB for DB2
+// Model, for for DB2
+// =====================================================================================================
+
+// get the item content for DB2 with artikle number or id
+// details consist of name info and stats withs uses json notation. details.name etc will get the spesific info
 function itemDetails(artikelid){
-
-
     var name; // name on item
     var info; // company, year, what type
     var stats; // alkohlhalt, flask typ, liter, pris
@@ -34,32 +39,16 @@ function itemDetails(artikelid){
 
 
 // =====================================================================================================
-// model DB for tableDB
-//
+// Model, for DB3 aka DBTable
 
-function setDBTable(UpdatedDBTable){
-    DBTable = UpdatedDBTable;
-    localStorage.setItem("DBTable", JSON.stringify(UpdatedDBTable));
-}
+// =====================================================================================================
+// varible
 
-// Need to update model whenever making a change to the database
-function update_model(){
-    setDBTable(DBTable);
-    //localStorage.setItem("DBTable", JSON.stringify(DBTable));
-}
+// global varible for doing the operations for the database
+var DBRable;
 
-// get the local DB
-var DBTable = JSON.parse(localStorage.getItem("DBTable"));
-
-// if there is no local DB then use the default one
-if(DBTable == null){
-    DBTable = DB3;
-    update_model();
-}
-
-function getDBTable(){
-    return DBTable;
-}
+// =====================================================================================================
+// Helper functions
 
 //  Get the index of a table
 //  Loops throw and finds the tableid in the json notation varible
@@ -75,13 +64,38 @@ function getTableidIndex(tableid){
     throw "Tableid dosen't exist";    // throw a text
 }
 
+function initDBTable(){
+    // get the local DB
+    DBTable = JSON.parse(localStorage.getItem("DBTable"));
+
+    // if there is no local DB then use the default one
+    if(DBTable == null){
+        DBTable = DB3;
+        update_model();
+    }
+}
+
+// =====================================================================================================
+// Interface get values
+
 // get table by table id
 function getTableByID(tableid){
     return DBTable.tables[getTableidIndex(tableid)];
 }
 
+// get table by index
 function getTableByIndex(tableindex){
     return DBTable.tables[tableindex];
+}
+
+// returns the article number for the item with the order index of ...
+function getOrderByIndex(tableid, orderIndex){
+    return getTableByID(tableid).orders[orderIndex].articleno;
+}
+
+// return the global variable DBTable
+function getDBTable(){
+    return DBTable;
 }
 
 // get the number of tables
@@ -89,12 +103,44 @@ function getNumTables(){
     return DBTable.tables.length;
 }
 
+// Get the id of a table by the a index of where the table is located in the json notation varible
 function getTableId(tableindex){
     return getTableByIndex(tableindex).tableid;
 }
 
+// return the number of orders in frrom a table
+function getNumOfOrders(tableid){
+    var orders = getTableByID(tableid).orders;
+    if(orders == null){
+        return 0;
+    }
+    else{
+        return orders.length;
+    }
+}
+
+// =====================================================================================================
+// Interface update database
+
+// Initialise the DBTable
+initDBTable();
+
+// update the quantity in the stock database
 function updateDB(articleid, qty){
     //TODO:
+}
+
+// update the table with a spesified DBTable
+// perticilerly usfoule with undo redo
+function setDBTable(UpdatedDBTable){
+    DBTable = UpdatedDBTable;
+    localStorage.setItem("DBTable", JSON.stringify(UpdatedDBTable));
+}
+
+// Need to update model whenever making a change to the database
+function update_model(){
+    setDBTable(DBTable);
+    //localStorage.setItem("DBTable", JSON.stringify(DBTable));
 }
 
 // creates a new table and inserts it to the database
@@ -112,22 +158,6 @@ function newTable(){
 
     update_model();
     return newTableObj.tableid;
-}
-
-// return the number of orders in frrom a table
-function getNumOfOrders(tableid){
-    var orders = getTableByID(tableid).orders;
-    if(orders == null){
-        return 0;
-    }
-    else{
-        return orders.length;
-    }
-}
-
-// returns the article number for the item with the order index of ...
-function getOrderByIndex(tableid, orderIndex){
-    return getTableByID(tableid).orders[orderIndex].articleno;
 }
 
 // creates a new order for a table
