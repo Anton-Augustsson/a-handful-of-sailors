@@ -16,6 +16,7 @@ function setFooter(){
   footer.append(footerElement);
 }
 
+// there needs to exist a header_undo() and a header_redo() function in the imported page
 function setHeader(){
   /* In each file import this js file and add a empty footer at the end */
   var headerElement = document.createElement('div');
@@ -23,8 +24,8 @@ function setHeader(){
   var headerContent = `
     <nav>
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
-      <button id="undo"></button>
-      <button id="redo"></button>
+      <button id="undo" onclick=header_undo()></button>
+      <button id="redo" onclick=header_redoit()></button>
       <div class="lang">
       <div class="lang-menu">
         <div class="selected-lang" id="selected-language">

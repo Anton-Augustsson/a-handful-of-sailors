@@ -37,9 +37,15 @@ function itemDetails(artikelid){
 // model DB for tableDB
 //
 
+function setDBTable(UpdatedDBTable){
+    DBTable = UpdatedDBTable;
+    localStorage.setItem("DBTable", JSON.stringify(UpdatedDBTable));
+}
+
 // Need to update model whenever making a change to the database
 function update_model(){
-    localStorage.setItem("DBTable", JSON.stringify(DBTable));
+    setDBTable(DBTable);
+    //localStorage.setItem("DBTable", JSON.stringify(DBTable));
 }
 
 // get the local DB
@@ -51,6 +57,9 @@ if(DBTable == null){
     update_model();
 }
 
+function getDBTable(){
+    return DBTable;
+}
 
 //  Get the index of a table
 //  Loops throw and finds the tableid in the json notation varible
