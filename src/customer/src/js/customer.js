@@ -19,8 +19,131 @@ $('document').ready(function() {
 
     document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order)
 
-    printAllDrinks();
+    getBeers();
 });
+
+function fetchFromDb(str){
+
+    let items = [];
+
+    for (let i = 0; i < DB2.spirits.length; i++) {
+
+        if(eval(str)){
+            items.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms, DB2.spirits[i].varugrupp]);
+        }
+    }
+
+    return items;
+}
+
+function getBeers(event){
+
+    if(document.getElementById("menu_beer").getAttribute("data-status") === "active" && event !== "filter"){
+        return;
+    }
+
+    document.getElementById("menu_beer").setAttribute("data-status", "active");
+    document.getElementById("menu_wine").setAttribute("data-status", "inactive");
+    document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
+
+
+    var str = FiltersAsString();
+
+    str = "DB2.spirits[i].varugrupp.includes('\u00c3\u2013l') " + str;
+
+    var items = fetchFromDb(str);
+
+    clearItems();
+
+    printAllDrinks(items);
+}
+
+
+
+function getWines(event){
+
+    if(document.getElementById("menu_wine").getAttribute("data-status") === "active" && event !== "filter"){
+        return;
+    }
+
+
+    document.getElementById("menu_beer").setAttribute("data-status", "inactive");
+    document.getElementById("menu_wine").setAttribute("data-status", "active");
+    document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
+
+
+    var str = FiltersAsString();
+
+    str = "DB2.spirits[i].varugrupp.includes('vin') " + str;
+
+    var items = fetchFromDb(str);
+
+    clearItems();
+
+    printAllDrinks(items);
+
+}
+
+function getDrinks(event){
+
+    if(document.getElementById("menu_drinks").getAttribute("data-status") === "active" && event !== "filter"){
+        return;
+    }
+
+    document.getElementById("menu_beer").setAttribute("data-status", "inactive");
+    document.getElementById("menu_wine").setAttribute("data-status", "inactive");
+    document.getElementById("menu_drinks").setAttribute("data-status", "active");
+
+
+    var str = FiltersAsString();
+
+    str = "DB2.spirits[i].varugrupp.includes('Lik\u00c3\u00b6r') " + str;
+
+    var items = fetchFromDb(str);
+
+    clearItems();
+
+    printAllDrinks(items);
+
+}
+
+function FiltersAsString(){
+
+    var filterString = "";
+
+    var elements = document.getElementsByClassName("checkbox");
+
+    for(let i = 0; i < elements.length; i++){
+
+        if(elements[i].checked === true){
+            filterString += "&& DB2.spirits[i]." + elements[i].getAttribute("id").toString() + " === 'nej'";
+        }
+    }
+    return filterString;
+}
+
+function updateFilters(){
+
+    if(document.getElementById("menu_wine").getAttribute("data-status") === "active"){
+        getWines("filter");
+    }
+    else if(document.getElementById("menu_beer").getAttribute("data-status") === "active"){
+        getBeers("filter");
+    }
+    else if(document.getElementById("menu_drinks").getAttribute("data-status") === "active"){
+        getDrinks("filter");
+    }
+}
+
+function clearItems(){
+
+    var elements = document.getElementsByClassName("shop-item");
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+    return;
+}
+
 
 function order() {
     alert("Thank you for ordering!")
@@ -31,26 +154,7 @@ function order() {
     updateCartTotal()
 }
 
-function getAllBeverages() {
-
-    // Using a local variable to collect the items.
-    var collector = [];
-
-    // The DB is stored in the variable DB2, with "spirits" as key element. If you need to select only certain
-    // items, you may introduce filter functions in the loop... see the template within comments.
-    //
-    for (var i = 0; i < DB2.spirits.length && i < 10; i++) {
-        collector.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms,
-            DB2.spirits[i].artikelid, DB2.spirits[i].producent,
-            DB2.spirits[i].ursprunglandnamn, DB2.spirits[i].varugrupp,
-            DB2.spirits[i].alkoholhalt, DB2.spirits[i].volymiml]);
-    }
-    //
-    return collector;
-}
-
-function printAllDrinks() {
-    var allDrinks = getAllBeverages();
+function printAllDrinks(allDrinks) {
 
     for (var i = 0; i < allDrinks.length; i++) {
         var drink = allDrinks[i];
