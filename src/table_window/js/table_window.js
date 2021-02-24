@@ -20,17 +20,56 @@ function setTable(tableNr){
     tableBody.append(tableElement);
 }
 
+function clear_view(){
+    $('#extraTables').html('');
+    tableNr = 0;
+}
+
 function update_view_table(){
+    clear_view();
     for(i = 0; i < getNumTables(); i++){
+        tableNr++;
         tableid = getTableId(i);
         setTable(tableid);
     }
 }
 
-function addTable() {
-    var tableid = newTable();
-    setTable(tableid);
-    tableNr = tableNr + 1;
+function header_undo(){
+    undoit();
+    update_view_table();
+}
+
+function header_redo(){
+    redoit();
+    update_view_table();
+}
+
+function addTable(){
+    doit(addTableUD());
+}
+
+// We need to evaluate DBTable therfore we use JSON.stringify if you remove it the oldDB will be
+// the new DB
+function addTableUD() {
+    var temp = {
+        oldDB: JSON.stringify(getDBTable()),
+        oldTableNr: tableNr,
+
+        execute: function (){
+            var tableid = newTable();
+            tableNr = tableNr + 1;
+            update_view_table();//setTable(tableid);
+        },
+        unexecute: function (){
+            tableNr = this.oldTableNr;
+            setDBTable(JSON.parse(this.oldDB));
+            update_view_table();
+        },
+        reexecute: function () {
+
+        },
+    };
+    return temp;
 }
 
 function clickTable() {
