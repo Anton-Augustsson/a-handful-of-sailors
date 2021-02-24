@@ -1,7 +1,8 @@
 @import "../../../css/color-scheme.css";
 
 html{
-    height: 100%;
+    height: 85vh;
+    overflow: hidden;
 }
 body{
     height: 100%;
@@ -30,6 +31,7 @@ div{
     display: flex;
     flex-direction: row;
     flex-grow: 8;
+    height: 100%;
 }
 
 .menu-wrapper{
@@ -57,10 +59,13 @@ div{
 .menu{
     flex-grow: 3;
     background-color: var(--color-four);
+    overflow: scroll;
+    height: 100%;
 }
 
 .cart{
     background-color: var(--color-three);
+    overflow: scroll;
 }
 
 .section-header{
@@ -183,6 +188,10 @@ div{
     margin-bottom: 15px;
 }
 
+.shop-item-title:hover{
+    cursor: pointer;
+}
+
 .shop-item-image {
     height: 250px;
 }
@@ -218,6 +227,6 @@ div{
 .extra-info{
     padding: 5px;
     border-top: 1px solid black;
-    width: 30%;
+    width: 50%;
     margin-left: 5px;
 }

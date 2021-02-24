@@ -22,9 +22,20 @@
         <div class="menu-wrapper">
             <div class="categories">
                 categories
-                <div class="category">DRINKS</div>
-                <div class="category">FOOD</div>
-                <div class="category"></div>
+                <div class="category" id="menu_beer" data-status="inactive" onclick="getBeers()">Beer</div>
+                <div class="category" id="menu_wine" data-status="inactive" onclick="getWines()">Wine</div>
+                <div class="category" id="menu_drinks" data-status="inactive" onclick="getDrinks()">Drinks</div>
+				
+				<h1>Filters</h1>
+
+
+                    <input type="checkbox" class="checkbox" id="gluten" onclick="updateFilters()">
+                    <label> Utan gluten </label><br>
+                    <input type="checkbox" class="checkbox" id="laktos" onclick="updateFilters()">
+                    <label> Utan laktos </label><br>
+                    <input type="checkbox" class="checkbox" id="nötter" onclick="updateFilters()">
+                    <label> Utan nötter </label><br><br>
+					
             </div>
             <div class="menu">
                 <section class="container content-section">
