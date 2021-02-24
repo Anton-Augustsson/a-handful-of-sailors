@@ -1,4 +1,17 @@
+// =====================================================================================================
+// Control, for table info.
+// =====================================================================================================
+// Author: Anton Augustsson, 2021
+//
+//
+// =====================================================================================================
+// Varibles
+
+// the Href for going back to table window
 var tableWindow = "table_window.html";
+
+// =====================================================================================================
+// Helper functions
 
 // create new item with its content
 function createItem(name, info, stats){
@@ -14,17 +27,12 @@ function createItem(name, info, stats){
 
 // inserts new item in view
 function setItem(idParent, name, info, stats){
-  var itemElement = document.createElement('div');
-  var itemBody = document.getElementById(idParent);
-  var newItem = createItem(name, info, stats);
-  itemElement.innerHTML= newItem;
-  itemBody.append(itemElement);
+  $("#"+idParent).append(createItem(name, info, stats));
 }
 
-// update the database and view with new quantity value
-function changeItemQty(){
 
-}
+// =====================================================================================================
+// Event functions
 
 // checkout all items and update the database
 function finish(){
@@ -33,18 +41,17 @@ function finish(){
   //TODO: update model
 }
 
+// update the database and view with new quantity value
+function changeItemQty(){
+  //TODO:
+}
+
+
+// =====================================================================================================
+// View update
+
 // update view with items of the tables stock
 function setAllTableItems(){
-  //setItem("orders", "name", "where when who", "alcahol package");
-  //setItem("orders", "some name", "some info", "some stats");
-  /*var item1 = 25053;
-  var item2 = 638574;
-  var details1 = itemDetails(item1);
-  var details2 = itemDetails(item2);
-  setItem("orders", details1.name, details1.info, details1.stats);
-  setItem("orders", details2.name, details2.info, details2.stats);
-  */
-
   var table = localStorage.getItem("selectedTable");
   var locationOfOrders = "orders";
   var item;
@@ -55,6 +62,11 @@ function setAllTableItems(){
     item = itemDetails(articleno);
     setItem(locationOfOrders, item.name, item.info, item.stats);
   }
+}
+
+// clear orders div from insertet items
+function clear_view(){
+    $('#orders').html('');
 }
 
 // create the chekcout menue and popup
@@ -87,8 +99,20 @@ function setCheckout(){
 
 }
 
+// Update view by clearing view and then insert the content that changes.
+function update_view(){
+  clear_view();
+  setAllTableItems();
+}
+
 // when document has loaded execute the following commands
 $(document).ready(function () {
   setCheckout();
-  setAllTableItems();
+  update_view();
 });
+
+// =====================================================================================================
+// =====================================================================================================
+// END OF FILE
+// =====================================================================================================
+// =====================================================================================================
