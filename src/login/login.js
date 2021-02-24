@@ -44,7 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
         var user = document.getElementById("user").value;
         var password = document.getElementById("password").value;
         var mode = document.getElementById("mode").value;
-       
+
+        localStorage.setItem("username", user);
+
         // VIP
         if(user=="u" && password=="p" && mode==1){
           window.location.href =  vip;

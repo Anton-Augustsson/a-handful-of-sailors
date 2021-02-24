@@ -1,3 +1,16 @@
+footer{
+  position: fixed;
+  background-color: var(--color-two);
+  width: 100vw;
+  bottom: 0;
+  height: 80px;
+  right: 0;
+}
+
+#footer-options{
+  width: 100%;
+}
+
 /* Footer buttons */
 #settings{
   position: relative;
@@ -5,10 +18,17 @@
   left: 30px;
 }
 
-#login{
+#logout{
   position: relative;
   top: 10px;
   left: 50px;
+}
+
+#username{
+  position: relative;
+  left: 100px;
+  font-size: x-large;
+  top: 10px;
 }
 
 #header {

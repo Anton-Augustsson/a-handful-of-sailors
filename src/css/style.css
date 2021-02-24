@@ -25,12 +25,3 @@ button{
 button:hover{
   background-color: var(--color-btn-hover);
 }
-
-footer{
-  position: fixed;
-  background-color: var(--color-two);
-  width: 100vw;
-  bottom: 0;
-  height: 80px;
-  right: 0;
-}
