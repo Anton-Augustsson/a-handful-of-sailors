@@ -1,7 +1,22 @@
-//https://www.youtube.com/watch?v=3GsKEtBcGTk&t=2001s
-var vip = "../index.html";
+// =====================================================================================================
+// Control, for table info.
+// =====================================================================================================
+// Author: Anton Augustsson, 2021
+//
+// https://www.youtube.com/watch?v=3GsKEtBcGTk&t=2001s
+//
+// =====================================================================================================
+// Varibles
+
+// the href for vip costomer page
+var vip = "../customer/src/customer.html";
+// the href for employee page
 var employee = "../table_window/table_window.html";
-var manager = "../index.html";
+// the href for manager page
+var manager = "../management/inventory.html";
+
+// =====================================================================================================
+// Message output functions
 
 function setFormMessage(formElement, type, message) {
     const messageElement = formElement.querySelector(".form__message");
@@ -20,6 +35,9 @@ function clearInputError(inputElement) {
     inputElement.classList.remove("form__input--error");
     inputElement.parentElement.querySelector(".form__input-error-message").textContent = "";
 }
+
+// =====================================================================================================
+// Lisens for login click
 
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.querySelector("#login");
@@ -83,6 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
+// =====================================================================================================
+// Create the view
 
 var x, i, j, l, ll, selElmnt, a, b, c;
 /* Look for any elements with the class "custom-select": */
@@ -165,3 +186,8 @@ function closeAllSelect(elmnt) {
 then close all select boxes: */
 document.addEventListener("click", closeAllSelect);
 
+// =====================================================================================================
+// =====================================================================================================
+// END OF FILE
+// =====================================================================================================
+// =====================================================================================================
