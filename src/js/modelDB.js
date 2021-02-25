@@ -318,7 +318,18 @@ function initDBWarehouse(){
 initDBWarehouse();
 
 // replenish stock
-function replenishStock(){
+function replenishStock(articleno, qty){
+    // get item
+    var itemIndex = getDBWarehouseItemIndex(articleno);
+    if(DBWarehouse.item[itemIndex].stock > -qty){
+        DBWarehouse.item[itemIndex].stock += qty;
+        update_model_DBWarehouse();
+    }
+    else{
+        throw "replenish exided item stock (replenishStock)";
+    }
+    // if item has less quantaty then what should be shanged then throw exeption
+    // ptherwise update DBWwarehouse
 
 }
 
