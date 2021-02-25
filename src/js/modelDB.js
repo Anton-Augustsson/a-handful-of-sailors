@@ -45,7 +45,7 @@ function itemDetails(artikelid){
 // varible
 
 // global varible for doing the operations for the database
-var DBRable;
+var DBTable;
 
 // =====================================================================================================
 // Helper functions
