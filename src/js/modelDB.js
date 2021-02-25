@@ -247,6 +247,7 @@ function removeTable(tableid){
 
 // global varible for doing the operations for the database
 var DBWarehouse;
+var DefaultStock = 100;
 
 // =====================================================================================================
 // Get information functions
@@ -334,13 +335,22 @@ function replenishStock(articleno, qty){
 }
 
 // remove
-function removeWarehouseItem(){
-
+function removeWarehouseItem(articleno){
+    var itemIndex = getDBWarehouseItemIndex(articleno);
+    DBWarehouse.item.splice(itemIndex,1);
+    update_model_DBWarehouse();
 }
 
 // add
-function addWarehouseItem(){
+function addWarehouseItem(articleno){
+    var length = getNumberOfItemsInWarehouse();
+    var newItemObj = {
+        articleno: articleno,
+        stock: DefaultStock,
+    };
 
+    DBWarehouse.item[length] = newItemObj;
+    update_model_DBWarehouse();
 }
 
 // =====================================================================================================
