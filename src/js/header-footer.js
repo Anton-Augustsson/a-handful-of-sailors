@@ -13,9 +13,10 @@ function setFooter(){
   var footerContent = `
     <div id="footer-options">
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
-       <button id="settings"></button>
-       <button id="logout" onclick=goToLoginPage()></button>
-       <span id="username">${user}</span>
+       <button id="settings">settings</button>
+       
+        <label for="showButtonCheckbox" class="login-btn"> Log In </label>
+
     </div>`;
   footerElement.innerHTML = footerContent;
   footer.append(footerElement);
