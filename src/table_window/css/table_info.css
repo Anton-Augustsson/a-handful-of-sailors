@@ -1,6 +1,22 @@
+/*
+
+File table_info.css
+
+Author: Anton Augustsson
+
+syle spesific for the table_info page
+*/
+
+/* color scheme for the intire prodject*/
 @import "../../css/color-scheme.css";
+/* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+/* flags for selecting languages */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css');
+
+/*
+General syle for the page
+*/
 
 #content{
   position: relative;
@@ -25,6 +41,10 @@
   width: 20%;
 }
 
+/*
+Item spesific
+*/
+
 .item{
   position: relative;
   border: var(--border-size) solid var(--color-four);
@@ -47,6 +67,7 @@
 .add, .checkout{
 }
 
+/* popup checkout box */
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -85,3 +106,6 @@
   cursor: pointer;
 }
 
+/*
+END of file header-footer.css
+*/
