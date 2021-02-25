@@ -12,11 +12,10 @@ function setFooter(){
   var user = localStorage.getItem("username");
   var footerContent = `
     <div id="footer-options">
-    <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
+    <link rel="stylesheet" type="text/css" href="../css/header-footer.css">
        <button id="settings">settings</button>
        
         <label for="showButtonCheckbox" class="login-btn"> Log In </label>
-
     </div>`;
   footerElement.innerHTML = footerContent;
   footer.append(footerElement);
@@ -29,14 +28,14 @@ function setHeader(){
   var header = document.getElementById("header");
   var headerContent = `
     <nav>
-    <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
+    <link rel="stylesheet" type="text/css" href="../css/header-footer.css">
       <button id="undo" onclick=undoit()></button>
       <button id="redo" onclick=redoit()></button>
       <div class="lang">
-      <div class="lang-menu">
-        <div class="selected-lang" id="selected-language">
-          English
-        </div>
+        <div class="lang-menu">
+          <div class="selected-lang" id="selected-language">
+            English
+          </div>
           <ul>
             <li>
               <a href="#" class="se" onclick=swedish()>Svenska</a>
@@ -45,7 +44,7 @@ function setHeader(){
               <a href="" class="en" onclick=english()>English</a>
             </li>
           </ul>
-      </div>
+        </div>
       </div>
     </nav>
   `;

@@ -34,7 +34,7 @@ footer{
 #header {
   padding: 10px;
   text-align: center;
-  background: ;
+  background: var(--color-two);
 }
 
 /* Language menu */
