@@ -45,7 +45,7 @@ function itemDetails(artikelid){
 // varible
 
 // global varible for doing the operations for the database
-var DBRable;
+var DBTable;
 
 // =====================================================================================================
 // Helper functions
@@ -237,6 +237,99 @@ function removeTable(tableid){
     DBTable.tables.splice(getTableidIndex(tableid),1);
 
     update_model();
+}
+
+// =====================================================================================================
+// Model, for DB4 aka DBTable
+
+// =====================================================================================================
+// varible
+
+// global varible for doing the operations for the database
+var DBWarehouse;
+
+// =====================================================================================================
+// Get information functions
+
+// set local storage DBWarehouse to the defoult
+function setDBWarehouse(NewDBWarehouse){
+    DBWarehouse = NewDBWarehouse;
+    localStorage.setItem("DBWarehouse", JSON.stringify(NewDBWarehouse));
+}
+
+function resetDBWarehouse(){
+    setDBWarehouse(DB4);
+}
+
+// get database
+function getDBWarehouse(){
+    return DBWarehouse;//localStorage.getItem("DBWarehouse");
+}
+
+// get number of items in DB4
+function getNumberOfItemsInWarehouse(){
+    return DBWarehouse.item.length;
+}
+
+function getDBWarehouseItemIndex(articleno){
+    for(i = 0; i < getNumberOfItemsInWarehouse(); i++){
+        if(DBWarehouse.item[i].articleno == articleno){
+            return i;
+        }
+    }
+}
+
+function getDBWarehouseItem(articleno){
+    return DBWarehouse.item[getDBWarehouseItemIndex(articleno)];
+}
+
+// get stock
+function getStock(articleno){
+    return getDBWarehouseItem(articleno).stock;
+}
+
+// get article number
+function getArticleNumber(itemIndex){
+    return DBWarehouse.item[itemIndex].articleno;
+}
+
+
+// =====================================================================================================
+// Helper functions
+
+function update_model_DBWarehouse(){
+    setDBWarehouse(DBWarehouse);
+}
+
+function initDBWarehouse(){
+    // get the local DB
+    DBWarehouse = JSON.parse(localStorage.getItem("DBWarehouse"));
+
+    // if there is no local DB then use the default one
+    if(DBWarehouse == null){
+        DBWarehouse = DB4;
+        update_model_DBWarehouse();
+    }
+}
+
+// =====================================================================================================
+// Model update funtions
+
+initDBWarehouse();
+
+// replenish stock
+function replenishStock(){
+
+}
+
+// remove
+function removeWarehouseItem(){
+
+}
+
+// add
+function addWarehouseItem(){
+
 }
 
 // =====================================================================================================
