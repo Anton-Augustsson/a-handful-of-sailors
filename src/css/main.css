@@ -69,16 +69,10 @@ Header css
   font-weight: bolder;
 }
 
-/* undo redo buttons */
-#undo{
+#header-buttons{
   position: absolute;
+  width: 30vw;
   right: 100px;
-  top: 20px;
-}
-
-#redo{
-  position: absolute;
-  right: 200px;
   top: 20px;
 }
 

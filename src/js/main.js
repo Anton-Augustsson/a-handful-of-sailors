@@ -35,15 +35,15 @@ function resetMode(){
 }
 
 function hideModes(){
-    $("#mode1").fadeOut();
-    $("#mode2").fadeOut();
-    $("#mode3").fadeOut();
-    $("#mode4").fadeOut();
+    $("#mode1").fadeOut(0);
+    $("#mode2").fadeOut(0);
+    $("#mode3").fadeOut(0);
+    $("#mode4").fadeOut(0);
 }
 
 // uses jqure to show a spesific div
 function showMode(modeid){
-    $("#mode"+modeid).fadeIn();
+    $("#mode"+modeid).fadeIn(0);
 }
 
 function customerMode(){
@@ -59,6 +59,7 @@ function vipMode(){
 function staffMode(){
     showMode(staff);
     // TODO: update view for staff mode
+    update_view_staff("mode" + staff);
 }
 
 function managerMode(){
