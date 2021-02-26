@@ -19,17 +19,16 @@ Main style.
 #content{
   position: absolute;
   background-color: var(--color-one);
-  top: var(--header-size);
-  right: 0;
-  top: var(--content-top);
   width: 100%;
   height: 100%;
+  top: var(--content-top);
+  right: 0;
 }
 
 button, .login-btn{
   background-color: var(--color-btn);
-  border: none;
   color: var(--color-btn-txt);
+  border: none;
   padding: 10px 28px;
   text-align: center;
   text-decoration: none;
