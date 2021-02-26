@@ -19,16 +19,29 @@ Main style.
 #content{
   position: absolute;
   background-color: var(--color-one);
+<<<<<<< HEAD
   width: 100%;
   height: 100%;
   top: var(--content-top);
   right: 0;
+=======
+  top: var(--header-size);
+  right: 0;
+  top: var(--content-top);
+  width: 100%;
+  height: 100%;
+>>>>>>> eebc100 (main css and js for index.html)
 }
 
 button, .login-btn{
   background-color: var(--color-btn);
+<<<<<<< HEAD
   color: var(--color-btn-txt);
   border: none;
+=======
+  border: none;
+  color: var(--color-btn-txt);
+>>>>>>> eebc100 (main css and js for index.html)
   padding: 10px 28px;
   text-align: center;
   text-decoration: none;
@@ -69,13 +82,28 @@ Header css
   font-weight: bolder;
 }
 
+<<<<<<< HEAD
 #header-buttons{
   position: absolute;
   width: 30vw;
+=======
+/* undo redo buttons */
+#undo{
+  position: absolute;
+>>>>>>> eebc100 (main css and js for index.html)
   right: 100px;
   top: 20px;
 }
 
+<<<<<<< HEAD
+=======
+#redo{
+  position: absolute;
+  right: 200px;
+  top: 20px;
+}
+
+>>>>>>> eebc100 (main css and js for index.html)
 /* Language menu */
 .lang{
   position: absolute;
