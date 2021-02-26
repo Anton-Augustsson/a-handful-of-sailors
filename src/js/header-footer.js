@@ -19,17 +19,15 @@ var logInPage = "../login/login.html";
 function createFooter(user){
   return `
     <div id="footer-options">
-    <link rel="stylesheet" type="text/css" href="../css/header-footer.css">
        <button id="settings">settings</button>
-       
         <label for="showButtonCheckbox" class="login-btn"> Log In </label>
     </div>`;
 }
 
 function createHeader(){
   return `
-    <nav>
-    <link rel="stylesheet" type="text/css" href="../css/header-footer.css">
+    <div id=header-content>
+      <span id=title>The Flying Dutchman</span>
       <button id="undo" onclick=undoit()></button>
       <button id="redo" onclick=redoit()></button>
       <div class="lang">
@@ -47,7 +45,7 @@ function createHeader(){
           </ul>
         </div>
       </div>
-    </nav>
+    </div>
   `;
 }
 
@@ -77,7 +75,7 @@ function setHeader(){
 
 // insert the header and footer when the page has loaded
 $(document).ready(function(){
-  setFooter();
+  //setFooter();
   setHeader();
 });
 
