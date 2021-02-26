@@ -48,9 +48,6 @@ Footer css
 */
 
 #header {
-  position: absolute;
-  width: 100%;
-  top: 0;
   padding: 10px;
   text-align: center;
   background: var(--color-two);
