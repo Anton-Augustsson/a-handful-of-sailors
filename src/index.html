@@ -6,23 +6,33 @@
     <meta charset="UTF-8">
     <title>Database Base Document</title>
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 
     <script type="text/javascript" src="resources/db/Beverages.js"></script>
     <script type="text/javascript" src="resources/db/DBLoaded.js"></script>
-    <script type="text/javascript" src="js/loader.js"></script>
+    <script type="text/javascript" src="resources/db/DBTable.js"></script>
 
+    <script type="text/javascript" src="js/loader.js"></script>
+    <script type="text/javascript" src="js/header-footer.js"></script>
+    <script type="text/javascript" src="js/modelDB.js"></script>
+    <script type="text/javascript" src="js/Dictionary.js"></script>
+    <script type="text/javascript" src="js/UNDOmanager.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/color-scheme.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 
 <body>
 
-<!---
+  <header id="header"></header>
 
-The html-file is just for loading the javascript files. If you go to the console under the "Inspect" of the popup menu,
-then you can enter javascript calls, to test the functions.
-
--->
+  <div id="content">
+      <div class="mode" id="mode1">customer</div>
+      <div class="mode" id="mode2">vip</div>
+      <div class="mode" id="mode3">staff</div>
+      <div class="mode" id="mode4">manager</div>
+  </div>
 
 </body>
 
 </html>
-
