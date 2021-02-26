@@ -1,13 +1,8 @@
-/* Requires
-* update_vew()
-*/
-
-// The data base for the UNDO-REDO mechanism is stored in two stacks
-// Both of these are empty to start with.
+// =====================================================================================================
+// Control, for table info.
+// =====================================================================================================
+// Author: Anton Augustsson, 2021
 //
-let undostack = [];
-let redostack = [];
-
 // The UNDO-manager consists of three functions. In this version they are
 // rudimentary, in that they don't check for an empty stack before trying.
 // Adding these checks is an easy task.
@@ -21,6 +16,21 @@ let redostack = [];
 // about the model or the functions themselves. It just executes the appropriate
 // function for the respective moments.
 //
+// You need to implement update_view for the spesific javascript file for the control of the html page
+//
+/* Requires
+* update_view()
+*/
+//
+// =====================================================================================================
+// Varibles
+
+// The data base for the UNDO-REDO mechanism is stored in two stacks
+// Both of these are empty to start with.
+//
+let undostack = [];
+let redostack = [];
+
 // ==========================================================================
 // the doit function executes the function and then stores the function object
 // on the UNDO-stack.
@@ -65,3 +75,9 @@ function redoit() {
         console.log("Unable to undoit, empty undostack");
     }
 }
+
+// =====================================================================================================
+// =====================================================================================================
+// END OF FILE
+// =====================================================================================================
+// =====================================================================================================

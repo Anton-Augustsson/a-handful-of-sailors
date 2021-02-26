@@ -1,4 +1,12 @@
-@import "color-scheme.css";
+@/*
+
+File header-footer.css
+
+Author: Anton Augustsson
+
+general syle for all pages. Both for the itire html and body but also for buttons
+
+*/
 
 html{
   background-color: var(--color-one);
@@ -25,3 +33,7 @@ button{
 button:hover{
   background-color: var(--color-btn-hover);
 }
+
+/*
+END of file header-footer.css
+*/
