@@ -21,7 +21,9 @@ function createFooter(user){
     <div id="footer-options">
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css">
        <button id="settings">settings</button>
-       
+        
+        
+        <button>Log In</button>
         <label for="showButtonCheckbox" class="login-btn"> Log In </label>
     </div>`;
 }
@@ -30,8 +32,8 @@ function createHeader(){
   return `
     <nav>
     <link rel="stylesheet" type="text/css" href="../css/header-footer.css">
-      <button id="undo" onclick=undoit()></button>
-      <button id="redo" onclick=redoit()></button>
+      <button id="undo" onclick="undoit()"> </button>
+      <button id="redo" onclick="redoit()"> </button>
       <div class="lang">
         <div class="lang-menu">
           <div class="selected-lang" id="selected-language">
@@ -39,10 +41,10 @@ function createHeader(){
           </div>
           <ul>
             <li>
-              <a href="#" class="se" onclick=swedish()>Svenska</a>
+              <a href="#" class="se" onclick="swedish()">Svenska</a>
             </li>
             <li>
-              <a href="" class="en" onclick=english()>English</a>
+              <a href="#" class="en" onclick="english()">English</a>
             </li>
           </ul>
         </div>
