@@ -1,9 +1,6 @@
 /*
-
 File header-footer.css
-
 Author: Anton Augustsson
-
 syle for header and footer. Header will be on top and footer will be on the bottom of the screen
 */
 
@@ -51,9 +48,6 @@ Footer css
 */
 
 #header {
-  position: absolute;
-  width: 100%;
-  top: 0;
   padding: 10px;
   text-align: center;
   background: var(--color-two);
