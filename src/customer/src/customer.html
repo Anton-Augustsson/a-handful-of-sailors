@@ -5,81 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Customer</title>
-    <link rel="stylesheet" href="../../css/style.css">  <!--Tror de flesta sidorna brukar vara att body är margin 0?-->
-    <link rel="stylesheet" href="css/customer.css">
+
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">  <!--Tror de flesta sidorna brukar vara att body är margin 0?-->
+    <link rel="stylesheet" type="text/css" href="css/customer.css">
+    <link rel="stylesheet" type="text/css" href="../../css/header-footer.css">
+    <link rel="stylesheet" href="../../login/login.css">
 
     <script src="../../../doc/proj/Dutchman Files/jquery-3.3.1.min.js"></script>
-    <script src="../../../doc/proj/Dutchman Files/Beverages.js"></script>
+    <script src="../../js/Dictionary.js"></script>
+    <script src="../../js/UNDOmanager.js"></script>
+    <script type="text/javascript" src="../../resources/db/Beverages.js"></script>
+    <script type="text/javascript" src="../../resources/db/DBTable.js"></script>
     <script src="../../js/header-footer.js"></script>
     <script src="js/customer.js" async></script>
 </head>
 <body>
-<div class="content">
-    <div class="header" id="header">
 
-    </div>
+<input type="checkbox" id="showButtonCheckbox">
+
+<div class="content">
+    <header class="header" id="header">
+
+    </header>
     <div class="customer">
         <div class="menu-wrapper">
             <div class="categories">
                 categories
-                <div class="category">DRINKS</div>
-                <div class="category">FOOD</div>
-                <div class="category"></div>
+                <div class="category" id="menu_beer" data-status="inactive" onclick="getBeers()">Beer</div>
+                <div class="category" id="menu_wine" data-status="inactive" onclick="getWines()">Wine</div>
+                <div class="category" id="menu_drinks" data-status="inactive" onclick="getDrinks()">Drinks</div>
+				
+				<h1>Filters</h1>
+
+
+                    <input type="checkbox" class="checkbox" id="gluten" onclick="updateFilters()">
+                    <label> Utan gluten </label><br>
+                    <input type="checkbox" class="checkbox" id="laktos" onclick="updateFilters()">
+                    <label> Utan laktos </label><br>
+                    <input type="checkbox" class="checkbox" id="nötter" onclick="updateFilters()">
+                    <label> Utan nötter </label><br><br>
+
             </div>
             <div class="menu">
                 <section class="container content-section">
                     <h2 class="section-header">BEER</h2>
                     <div class="shop-items">
-                        <div class="shop-item">
-                            <span class="shop-item-title">Norrlands</span>
-                            <div class="shop-item-details">
-                                <span class="shop-item-price">$2.00</span>
-                                <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-                            </div>
-                        </div>
-                        <div class="shop-item">
-                            <span class="shop-item-title">IPA</span>
-                            <div class="shop-item-details">
-                                <span class="shop-item-price">$6.99</span>
-                                <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-                            </div>
-                        </div>
+                        <div class="shop-items-column-1"></div>
+                        <div class="shop-items-column-2"></div>
+
                     </div>
                 </section>
             </div>
-            <!--<div class="cart">
-                <div class="cart-row">
-                    item
-                    <button class="remove-item-from-cart" type="button">
-                        remove
-                    </button>
-                </div>
-                <div class="cart-row">
-                    <div class="cart-item cart-column">
-                        <span class="cart-item-title">T-Shirt</span>
-                    </div>
-                    <span class="cart-price cart-column">$19.99</span>
-                    <div class="cart-quantity cart-column">
-                        <input class="cart-quantity-input" type="number" value="1">
-                        <button class="remove-item-from-cart" type="button">REMOVE</button>
-                    </div>
-                </div>
-                <button type="button" class="order">
-                    order
-                </button>
-            </div>-->
+
 
         </div>
-        <!--<div class="menu">
-            <div class="menu_header">
-                menu-header
-            </div>
-            <div class="menu_options">
-                javascript-menu-options
-            </div>
 
-        </div>-->
-        <section class="cart">
+        <div class="cart" ondrop="onDrop(event)" ondragover="onDragOver(event)" >
             <h3 class="section-header">CART</h3>
             <div class="cart-row">
                 <span class="cart-item cart-header cart-column">ITEM</span>
@@ -94,13 +75,78 @@
                 <span class="cart-total-price">$0.00</span>
             </div>
             <button class="btn btn-primary btn-purchase" type="button">ORDER</button>
-        </section>
+        </div>
+
+
+
+        <!-- LOGIN FORM -->
+
+
+
+
+
 
     </div>
-    <!--<div class="footer-temp">
-        footer
-    </div>-->
+
 </div>
-<footer id="footer"></footer>
+
+<div class="loginContainer">
+    <label for="showButtonCheckbox" class="close-btn fas fa-times" title="close"> close </label>
+    <form class="form" id="login">
+        <h1 class="form__title">Login</h1>
+        <div class="custom-select">
+            <select id="mode">
+                <option value="0">Select login:</option>
+                <option value="1">VIP</option>
+                <option value="2">Manager</option>
+                <option value="3">Employee</option>
+            </select>
+        </div>
+        <div class="form__message form__message--error"></div>
+        <div class="form__input-group">
+            <input id="user" type="text" class="form__input" autofocus placeholder="Username or email">
+            <div class="form__input-error-message"></div>
+        </div>
+        <div class="form__input-group">
+            <input id="password" type="password" class="form__input" autofocus placeholder="Password">
+            <div class="form__input-error-message"></div>
+        </div>
+        <button class="form__button" type="submit">Continue</button>
+        <p class="form__text">
+            <a href="#" class="form__link">Forgot your password?</a>
+        </p>
+        <p class="form__text">
+            <a class="form__link" href="./" id="linkCreateAccount">Don't have an account? Create account</a>
+        </p>
+    </form>
+    <form class="form form--hidden" id="createAccount">
+        <h1 class="form__title">Create Account</h1>
+        <div class="form__message form__message--error"></div>
+        <div class="form__input-group">
+            <input type="text" id="signupUsername" class="form__input" autofocus placeholder="Username">
+            <div class="form__input-error-message"></div>
+        </div>
+        <div class="form__input-group">
+            <input type="text" class="form__input" autofocus placeholder="Email Address">
+            <div class="form__input-error-message"></div>
+        </div>
+        <div class="form__input-group">
+            <input type="password" class="form__input" autofocus placeholder="Password">
+            <div class="form__input-error-message"></div>
+        </div>
+        <div class="form__input-group">
+            <input type="password" class="form__input" autofocus placeholder="Confirm password">
+            <div class="form__input-error-message"></div>
+        </div>
+        <button class="form__button" type="submit">Continue</button>
+        <p class="form__text">
+            <a class="form__link" href="./" id="linkLogin">Already have an account? Sign in</a>
+        </p>
+    </form>
+</div>
+
+<footer id="footer">
+
+</footer>
 </body>
 </html>

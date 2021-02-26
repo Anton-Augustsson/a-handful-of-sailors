@@ -19,7 +19,7 @@ body{
   padding: 10px;
 }
 
-button{
+button , .login-btn{
   background-color: var(--color-btn);
   border: none;
   color: var(--color-btn-txt);
@@ -29,6 +29,8 @@ button{
   display: inline-block;
   font-size: 16px;
 }
+
+
 
 button:hover{
   background-color: var(--color-btn-hover);

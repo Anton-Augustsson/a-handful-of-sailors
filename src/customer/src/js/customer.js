@@ -6,56 +6,255 @@ $('document').ready(function() {
     }
 
     var quantityInputs = document.getElementsByClassName('cart-quantity-input')
-    for (var i = 0; i < quantityInputs.length; i++) {
+    for (i = 0; i < quantityInputs.length; i++) {
         var input = quantityInputs[i]
         input.addEventListener('change', quantityChanged)
     }
 
     var addToCartButtons = document.getElementsByClassName('shop-item-button')
-    for (var i = 0; i < addToCartButtons.length; i++) {
+    for (i = 0; i < addToCartButtons.length; i++) {
         var button = addToCartButtons[i]
         button.addEventListener('click', addToCartClicked)
     }
 
-    printAllDrinks();
+    document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order)
+
+    getBeers();
 });
 
-function getAllBeverages() {
+function fetchFromDb(str){
 
-    // Using a local variable to collect the items.
-    var collector = [];
+    let items = [];
 
-    // The DB is stored in the variable DB2, with "spirits" as key element. If you need to select only certain
-    // items, you may introduce filter functions in the loop... see the template within comments.
-    //
-    for (i = 0; i < DB2.spirits.length && i < 10; i++) {
-        collector.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms]);
-    };
-    //
-    return collector;
+    for (let i = 0; i < DB2.spirits.length; i++) {
+
+        if(eval(str)){
+            items.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms,
+                DB2.spirits[i].artikelid, DB2.spirits[i].producent,
+                DB2.spirits[i].ursprunglandnamn, DB2.spirits[i].varugrupp,
+                DB2.spirits[i].alkoholhalt, DB2.spirits[i].volymiml]);
+        }
+    }
+
+    return items;
 }
 
-function printAllDrinks() {
-    var allDrinks = getAllBeverages();
-    var shopItems = document.getElementsByClassName('shop-items')[0]
+function getBeers(event){
+
+    if(document.getElementById("menu_beer").getAttribute("data-status") === "active" && event !== "filter"){
+        return;
+    }
+
+    document.getElementById("menu_beer").setAttribute("data-status", "active");
+    document.getElementById("menu_wine").setAttribute("data-status", "inactive");
+    document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
+
+
+    var str = FiltersAsString();
+
+    str = "DB2.spirits[i].varugrupp.includes('\u00c3\u2013l') " + str;
+
+    var items = fetchFromDb(str);
+
+    clearItems();
+
+    printAllDrinks(items);
+}
+
+
+
+function getWines(event){
+
+    if(document.getElementById("menu_wine").getAttribute("data-status") === "active" && event !== "filter"){
+        return;
+    }
+
+
+    document.getElementById("menu_beer").setAttribute("data-status", "inactive");
+    document.getElementById("menu_wine").setAttribute("data-status", "active");
+    document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
+
+
+    var str = FiltersAsString();
+
+    str = "DB2.spirits[i].varugrupp.includes('vin') " + str;
+
+    var items = fetchFromDb(str);
+
+    clearItems();
+
+    printAllDrinks(items);
+
+}
+
+function getDrinks(event){
+
+    if(document.getElementById("menu_drinks").getAttribute("data-status") === "active" && event !== "filter"){
+        return;
+    }
+
+    document.getElementById("menu_beer").setAttribute("data-status", "inactive");
+    document.getElementById("menu_wine").setAttribute("data-status", "inactive");
+    document.getElementById("menu_drinks").setAttribute("data-status", "active");
+
+
+    var str = FiltersAsString();
+
+    str = "DB2.spirits[i].varugrupp.includes('Lik\u00c3\u00b6r') " + str;
+
+    var items = fetchFromDb(str);
+
+    clearItems();
+
+    printAllDrinks(items);
+
+}
+
+function FiltersAsString(){
+
+    var filterString = "";
+
+    var elements = document.getElementsByClassName("checkbox");
+
+    for(let i = 0; i < elements.length; i++){
+
+        if(elements[i].checked === true){
+            filterString += "&& DB2.spirits[i]." + elements[i].getAttribute("id").toString() + " === 'nej'";
+        }
+    }
+    return filterString;
+}
+
+function updateFilters(){
+
+    if(document.getElementById("menu_wine").getAttribute("data-status") === "active"){
+        getWines("filter");
+    }
+    else if(document.getElementById("menu_beer").getAttribute("data-status") === "active"){
+        getBeers("filter");
+    }
+    else if(document.getElementById("menu_drinks").getAttribute("data-status") === "active"){
+        getDrinks("filter");
+    }
+}
+
+function clearItems(){
+
+    var elements = document.getElementsByClassName("shop-item");
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+    return;
+}
+
+
+function order() {
+    alert("Thank you for ordering!")
+    var cartItems = document.getElementsByClassName('cart-items')[0]
+    while (cartItems.hasChildNodes()) {
+        cartItems.removeChild(cartItems.firstChild)
+    }
+    updateCartTotal()
+}
+
+function printAllDrinks(allDrinks) {
 
     for (var i = 0; i < allDrinks.length; i++) {
         var drink = allDrinks[i];
         var name = drink[0]
         var price = drink[1]
+        var articleId = drink[2]
+        var producer = drink[3]
+        var country = drink[4]
+        var type = drink[5]
+        var strength = drink[6]
+        var size = drink[7]
         var shopItem = document.createElement('div')
         shopItem.classList.add('shop-item')
+		shopItem.setAttribute('draggable', 'true');
+        shopItem.setAttribute('ondragover', 'onDragOver(event)');
+        shopItem.setAttribute('ondragstart', 'onDragStart(event)');
+        shopItem.id = articleId;
+		
+		
         var shopItemContents = `
-        <span class="shop-item-title">${name}</span>
-        <div class="shop-item-details">
-            <span class="shop-item-price">${price}</span>
-            <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
-        </div>`
+            <div class="shop-item-default">
+                <span class="shop-item-title">${name}</span>
+                <div class="shop-item-details">
+                    <span class="shop-item-price">${price}</span>
+                    <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+                </div>
+            </div>
+            <div class="shop-item-more-info">
+                <div class="extra-info">Producer: ${producer}</div>
+                <div class="extra-info">Country: ${country}</div>
+                <div class="extra-info">Type: ${type}</div>
+                <div class="extra-info">Strength: ${strength}</div>
+                <div class="extra-info">Size: ${size}</div>
+            </div>`
         shopItem.innerHTML = shopItemContents
-        shopItems.append(shopItem)
+        if (i % 2 == 0) {
+            document.getElementsByClassName('shop-items-column-1')[0].append(shopItem)
+        }
+        else {
+            document.getElementsByClassName('shop-items-column-2')[0].append(shopItem)
+        }
+
         shopItem.getElementsByClassName('shop-item-button')[0].addEventListener('click', addToCartClicked)
+        shopItem.getElementsByClassName('shop-item-title')[0].addEventListener("click", clickItemForMoreInfo);
     }
 }
+/*
+function clickItemForMoreInfo(event) {
+    var shopItem = event.target.parentElement.parentElement
+    console.log(shopItem)
+    var moreInfo = shopItem.getElementsByClassName('shop-item-more-info')[0]
+    console.log(moreInfo)
+    if (moreInfo.classList.contains('shop-item-more-info-hide')) {
+        moreInfo.classList.remove('shop-item-more-info-hide')
+        moreInfo.classList.add('shop-item-more-info-show')
+    }
+    else {
+        moreInfo.classList.remove('shop-item-more-info-show')
+        moreInfo.classList.add('shop-item-more-info-hide')
+    }
+    console.log("test2")
+}*/
+function clickItemForMoreInfo(event) {
+    this.classList.toggle("active");
+    var content = this.parentElement.parentElement.children[1]
+    console.log(content)
+    if (content.style.maxHeight){
+        content.style.display = 'none'
+        content.style.maxHeight = null;
+    } else {
+        content.style.display = 'block'
+        content.style.maxHeight = content.scrollHeight + "px";
+    }
+}
+
+
+function onDragStart(event) {
+    event.dataTransfer.setData('text', event.target.id);
+}
+
+function onDragOver(event) {
+    event.preventDefault();
+}
+
+function onDrop(event) {
+
+    const id = event.dataTransfer.getData('text');
+
+    const draggableElement = document.getElementById(id);
+
+    var title = draggableElement.getElementsByClassName('shop-item-title')[0].innerText
+    var price = draggableElement.getElementsByClassName('shop-item-price')[0].innerText
+
+    addItemToCart(title, price);
+    updateCartTotal();
+}
+
 
 function addToCartClicked(event) {
     var button = event.target
@@ -73,7 +272,8 @@ function addItemToCart(title, price) {
     var cartItemNames = cartItems.getElementsByClassName('cart-item-title')
     for (var i = 0; i < cartItemNames.length; i++) {
         if (cartItemNames[i].innerText == title) {
-            alert('This item is already added to the cart')
+            //quantityChanged('_change')
+            cartItemNames[i].parentElement.parentElement.getElementsByClassName('cart-quantity-input')[0].stepUp();
             return
         }
     }

@@ -19,24 +19,24 @@ var logInPage = "../login/login.html";
 function createFooter(user){
   return `
     <div id="footer-options">
-    <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
-       <button id="settings"></button>
-       <button id="logout" onclick=goToLoginPage()></button>
-       <span id="username">${user}</span>
+    <link rel="stylesheet" type="text/css" href="../css/header-footer.css">
+       <button id="settings">settings</button>
+       
+        <label for="showButtonCheckbox" class="login-btn"> Log In </label>
     </div>`;
 }
 
 function createHeader(){
   return `
     <nav>
-    <link rel="stylesheet" type="text/css" href="../css/header-footer.css" />
+    <link rel="stylesheet" type="text/css" href="../css/header-footer.css">
       <button id="undo" onclick=undoit()></button>
       <button id="redo" onclick=redoit()></button>
       <div class="lang">
-      <div class="lang-menu">
-        <div class="selected-lang" id="selected-language">
-          English
-        </div>
+        <div class="lang-menu">
+          <div class="selected-lang" id="selected-language">
+            English
+          </div>
           <ul>
             <li>
               <a href="#" class="se" onclick=swedish()>Svenska</a>
@@ -45,7 +45,7 @@ function createHeader(){
               <a href="" class="en" onclick=english()>English</a>
             </li>
           </ul>
-      </div>
+        </div>
       </div>
     </nav>
   `;
