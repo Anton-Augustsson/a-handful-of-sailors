@@ -19,10 +19,14 @@ var tableNr = 0;
 function createItem(name, info, stats){
   var newItem = `
         <div class="item">
-            <div class="name"><p>${name}</p></div>
-            <div class="info"><p>${info}</p></div>
+            <div class="item-general">
+                <div class="name"><p>${name}</p></div>
+                <div class="info"><p>${info}</p></div>
+            </div>
             <div class="stats"><p>${stats}</p></div>
-            <button ></button>
+            <div class="item-options">
+                <button>on the house</button>
+            </div>
         </div>`;
   return newItem;
 }
@@ -53,8 +57,8 @@ function createStaff(){
         <div id="table-info">
             <div id="orders"></div>
             <div id="options-table-info">
-                <button id="add"></button>
-                <button id="checkout"></button>
+                <button id="add">add</button>
+                <button id="checkout">checkout</button>
                 <div id="myModal" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>

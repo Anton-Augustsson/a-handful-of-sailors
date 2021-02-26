@@ -12,29 +12,25 @@ syle spesific for the table_info page
 /* flags for selecting languages */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css');
 
+:root{
+    --border-size: 1px;
+}
+
 /*
 General syle for the page
 */
-
-.menu{
-  background-color: var(--color-three);
-  margin: 10px;
-  padding: 9px;
-  border: 6px solid var(--color-four);
-}
 
 .tables{
   background-color: var(--color-three);
   margin: 10px;
   top: 2px;
   padding: 30px;
-  border: 6px solid var(--color-four);
 }
 
 .table{
-  background-color: var(--color-three);
+  background-color: var(--color-four);
   padding: 20px;
-  border: 3px solid var(--color-four);
+  border: var(--border-size) solid var(--color-three);
   opacity: 1;
 }
 
@@ -78,7 +74,6 @@ General syle for the page
 #orders{
   margin: 10px;
   padding: 9px;
-  border: var(--border-size) solid var(--color-four);
 }
 
 #options-table-window{
@@ -87,9 +82,9 @@ General syle for the page
 }
 
 #options-table-info{
+  position: relative;
+  left: 10px;
   margin: 10px;
-  padding: 30px;
-  border: var(--border-size) solid var(--color-four);
 }
 
 /*
@@ -97,14 +92,27 @@ Item spesific
 */
 
 .item{
-  position: relative;
-  border: var(--border-size) solid var(--color-four);
+  display: flex;
+  background-color: var(--color-four);
+  border: var(--border-size) solid var(--color-three);
 }
 
 .name, .info, .stats{
   background: var(--color-four);
-  text-indent: 30px;
-  border: var(--border-size) solid var(--color-three);
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.item-general{
+  flex: 50%;
+}
+
+.stats{
+  flex: 20%;
+}
+
+.item-options{
+  flex: 20%;
 }
 
 /* popup checkout box */
