@@ -1,0 +1,151 @@
+/*
+
+File table_info.css
+
+Author: Anton Augustsson
+
+syle spesific for the table_info page
+*/
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+/* flags for selecting languages */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css');
+
+/*
+General syle for the page
+*/
+
+.menu{
+  background-color: var(--color-three);
+  margin: 10px;
+  padding: 9px;
+  border: 6px solid var(--color-four);
+}
+
+.tables{
+  background-color: var(--color-three);
+  margin: 10px;
+  top: 2px;
+  padding: 30px;
+  border: 6px solid var(--color-four);
+}
+
+.table{
+  background-color: var(--color-three);
+  padding: 20px;
+  border: 3px solid var(--color-four);
+  opacity: 1;
+}
+
+/*
+Dropdown desplays table content when hovering over a table div
+*/
+
+.dropdown {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.table:hover .dropdown{
+  display: block;
+}
+
+/*
+General syle for the page
+*/
+
+#staff{
+   display: flex;
+   padding: 20px;
+}
+
+#table-window{
+   flex-grow: 2;
+}
+
+#table-info{
+   flex-grow: 7;
+   align-self: center;
+   background-color: var(--color-three);
+}
+
+#orders{
+  margin: 10px;
+  padding: 9px;
+  border: var(--border-size) solid var(--color-four);
+}
+
+#options-table-window{
+  position: relative;
+  left: 10px;
+}
+
+#options-table-info{
+  margin: 10px;
+  padding: 30px;
+  border: var(--border-size) solid var(--color-four);
+}
+
+/*
+Item spesific
+*/
+
+.item{
+  position: relative;
+  border: var(--border-size) solid var(--color-four);
+}
+
+.name, .info, .stats{
+  background: var(--color-four);
+  text-indent: 30px;
+  border: var(--border-size) solid var(--color-three);
+}
+
+/* popup checkout box */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/*
+END of file header-footer.css
+*/

@@ -28,22 +28,23 @@ function createHeader(){
   return `
     <div id=header-content>
       <span id=title>The Flying Dutchman</span>
-      <button id="undo" onclick=undoit()></button>
-      <button id="redo" onclick=redoit()></button>
-      <label for="showButtonCheckbox" class="login-btn"> Log In </label>
+      <div id=header-buttons>
+        <button id="undo" onclick=undoit()></button>
+        <button id="redo" onclick=redoit()></button>
+        <label for="showButtonCheckbox" class="login-btn" id=login></label>
+      </div>
       <div class="lang">
         <div class="lang-menu">
-          <div class="selected-lang" id="selected-language">
-            English
+          <div class="selected-lang" id="selected-language"></div>
+            <ul>
+              <li>
+                <a href="#" class="se" onclick=swedish()>Svenska</a>
+              </li>
+              <li>
+                <a href="" class="en" onclick=english()>English</a>
+              </li>
+            </ul>
           </div>
-          <ul>
-            <li>
-              <a href="#" class="se" onclick="swedish()">Svenska</a>
-            </li>
-            <li>
-              <a href="#" class="en" onclick="english()">English</a>
-            </li>
-          </ul>
         </div>
       </div>
     </div>

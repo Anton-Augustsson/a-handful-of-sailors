@@ -192,7 +192,6 @@ function update_view_dictionary() {
     keys_cl = dict.cl['keys'];
     for (idx in keys_cl) {
         key = keys_cl[idx];
-        console.log(key);
         $("." + key).text(get_string('cl', key));
     }
 
