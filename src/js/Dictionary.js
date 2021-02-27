@@ -30,7 +30,8 @@ dict = {
         'keys' : ['selected-language', 'undo','redo', 'add', 'checkout',
                   'login', 'settings', 'logout', 'login_header', 'login_continue_button',
                   'close_login_window', 'menu_categories', 'menu_beer', 'menu_wine', 'menu_drinks',
-                  'without_gluten_text', 'without_lactose_text', 'without_nuts_text'],       // keys for strings
+                  'without_gluten_text', 'without_lactose_text', 'without_nuts_text', 'addTable',
+                  'payment','logout','new-oder','payment-checkout', 'finish-payment','cancel-payment'],    // keys for strings
 
 
         /*LÄGG TILL
@@ -55,8 +56,6 @@ dict = {
 
          */
 
-
-
         // We use one JSON substructure for each language. If we have
         // many different languages and a large set of strings we might
         // need to store a JSON file for each language to be loaded on
@@ -66,8 +65,8 @@ dict = {
             'selected-language': 'English',
             'undo': "Undo",
             'redo': "Redo",
-            'add': "Add",
-            'checkout': "Checkout",
+            'addTable': "Add Table",
+            'payment': "Payment",
             'login': "Login",
             'settings': "Settings",
             'logout': "Logout",
@@ -81,6 +80,10 @@ dict = {
             'without_gluten_text': 'Without Gluten',
             'without_lactose_text': 'Without Lactose',
             'without_nuts_text': 'Without Nuts',
+            'new-oder': "New order",
+            'payment-checkout': "This will update stock and remove table orders",
+            'finish-payment': "Confirm",
+            'cancel-payment': "Cancel",
         },
         'sv' : {
             'selected-language': 'Svenska',
@@ -101,19 +104,25 @@ dict = {
             'without_gluten_text': 'Utan Gluten',
             'without_lactose_text': 'Utan Laktos',
             'without_nuts_text': 'Utan Nötter',
-        }
+            'addTable': "Lägg till bord",
+            'payment': "Betalning",
+            'new-oder': "Ny bestälning",
+            'payment-checkout': "Detta kommer updatera lagret och ta bort bords orders",
+            'finish-payment': "Bekräfta",
+            'cancel-payment': "Avbryt",
+        },
     },
 
     // The other Dictionary is class (cl) spesific dictionares make sure that each class name
     // matches the with the key. That is how it is identified.
     'cl': {
-        'keys' : ['test'],
+        'keys' : ['on-the-house'],
 
         'en': {
-            'test': "Text",
+            'on-the-house': "On the house",
         },
         'sv': {
-            'test': "svergie text",
+            'on-the-house': "Huset bjuder",
         }
     },
 

@@ -25,7 +25,7 @@ function createItem(name, info, stats){
             </div>
             <div class="stats"><p>${stats}</p></div>
             <div class="item-options">
-                <button>on the house</button>
+                <button class=on-the-house>house</button>
             </div>
         </div>`;
   return newItem;
@@ -51,20 +51,20 @@ function createStaff(){
         <div id="table-window">
             <div class="tables" id="extraTables"></div>
             <div id="options-table-window">
-                <button id="addTable" onclick=addTable()>Add Table</button>
+                <button id="addTable" onclick=addTable()></button>
             </div>
         </div>
         <div id="table-info">
             <div id="orders"></div>
             <div id="options-table-info">
-                <button id="add">add</button>
-                <button id="checkout">checkout</button>
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
+                <button id="new-oder" onclick=newOrder()></button>
+                <button id="payment"></button>
+                <div id="modal-payment" class="modal">
+                    <div class="modal-content-payment">
                         <span class="close">&times;</span>
-                        <p>the itmes that you have added</p>
-                        <button id="finish" onclick=finish()>Checkout</button>
-                        <button id="cancel">Cancel</button>
+                        <p id="payment-checkout"></p>
+                        <button id="finish-payment" onclick=finishPayment()></button>
+                        <button id="cancel-payment"></button>
                     </div>
                 </div>
             </div>
@@ -88,10 +88,10 @@ function clickTable(tableid) {
 }
 
 // checkout all items and update the database
-function finish(){
-  window.location.href = tableWindow;
-  alert ("Checkout success!");
+function finishPayment(){
   //TODO: update model
+  alert ("Checkout success!");
+  update_view();
 }
 
 // update the database and view with new quantity value
@@ -99,6 +99,11 @@ function changeItemQty(){
   //TODO:
 }
 
+function newOrder() {
+  console.log("newOrder");
+  // change mode to customer
+  // primary mode is set to staff
+}
 // =====================================================================================================
 // View update
 
@@ -139,14 +144,14 @@ function clear_view_staff(){
 
 // create the chekcout menue and popup
 function setCheckout(){
-  var modal = document.getElementById("myModal");
-  var span = document.getElementsByClassName("close")[0];
-  var checkout = document.getElementById("checkout");
-  var cancel = document.getElementById("cancel");
+  var modal    = document.getElementById("modal-payment");
+  var span     = document.getElementsByClassName("close")[0];
+  var payment  = document.getElementById("payment");
+  var cancel   = document.getElementById("cancel-payment");
 
-  checkout.onclick = function() {
+  payment.onclick = function() {
     modal.style.display = "block";
-    console.log("checkout.onclick");
+    console.log("payment.onclick");
   };
 
   cancel.onclick = function() {
@@ -207,11 +212,12 @@ function update_view_staff(id){
         setTable(tableid);
     }
 }
-/*
+
 $(document).ready(function(){
-    update_view();
+  setCheckout();
+    //update_view();
 });
-*/
+
 // =====================================================================================================
 // =====================================================================================================
 // END OF FILE
