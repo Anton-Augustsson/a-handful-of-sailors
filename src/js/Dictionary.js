@@ -27,8 +27,9 @@ dict = {
     // There are two dictionaries one for id of a html element. Make shore that
     // the id and the key has the same name.
     'id': {
-        'keys' : ['selected-language', 'undo','redo', 'add', 'checkout',
-                  'login', 'settings', 'logout'],       // keys for strings
+        'keys' : ['selected-language','undo','redo','addTable','payment',
+                  'login','settings','logout','new-oder','payment-checkout',
+                  'finish-payment','cancel-payment'],       // keys for strings
 
         // We use one JSON substructure for each language. If we have
         // many different languages and a large set of strings we might
@@ -39,34 +40,42 @@ dict = {
             'selected-language': "English",
             'undo': "Undo",
             'redo': "Redo",
-            'add': "Add",
-            'checkout': "Checkout",
+            'addTable': "Add Table",
+            'payment': "Payment",
             'login': "Login",
             'settings': "Settings",
             'logout': "Logout",
+            'new-oder': "New order",
+            'payment-checkout': "This will update stock and remove table orders",
+            'finish-payment': "Confirm",
+            'cancel-payment': "Cancel",
         },
         'sv' : {
             'selected-language': "Svenska",
             'undo': "Ångra",
             'redo': "Åter gör",
-            'add': "Lägg till",
-            'checkout': "Checka ut",
+            'addTable': "Lägg till bord",
+            'payment': "Betalning",
             'login': "Logga in",
             'settings': "Inställningar",
             'logout': "Logga ut",
+            'new-oder': "Ny bestälning",
+            'payment-checkout': "Detta kommer updatera lagret och ta bort bords orders",
+            'finish-payment': "Bekräfta",
+            'cancel-payment': "Avbryt",
         }
     },
 
     // The other Dictionary is class (cl) spesific dictionares make sure that each class name
     // matches the with the key. That is how it is identified.
     'cl': {
-        'keys' : ['test'],
+        'keys' : ['on-the-house'],
 
         'en': {
-            'test': "Text",
+            'on-the-house': "On the house",
         },
         'sv': {
-            'test': "svergie text",
+            'on-the-house': "Huset bjuder",
         }
     }
 };
