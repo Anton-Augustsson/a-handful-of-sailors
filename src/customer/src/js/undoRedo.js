@@ -103,7 +103,7 @@ function addToCartClicked(event){
     var shopItem = button.parentElement.parentElement
     var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
     var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText
-    var artikelid = shopItem.parentElement.id;
+    var artikelid = shopItem.parentElement.className.replace('shop-item ', '')
 
 
     doit (addItemToCartTest(title, price, artikelid, event) );
@@ -136,35 +136,21 @@ function addItemToCartTest(title, price, artikelid, event){
 
         unexecute: function (){
 
-/*
-            var cart = document.getElementsByClassName('cart');
-
-            cart.getElementById(artikelid);
-
-
-            var input = $('.cart > #' + artikelid).find('cart-quantity-input');
-
-            console.log($('#' + artikelid));
-            //var test = input.getElementsByClassName('cart-quantity-input')[0]
+            var cartRow = document.getElementById(artikelid)
+            var input = cartRow.getElementsByClassName('cart-quantity-input')[0]
+            console.log(input)
             input.value -= 1
 
             if (isNaN(input.value) || input.value <= 0) {
-                input.parentElement.parentElement.remove();
+                cartRow.remove();
             }
-
-
-
-
-
             updateCartTotal();
-            update_view();*/
         },
 
 
         reexecute: function (){
-
-
-            update_view();
+            addItemToCart(title, price, artikelid);
+            updateCartTotal();
         },
 
 

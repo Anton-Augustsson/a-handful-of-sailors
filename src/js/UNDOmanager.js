@@ -41,7 +41,7 @@ function doit(funcobj) {
     funcobj.execute();
     undostack.push(funcobj);
     redostack = [];
-    update_view();
+    //update_view();
 }
 
 // ==========================================================================

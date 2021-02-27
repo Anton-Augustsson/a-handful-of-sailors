@@ -174,7 +174,7 @@ function printAllDrinks(allDrinks) {
 		shopItem.setAttribute('draggable', 'true');
         shopItem.setAttribute('ondragover', 'onDragOver(event)');
         shopItem.setAttribute('ondragstart', 'onDragStart(event)');
-        shopItem.id = articleId;
+        shopItem.className += " " + articleId;
 		
 		
         var shopItemContents = `
@@ -235,7 +235,7 @@ function clickItemForMoreInfo(event) {
 
 
 function onDragStart(event) {
-    event.dataTransfer.setData('text', event.target.id);
+    event.dataTransfer.setData('text', event.target.className.replace('shop-item ', ''));
 }
 
 function onDragOver(event) {
@@ -246,12 +246,12 @@ function onDrop(event) {
 
     const id = event.dataTransfer.getData('text');
 
-    const draggableElement = document.getElementById(id);
+    const draggableElement = document.getElementsByClassName(id)[0];
 
     var title = draggableElement.getElementsByClassName('shop-item-title')[0].innerText
     var price = draggableElement.getElementsByClassName('shop-item-price')[0].innerText
 
-    addItemToCart(title, price);
+    addItemToCart(title, price, id);
     updateCartTotal();
 }
 

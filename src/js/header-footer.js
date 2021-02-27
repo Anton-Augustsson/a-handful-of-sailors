@@ -24,7 +24,7 @@ function createFooter(user){
         
         
         <button>Log In</button>
-        <label for="showButtonCheckbox" class="login-btn"> Log In </label>
+        <label for="showButtonCheckbox" class="login-btn" id="logout"> Log In </label>
     </div>`;
 }
 
