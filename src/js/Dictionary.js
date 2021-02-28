@@ -31,7 +31,8 @@ dict = {
                   'login', 'settings', 'logout', 'login_header', 'login_continue_button',
                   'close_login_window', 'menu_categories', 'menu_beer', 'menu_wine', 'menu_drinks',
                   'without_gluten_text', 'without_lactose_text', 'without_nuts_text', 'addTable',
-                  'payment','logout','new-oder','payment-checkout', 'finish-payment','cancel-payment'],    // keys for strings
+                  'payment','logout','new-oder','payment-checkout', 'finish-payment','cancel-payment',
+                  'notify-security', 'remove-table'],    // keys for strings
 
 
         /*LÄGG TILL
@@ -65,7 +66,7 @@ dict = {
             'selected-language': 'English',
             'undo': "Undo",
             'redo': "Redo",
-            'addTable': "Add Table",
+            'addTable': "+",
             'payment': "Payment",
             'login': "Login",
             'settings': "Settings",
@@ -84,6 +85,8 @@ dict = {
             'payment-checkout': "This will update stock and remove table orders",
             'finish-payment': "Confirm",
             'cancel-payment': "Cancel",
+            'notify-security': "Notify security",
+            'remove-table': "-",
         },
         'sv' : {
             'selected-language': 'Svenska',
@@ -110,7 +113,9 @@ dict = {
             'payment-checkout': "Detta kommer updatera lagret och ta bort bords orders",
             'finish-payment': "Bekräfta",
             'cancel-payment': "Avbryt",
-        },
+            'notify-security': "Informera säkerhet",
+            'remove-table': "-",
+        }
     },
 
     // The other Dictionary is class (cl) spesific dictionares make sure that each class name
@@ -192,6 +197,7 @@ function changeLanguage(lang){
 
 // update the view by inserting the text from the dictionary
 function update_view_dictionary() {
+    getLanguage();
     var idx;
 
     keys_id = dict.id['keys'];
@@ -219,7 +225,6 @@ function update_view_dictionary() {
 
 
 }
-
 
 $(document).ready(function() {
     getLanguage();

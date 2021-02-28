@@ -140,6 +140,10 @@ function setDBTable(UpdatedDBTable){
     localStorage.setItem("DBTable", JSON.stringify(UpdatedDBTable));
 }
 
+function resetDBTable(){
+    setDBTable(DB3);
+}
+
 // Need to update model whenever making a change to the database
 function update_model(){
     setDBTable(DBTable);
@@ -236,8 +240,9 @@ function checkoutTable(tableid){
 // remove table from database
 //
 function removeTable(tableid){
-    checkoutTable(tableid);
-    DBTable.tables.splice(getTableidIndex(tableid),1);
+    //checkoutTable(tableid);
+    var i = getTableidIndex(tableid);
+    DBTable.tables.splice(i,1);
 
     update_model();
 }
