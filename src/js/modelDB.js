@@ -11,32 +11,35 @@
 // Model, for for DB2
 // =====================================================================================================
 
+function getItemIndexDBBeverages(artikelid){
+    for (i = 0; i < DB2.spirits.length; i++) {
+        if (DB2.spirits[i].artikelid == artikelid) {
+            return i;
+        }
+    }
+
+    throw "Artikelid dosen't exist";    // throw a text
+}
+
 // get the item content for DB2 with artikle number or id
 // details consist of name info and stats withs uses json notation. details.name etc will get the spesific info
 function itemDetails(artikelid){
-    var name; // name on item
-    var info; // company, year, what type
-    var stats; // alkohlhalt, flask typ, liter, pris
-
-    for (i = 0; i < DB2.spirits.length; i++) {
-        if (DB2.spirits[i].artikelid == artikelid) {
-
-            name = DB2.spirits[i].namn;
-            info = DB2.spirits[i].leverantor;
-            stats = DB2.spirits[i].alkoholhalt;
-            break;
-        };
-    };
+    var index = getItemIndexDBBeverages(artikelid);
 
     var details = {
-        name: name,
-        info: info,
-        stats: stats
+        name: DB2.spirits[index].namn, // name on item
+        info: DB2.spirits[index].leverantor, // company, year, what type
+        stats: DB2.spirits[index].alkoholhalt, // alkohlhalt, flask typ, liter, pris
     };
 
     return details;
 }
 
+// get the prise of an item inorder to calculate the cost
+function getItemPrice(artikelid){
+    var index = getItemIndexDBBeverages(artikelid);
+    return DB2.spirits[index].prisinklmoms;
+}
 
 // =====================================================================================================
 // Model, for DB3 aka DBTable
@@ -237,6 +240,117 @@ function removeTable(tableid){
     DBTable.tables.splice(getTableidIndex(tableid),1);
 
     update_model();
+}
+
+// =====================================================================================================
+// Model, for DB4 aka DBTable
+
+// =====================================================================================================
+// varible
+
+// global varible for doing the operations for the database
+var DBWarehouse;
+var DefaultStock = 100;
+
+// =====================================================================================================
+// Get information functions
+
+// set local storage DBWarehouse to the defoult
+function setDBWarehouse(NewDBWarehouse){
+    DBWarehouse = NewDBWarehouse;
+    localStorage.setItem("DBWarehouse", JSON.stringify(NewDBWarehouse));
+}
+
+function resetDBWarehouse(){
+    setDBWarehouse(DB4);
+}
+
+// get database
+function getDBWarehouse(){
+    return DBWarehouse;//localStorage.getItem("DBWarehouse");
+}
+
+// get number of items in DB4
+function getNumberOfItemsInWarehouse(){
+    return DBWarehouse.item.length;
+}
+
+function getDBWarehouseItemIndex(articleno){
+    for(i = 0; i < getNumberOfItemsInWarehouse(); i++){
+        if(DBWarehouse.item[i].articleno == articleno){
+            return i;
+        }
+    }
+    throw "Articleno dosen't exist";
+}
+
+function getDBWarehouseItem(articleno){
+    return DBWarehouse.item[getDBWarehouseItemIndex(articleno)];
+}
+
+// get stock
+function getStock(articleno){
+    return getDBWarehouseItem(articleno).stock;
+}
+
+// get article number
+function getArticleNumber(itemIndex){
+    return DBWarehouse.item[itemIndex].articleno;
+}
+
+
+// =====================================================================================================
+// Helper functions
+
+function update_model_DBWarehouse(){
+    setDBWarehouse(DBWarehouse);
+}
+
+function initDBWarehouse(){
+    // get the local DB
+    DBWarehouse = JSON.parse(localStorage.getItem("DBWarehouse"));
+
+    // if there is no local DB then use the default one
+    if(DBWarehouse == null){
+        DBWarehouse = DB4;
+        update_model_DBWarehouse();
+    }
+}
+
+// =====================================================================================================
+// Model update funtions
+
+initDBWarehouse();
+
+// replenish stock
+function replenishStock(articleno, qty){
+    var itemIndex = getDBWarehouseItemIndex(articleno);
+    if(DBWarehouse.item[itemIndex].stock > -qty){
+        DBWarehouse.item[itemIndex].stock += qty;
+        update_model_DBWarehouse();
+    }
+    else{
+        throw "replenish exided item stock (replenishStock)";
+    }
+}
+
+// remove
+function removeWarehouseItem(articleno){
+    var itemIndex = getDBWarehouseItemIndex(articleno);
+    DBWarehouse.item.splice(itemIndex,1);
+    update_model_DBWarehouse();
+}
+
+// add
+function addWarehouseItem(articleno){
+    var length = getNumberOfItemsInWarehouse();
+    var newItemObj = {
+        articleno: articleno,
+        stock: DefaultStock,
+    };
+
+    DBWarehouse.item[length] = newItemObj;
+    update_model_DBWarehouse();
 }
 
 // =====================================================================================================
