@@ -2,6 +2,56 @@
 
 var currentCart = {};
 
+function orderInit(event){
+    var cartItems = document.getElementsByClassName('cart-items')[0];
+    var cartItemArticleNrs = cartItems.getElementsByClassName('cart-row');
+    var cartItemQuantities = cartItems.getElementsByClassName('cart-quantity-input');
+
+    doit(orderObj(cartItemArticleNrs, cartItemQuantities));
+}
+
+function orderObj(cartItemArticleNrs, cartItemQuantities) {
+
+    var oldCartObj = JSON.parse(JSON.stringify(currentCart));
+
+    var temp = {
+
+        oldCartObj,
+
+        execute: function(){
+
+            for (let i = 0; i < cartItemArticleNrs.length; i++) {
+                var artikelid = cartItemArticleNrs[i].id;
+                var quantity = cartItemQuantities[i].value;
+                console.log(quantity);
+                newOrder(1, artikelid, quantity);
+            }
+
+            clearCart();
+            updateCartTotal();
+
+            currentCart = {};
+
+            alert("Thank you for ordering!")
+        },
+
+        unexecute: function(){
+
+            clearCart();
+            currentCart = JSON.parse(JSON.stringify(oldCartObj));
+            cartToHTML(currentCart);
+            updateCartTotal();
+        },
+
+        reexecute: function(){
+            clearCart();
+            updateCartTotal();
+
+            currentCart = {};
+        }
+    }
+    return temp;
+}
 
 function addToCartClicked(event){
     var button = event.target
@@ -13,13 +63,6 @@ function addToCartClicked(event){
 
     doit (addToCartObj(title, price, artikelid) );
 }
-
-
-function orderInit(event){
-
-    doit (orderObj(event));
-}
-
 
 function quantityChangedObj(artikelid, newQuantity){
 
@@ -125,47 +168,6 @@ function addToCartObj(title, price, artikelid){
     }
     return temp;
 }
-
-
-function orderObj(event){
-
-    var oldCartObj = JSON.parse(JSON.stringify(currentCart));
-
-    var temp = {
-
-        oldCartObj,
-
-        execute: function(){
-
-            clearCart();
-            updateCartTotal();
-
-            currentCart = {};
-
-            alert("Thank you for ordering!")
-        },
-
-        unexecute: function(){
-
-            clearCart();
-            currentCart = JSON.parse(JSON.stringify(oldCartObj));
-            cartToHTML(currentCart);
-            updateCartTotal();
-        },
-
-        reexecute: function(){
-            clearCart();
-            updateCartTotal();
-
-            currentCart = {};
-        }
-    }
-    return temp;
-}
-
-
-
-
 
 function calcNewCartObj(title, price, artikelid){
 
