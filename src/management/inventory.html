@@ -7,11 +7,40 @@
     <title>Inventory management</title>
     <script type="text/javascript" src="../resources/db/Beverages.js"></script>
     <script src="inventory_functions.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="inventory_style.css">
 </head>
 <body onload="beverageList()">
+<section class="container">
 <div class="beverages" id="spirits">
-
+    <button class="beveragebtn back" onclick=changeBeverageList("back")>Back</button>
+    <button class="beveragebtn next" onclick=changeBeverageList("next")>Next</button>
+    <select id="myselect" onchange="changingKind(this.value)">
+        <option value="all">Choose an option:</option>
+        <option value="Cognac">Cognac</option>
+        <option value="Kryddad sprit">"Kryddad sprit"</option>
+        <option value="Whisky, Malt">Whisky</option>
+    </select>
 </div>
+    <div class="beveragesInformation">
+        <h3>Information</h3>
+    </div>
+<div class="cart">
+    <h3 class="section-header">CART</h3>
+    <div class="cart-row">
+        <span class="cart-item cart-header cart-column">ITEM</span>
+        <span class="cart-price cart-header cart-column">PRICE</span>
+        <span class="cart-quantity cart-header cart-column">QUANTITY</span>
+    </div>
+    <div class="cart-items">
+
+    </div>
+    <div class="cart-total">
+        <strong class="cart-total-title">Total</strong>
+        <span class="cart-total-price">$0.00</span>
+    </div>
+    <button class="btn btn-primary btn-purchase" type="button">ORDER</button>
+</div>
+</section>
 </body>
 </html>
