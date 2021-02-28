@@ -17,6 +17,7 @@ function itemDetails(artikelid){
     var name; // name on item
     var info; // company, year, what type
     var stats; // alkohlhalt, flask typ, liter, pris
+    var price;
 
     for (i = 0; i < DB2.spirits.length; i++) {
         if (DB2.spirits[i].artikelid == artikelid) {
@@ -24,6 +25,7 @@ function itemDetails(artikelid){
             name = DB2.spirits[i].namn;
             info = DB2.spirits[i].leverantor;
             stats = DB2.spirits[i].alkoholhalt;
+            price = DB2.spirits[i].prisinklmoms;
             break;
         };
     };
@@ -31,7 +33,8 @@ function itemDetails(artikelid){
     var details = {
         name: name,
         info: info,
-        stats: stats
+        stats: stats,
+        price : price
     };
 
     return details;
