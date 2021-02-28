@@ -1,8 +1,22 @@
+// =====================================================================================================
+// Model, for managing database.
+// =====================================================================================================
+// Author: Anton Augustsson, 2021
+//
 // when we have login we will go to the spesific mode
 // therefore login function should setMode for that spesific one and update_view
 // when a mode is selected all are hidden and then the selected is shoun
 // when we have modifyes the contet we will call update_view we will then repet the process
 // and the spesific mode will have a function that inserts the nessesary content
+//
+// There is also a primary mode whitch is usedd when for example staff wonts to make a new order
+// it will then be a primary mode of staff and a curent mode of customer
+// when customer has made the order we will go back to primary mode
+//
+// =====================================================================================================
+
+// =====================================================================================================
+// varible
 
 // modeid
 var customer = 1;
@@ -12,13 +26,10 @@ var manager  = 4;
 
 var defaultMode = customer;
 
+// =====================================================================================================
+// Mode operations
+
 // Updates local stored variable mode to an id of one of the avalible mode
-/* mode
- * 1: customer
- * 2: vip
- * 3: staff
- * 4: manager
-*/
 function setMode(modeid){
     localStorage.setItem("mode", modeid);
     update_view();
@@ -34,6 +45,22 @@ function resetMode(){
     update_view();
 }
 
+function setPrimaryMode(modeid){
+    localStorage.setItem("primaryMode", modeid);
+}
+
+function getPrimaryMode(){
+    return parseInt(localStorage.getItem("primaryMode"));
+}
+
+// when preseed to checkout from customer go back to primary mode since other primary modes can call customer
+function goToPrimaryMode(){
+    setMode(getPrimaryMode());
+}
+
+// =====================================================================================================
+// Helper function
+
 function hideModes(){
     $("#mode1").fadeOut(0);
     $("#mode2").fadeOut(0);
@@ -45,6 +72,16 @@ function hideModes(){
 function showMode(modeid){
     $("#mode"+modeid).fadeIn(0);
 }
+
+function init(){
+    if(getMode()==null){
+        setMode(defaultMode);
+    }
+    update_view();
+}
+
+// =====================================================================================================
+// Mode functions
 
 function customerMode(){
     showMode(customer);
@@ -58,7 +95,6 @@ function vipMode(){
 
 function staffMode(){
     showMode(staff);
-    // TODO: update view for staff mode
     update_view_staff("mode" + staff);
 }
 
@@ -67,12 +103,8 @@ function managerMode(){
     // TODO: update view for manager mode
 }
 
-function init(){
-    if(getMode()==null){
-        setMode(defaultMode);
-    }
-    update_view();
-}
+// =====================================================================================================
+// View update
 
 // update view with the currently set mode
 function update_view(){
@@ -100,3 +132,9 @@ function update_view(){
 $(document).ready(function () {
     init();
 });
+
+// =====================================================================================================
+// =====================================================================================================
+// END OF FILE
+// =====================================================================================================
+// =====================================================================================================
