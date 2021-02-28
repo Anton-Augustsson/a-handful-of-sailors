@@ -17,7 +17,7 @@ $('document').ready(function() {
         button.addEventListener('click', addToCartClicked)
     }
 
-    document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order)
+    document.getElementsByClassName('btn-purchase')[0].addEventListener('click', orderInit)
 
     getBeers();
 });
@@ -174,7 +174,7 @@ function printAllDrinks(allDrinks) {
 		shopItem.setAttribute('draggable', 'true');
         shopItem.setAttribute('ondragover', 'onDragOver(event)');
         shopItem.setAttribute('ondragstart', 'onDragStart(event)');
-        shopItem.className += " " + articleId;
+        shopItem.classList.add(articleId);
 		
 		
         var shopItemContents = `
@@ -243,10 +243,11 @@ function onDragOver(event) {
 }
 
 function onDrop(event) {
-
+    console.log(event);
+    console.log(event.dataTransfer);
     const id = event.dataTransfer.getData('text');
-
-    const draggableElement = document.getElementsByClassName(id)[0];
+    console.log(id);
+    const draggableElement = document.getElementById(id);
 
     var title = draggableElement.getElementsByClassName('shop-item-title')[0].innerText
     var price = draggableElement.getElementsByClassName('shop-item-price')[0].innerText
@@ -255,10 +256,13 @@ function onDrop(event) {
     updateCartTotal();
 }
 
-
-/*function addToCartClicked(event) {
+/*
+function addToCartClicked(event) {
+    console.log(event);
     var button = event.target
+    console.log(button);
     var shopItem = button.parentElement.parentElement
+    console.log(shopItem);
     var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
     var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText
     var artikelid = shopItem.parentElement.id;
@@ -266,7 +270,10 @@ function onDrop(event) {
     updateCartTotal();
 }*/
 
-function addItemToCart(title, price, artikelid) {
+function addItemToCart(title, price, artikelid, Quantity) {
+
+
+
     var cartRow = document.createElement('div')
     cartRow.classList.add('cart-row')
     cartRow.setAttribute("id", artikelid);
@@ -285,7 +292,8 @@ function addItemToCart(title, price, artikelid) {
         </div>
         <span class="cart-price cart-column">${price}</span>
         <div class="cart-quantity cart-column">
-            <input class="cart-quantity-input" type="number" value="1">
+            <input class="cart-quantity-input" type="number" value=${Quantity}>
+            
             <button class="remove-item-from-cart" type="button">REMOVE</button>
         </div>`
     cartRow.innerHTML = cartRowContents
@@ -295,8 +303,6 @@ function addItemToCart(title, price, artikelid) {
 }
 function quantityChanged(event) {
     var input = event.target
-
-    console.log(event.target);
 
     if (isNaN(input.value) || input.value <= 0) {
         input.value = 1
@@ -317,9 +323,12 @@ function updateCartTotal() {
     for (var i = 0; i < cartRows.length; i++) {
         var cartRow = cartRows[i]
         var priceElement = cartRow.getElementsByClassName('cart-price')[0]
+        console.log(priceElement);
         var quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0]
         var price = parseFloat(priceElement.innerText.replace('$', ''))
+        console.log(price);
         var quantity = quantityElement.value
+        console.log(quantity);
         total = total + (price * quantity)
     }
     total = Math.round(total * 100) / 100

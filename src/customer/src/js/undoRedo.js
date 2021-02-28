@@ -1,161 +1,163 @@
 
 
-/*
-
-function testAddItemToCart(event){
-
-    var button = event.target
-    var shopItem = button.parentElement.parentElement
-    var title
-    var price
-    var artikelid
-
-    var object = {
-
-        title : shopItem.getElementsByClassName('shop-item-title')[0].innerText,
-        price : shopItem.getElementsByClassName('shop-item-price')[0].innerText,
-        //   var artikelid = shopItem.getElementsByClassName('shop-item-artikelid')[0].innerText
-
-        artikelid : 12345
-    }
-
-    doit(addItemToCart(object));
-    getAllObjectsInCart();
-}
-
-
-function printObject(){}
-
-*/
-
-
-
-
-
-
-
-function getAllObjectsInCart(){
-
-    var list = []
-
-    var cartItemContainer = document.getElementsByClassName('cart-items')[0]
-    var cartRows = cartItemContainer.getElementsByClassName('cart-row')
-
-    for (var i = 0; i < cartRows.length; i++) {
-
-        var cartRow = cartRows[i]
-
-        var quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0]
-
-        var title = cartRow.firstElementChild.getElementsByClassName('cart-item-title')[0].innerText
-
-
-
-        var quantity = quantityElement.value
-
-        var drink = [title, quantity];
-
-
-        list.push(drink);
-    }
-
-    return list;
-}
-
-function getOldDrinkList(){
-
-    //TODO
-
-}
-
-//addToCartClicked(event){
-//
-//
-// }
-//quantityChanged(event){
-//
-//
-// }
-//removeCartItem(event){
-//
-//
-// }
-//order(){
-//
-//
-// }
-
-function printAllDrinksTest(newDrinkList){
-
-    //TODO
-
-    for(elem in newDrinkList){
-
-        addItemToCart(newDrinkList[elem][0], newDrinkList[elem][1]);
-
-    }
-}
+var currentCart = {};
 
 
 function addToCartClicked(event){
 
-    var button = event.target
-    var shopItem = button.parentElement.parentElement
-    var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
-    var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText
-    var artikelid = shopItem.parentElement.className.replace('shop-item ', '')
-
-
-    doit (addItemToCartTest(title, price, artikelid, event) );
-
+    doit (addToCartObj(event));
 }
 
-function addItemToCartTest(title, price, artikelid, event){
+function orderInit(event){
 
 
-    //var newDrinkList = getAllObjectsInCart();
+    doit (orderObj(event));
+}
 
-    //var oldDrinkList = getOldDrinkList();
+function addToCartObj(event){
+
+    var oldCartObj = JSON.parse(JSON.stringify(currentCart));
+    var newCartObj = calcNewCartObj(event);
 
     var temp = {
 
-        title : this.title,
-        price : this.price,
-        artikelid : this.artikelid,
-        event : this.event,
-        //newDrinkList,
-        // var oldDrinkList =
-        //var cartObjects = getAllObjectsInCart();
+        oldCartObj,
+        newCartObj,
 
-        execute : function (){
+        execute: function(){
 
-            addItemToCart(title, price, artikelid);
+            currentCart = JSON.parse(JSON.stringify(newCartObj));
+
+            cartToHTML(currentCart);
             updateCartTotal();
         },
 
+        unexecute: function(){
 
-        unexecute: function (){
-
-            var cartRow = document.getElementById(artikelid)
-            var input = cartRow.getElementsByClassName('cart-quantity-input')[0]
-            console.log(input)
-            input.value -= 1
-
-            if (isNaN(input.value) || input.value <= 0) {
-                cartRow.remove();
-            }
+            clearCart();
+            currentCart = JSON.parse(JSON.stringify(oldCartObj));
+            cartToHTML(currentCart);
             updateCartTotal();
         },
 
+        reexecute: function(){
 
-        reexecute: function (){
-            addItemToCart(title, price, artikelid);
-            updateCartTotal();
-        },
-
-
-    };
-
-
+            this.execute();
+        }
+    }
     return temp;
+}
+
+
+function orderObj(event){
+
+    var oldCartObj = JSON.parse(JSON.stringify(currentCart));
+
+    var temp = {
+
+        oldCartObj,
+
+        execute: function(){
+
+            clearCart();
+            updateCartTotal();
+
+            currentCart = {};
+
+            alert("Thank you for ordering!")
+        },
+
+        unexecute: function(){
+
+            clearCart();
+            currentCart = JSON.parse(JSON.stringify(oldCartObj));
+            cartToHTML(currentCart);
+            updateCartTotal();
+        },
+
+        reexecute: function(){
+            clearCart();
+            updateCartTotal();
+
+            currentCart = {};
+        }
+    }
+    return temp;
+}
+
+
+
+
+
+function calcNewCartObj(event){
+
+    var button = event.target
+    var shopItem = button.parentElement.parentElement
+    var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
+
+    var cartItems = document.getElementsByClassName('cart-items')[0]
+    var cartItemNames = cartItems.getElementsByClassName('cart-item-title')
+
+    var newCart = {};
+
+    if(currentCart !== jQuery.isEmptyObject({})){
+
+        newCart = JSON.parse(JSON.stringify(currentCart));
+    }
+
+    var unparsedArtikelid = shopItem.parentElement.className;
+    var artikelid = unparsedArtikelid.match(/\d/g);
+    artikelid = artikelid.join("");
+
+    var id = isItemAlreadyInCart(cartItemNames, title);
+    if(id === 0){
+        newCart[artikelid] = "1";
+        return newCart;
+    }
+
+    else{
+        var value = newCart[id];
+        value = parseInt(value) + 1
+        newCart[id] = value;
+        return newCart;
+    }
+
+}
+
+function isItemAlreadyInCart(cartItemNames, title){
+
+    for (var i = 0; i < cartItemNames.length; i++) {
+
+        if (cartItemNames[i].innerText === title) {
+
+            var Artikelid = cartItemNames[i].parentElement.parentElement.id
+            return Artikelid;
+        }
+    }
+    return 0;
+}
+
+function clearCart(){
+
+    var cartItems = document.getElementsByClassName('cart-items')[0]
+
+    while (cartItems.hasChildNodes()) {
+        cartItems.removeChild(cartItems.firstChild);
+    }
+}
+
+function cartToHTML(cartObj){
+
+    clearCart();
+
+    for(var artikelid in cartObj){
+
+        var quantity = cartObj[artikelid];
+
+        var details = itemDetails(artikelid);
+
+        var title = details.name;
+        var price = details.price;
+        addItemToCart(title,price,artikelid,Number(quantity));
+    }
 }
