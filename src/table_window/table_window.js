@@ -16,7 +16,7 @@ var tableNr = 0;
 // Helper functions
 
 // create new item with its content
-function createItem(name, info, stats){
+function createItem(articleno, name, info, stats){
   var newItem = `
         <div class="item">
             <div class="item-general">
@@ -25,7 +25,8 @@ function createItem(name, info, stats){
             </div>
             <div class="stats"><p>${stats}</p></div>
             <div class="item-options">
-                <button class=on-the-house>house</button>
+                <button class="on-the-house" id="on-house-${articleno}" onclick=onHouse(${articleno})></button>
+                <button class="not-on-the-house" id="not-on-house-${articleno}" onclick=notOnHouse(${articleno})></button>
             </div>
         </div>`;
   return newItem;
@@ -104,6 +105,19 @@ function newOrder() {
   // change mode to customer
   // primary mode is set to staff
 }
+
+function onHouse(articleno){
+  // hide not on house
+  $("#not-on-house-" + articleno).fadeIn(0);
+  $("#on-house-" + articleno).fadeOut(0);
+}
+
+function notOnHouse(articleno){
+  // hide on the house
+  $("#on-house-" + articleno).fadeIn(0);
+  $("#not-on-house-" + articleno).fadeOut(0);
+}
+
 // =====================================================================================================
 // View update
 
@@ -118,8 +132,8 @@ function setStaff(id){
 }
 
 // inserts new item in view
-function setItem(idParent, name, info, stats){
-  $("#"+idParent).append(createItem(name, info, stats));
+function setItem(articleno, idParent, name, info, stats){
+  $("#"+idParent).append(createItem(articleno, name, info, stats));
 }
 
 // update view with items of the tables stock
@@ -132,7 +146,7 @@ function setAllTableItems(){
   for(var i = 0; i < getNumOfOrders(table); ++i){
     articleno = getOrderByIndex(table,i);
     item = itemDetails(articleno);
-    setItem(locationOfOrders, item.name, item.info, item.stats);
+    setItem(articleno, locationOfOrders, item.name, item.info, item.stats);
   }
 }
 
@@ -215,6 +229,7 @@ function update_view_staff(id){
 
 $(document).ready(function(){
   setCheckout();
+  $(".not-on-the-house").fadeOut(0);
     //update_view();
 });
 

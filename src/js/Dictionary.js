@@ -69,13 +69,15 @@ dict = {
     // The other Dictionary is class (cl) spesific dictionares make sure that each class name
     // matches the with the key. That is how it is identified.
     'cl': {
-        'keys' : ['on-the-house'],
+        'keys' : ['on-the-house','not-on-the-house'],
 
         'en': {
-            'on-the-house': "On the house",
+            'on-the-house': "Add on the house",
+            'not-on-the-house': "Remove on the house",
         },
         'sv': {
-            'on-the-house': "Huset bjuder",
+            'on-the-house': "Lägg till huset bjuder",
+            'not-on-the-house': "Ta bort huset bjuder",
         }
     }
 };
