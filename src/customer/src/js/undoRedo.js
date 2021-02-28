@@ -4,8 +4,14 @@ var currentCart = {};
 
 
 function addToCartClicked(event){
+    var button = event.target
+    var shopItem = button.parentElement.parentElement
+    var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
+    var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText
+    var artikelid = shopItem.parentElement.className.replace('shop-item ', '')
 
-    doit (addToCartObj(event));
+
+    doit (addToCartObj(title, price, artikelid, event) );
 }
 
 function orderInit(event){
@@ -14,10 +20,10 @@ function orderInit(event){
     doit (orderObj(event));
 }
 
-function addToCartObj(event){
+function addToCartObj(title, price, artikelid, event){
 
     var oldCartObj = JSON.parse(JSON.stringify(currentCart));
-    var newCartObj = calcNewCartObj(event);
+    var newCartObj = calcNewCartObj(title, price, artikelid, event);
 
     var temp = {
 
@@ -89,11 +95,7 @@ function orderObj(event){
 
 
 
-function calcNewCartObj(event){
-
-    var button = event.target
-    var shopItem = button.parentElement.parentElement
-    var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
+function calcNewCartObj(title, price, artikelid, event){
 
     var cartItems = document.getElementsByClassName('cart-items')[0]
     var cartItemNames = cartItems.getElementsByClassName('cart-item-title')
@@ -104,10 +106,6 @@ function calcNewCartObj(event){
 
         newCart = JSON.parse(JSON.stringify(currentCart));
     }
-
-    var unparsedArtikelid = shopItem.parentElement.className;
-    var artikelid = unparsedArtikelid.match(/\d/g);
-    artikelid = artikelid.join("");
 
     var id = isItemAlreadyInCart(cartItemNames, title);
     if(id === 0){
