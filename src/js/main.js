@@ -24,20 +24,25 @@ var vip      = 2;
 var staff    = 3;
 var manager  = 4;
 
+var modeHtmlId = "mode";
 var defaultMode = customer;
 
+var modeVarible = "mode";
+var primaryModeVariable = "primaryMode";
+
+var numOfMode = 4;
 // =====================================================================================================
 // Mode operations
 
 // Updates local stored variable mode to an id of one of the avalible mode
 function setMode(modeid){
-    localStorage.setItem("mode", modeid);
+    localStorage.setItem(modeVarible, modeid);
     update_view();
 }
 
 // returns the current mode
 function getMode(){
-    return parseInt(localStorage.getItem("mode"));
+    return parseInt(localStorage.getItem(modeVarible));
 }
 
 function resetMode(){
@@ -62,18 +67,20 @@ function goToPrimaryMode(){
 // Helper function
 
 function hideModes(){
-    $("#mode1").fadeOut(0);
-    $("#mode2").fadeOut(0);
-    $("#mode3").fadeOut(0);
-    $("#mode4").fadeOut(0);
+    for(i = 1; i<=numOfMode; i++){
+        $("#"+modeHtmlId+i).fadeOut(0);
+    }
 }
 
 // uses jqure to show a spesific div
 function showMode(modeid){
-    $("#mode"+modeid).fadeIn(0);
+    $("#"+modeHtmlId+modeid).fadeIn(0);
 }
 
 function init(){
+    // we need to update all views or we
+    init_staff();
+
     if(getMode()==null){
         setMode(defaultMode);
     }
@@ -95,7 +102,7 @@ function vipMode(){
 
 function staffMode(){
     showMode(staff);
-    update_view_staff("mode" + staff);
+    update_view_staff();
 }
 
 function managerMode(){
@@ -126,6 +133,9 @@ function update_view(){
     default:
         customerMode();
     }
+
+    // Needs to be last to maksure the language is alwase updated
+    update_view_dictionary();
 }
 
 // Inisalize a defaoult view

@@ -16,22 +16,77 @@ syle spesific for the table_info page
     --border-size: 1px;
 }
 
+#staff{
+   display: flex;
+   padding: 20px;
+}
+
 /*
-General syle for the page
+General syle for table window
 */
 
-.tables{
+#table-window{
+   padding: 10px;
+   flex-grow: 2;
+}
+
+#content-table-window{
   background-color: var(--color-three);
+  padding: 10px;
+}
+
+#options-table-window{
+  position: relative;
+  left: 10px;
+}
+
+.tables{
   margin: 10px;
   top: 2px;
-  padding: 30px;
 }
 
 .table{
   background-color: var(--color-four);
-  padding: 20px;
+  padding: 10px;
   border: var(--border-size) solid var(--color-three);
   opacity: 1;
+}
+
+.content-table{
+   display: flex;
+}
+
+.table-text{
+   flex-grow: 3;
+}
+
+.remove-table{
+   flex-grow: 1;
+}
+
+#security{
+  padding: 10px;
+}
+
+/*
+General syle for table info
+*/
+
+#table-info{
+   flex-grow: 7;
+   align-self: center;
+   background-color: var(--color-three);
+}
+
+#options-table-info{
+  position: relative;
+  left: 10px;
+  margin: 10px;
+}
+
+#orders{
+  margin: 10px;
+  padding: 9px;
 }
 
 /*
@@ -50,41 +105,6 @@ Dropdown desplays table content when hovering over a table div
 
 .table:hover .dropdown{
   display: block;
-}
-
-/*
-General syle for the page
-*/
-
-#staff{
-   display: flex;
-   padding: 20px;
-}
-
-#table-window{
-   flex-grow: 2;
-}
-
-#table-info{
-   flex-grow: 7;
-   align-self: center;
-   background-color: var(--color-three);
-}
-
-#orders{
-  margin: 10px;
-  padding: 9px;
-}
-
-#options-table-window{
-  position: relative;
-  left: 10px;
-}
-
-#options-table-info{
-  position: relative;
-  left: 10px;
-  margin: 10px;
 }
 
 /*

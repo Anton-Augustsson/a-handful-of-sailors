@@ -11,7 +11,6 @@ var tableNr = 0;
 //var tableInfo = "table_info.html";
 //var tableWindow = "table_window.html";
 
-//TODO: update_view should be a general function that is caled appon in undomanager
 // =====================================================================================================
 // Helper functions
 
@@ -37,7 +36,10 @@ function createTable(tableNr) {
     var table = "table" + tableNr;
     var newTable = `
     <div class="table" id=${table} onclick=clickTable(${tableNr})>
-        <span>Table ${tableNr}</span>
+        <span class="content-table">
+          <p class="table-text">Table ${tableNr}</p>
+          <button class="remove-table" onclick=removeTableWindow(${tableNr})>-</button>
+        </span>
         <div class="dropdown">
           <p>Antal personer: 3</p>
           <p>Pris: 500kr</p>
@@ -50,9 +52,14 @@ function createStaff(){
     return `
     <div id="staff">
         <div id="table-window">
-            <div class="tables" id="extraTables"></div>
-            <div id="options-table-window">
+            <div id="content-table-window">
+              <div class="tables" id="extraTables"></div>
+              <div id="options-table-window">
                 <button id="addTable" onclick=addTable()></button>
+              </div>
+            </div>
+            <div id="security">
+              <button id="notify-security" onclick=notifySecurity()></button>
             </div>
         </div>
         <div id="table-info">
@@ -74,10 +81,31 @@ function createStaff(){
 }
 
 // =====================================================================================================
+// Reset function
+var defaultSelectedTable = 1;
+
+function setDefaultSelectedTable(){
+  localStorage.setItem("selectedTable", defaultSelectedTable);
+}
+
+function resetStaff(){
+  resetDBTable();
+  resetDBWarehouse();
+  setDefaultSelectedTable();
+}
+
+// =====================================================================================================
 // Event functions
 
 function addTable(){
     doit(addTableUD());
+    update_view_staff();
+}
+
+function removeTableWindow(tableid){
+    setDefaultSelectedTable();
+    update_view_staff();
+    //doit(removeTableWindowUD(tableid));
 }
 
 // Got to the table info page for a spesific table
@@ -86,6 +114,7 @@ function addTable(){
 function clickTable(tableid) {
     localStorage.setItem("selectedTable", tableid);
     update_view_staff();
+    $(".not-on-the-house").fadeOut(0);
 }
 
 // checkout all items and update the database
@@ -118,6 +147,10 @@ function notOnHouse(articleno){
   $("#not-on-house-" + articleno).fadeOut(0);
 }
 
+function notifySecurity(){
+  alert ("Security has been notifyed!");
+}
+
 // =====================================================================================================
 // View update
 
@@ -142,18 +175,26 @@ function setAllTableItems(){
   var locationOfOrders = "orders";
   var item;
   var articleno;
+  var length = getNumOfOrders(table);
 
-  for(var i = 0; i < getNumOfOrders(table); ++i){
-    articleno = getOrderByIndex(table,i);
-    item = itemDetails(articleno);
-    setItem(articleno, locationOfOrders, item.name, item.info, item.stats);
+  if(length >= 0){
+     for(i = 0; i < length; ++i){
+       articleno = getOrderByIndex(table,i);
+       item = itemDetails(articleno);
+       // TODO: set if it is on the house or not
+       setItem(articleno, locationOfOrders, item.name, item.info, item.stats);
+
+     }
+  }
+  else{
+    throw("Failed to set all tables");
   }
 }
 
 function clear_view_staff(){
     $('#orders').html('');
     $('#extraTables').html('');
-    tableNr = 0;
+    //tableNr = 0;
 }
 
 // create the chekcout menue and popup
@@ -200,38 +241,72 @@ function addTableUD() {
             tableNr = tableNr + 1;
             this.newDB = JSON.stringify(getDBTable());
             this.newTableNr = tableNr;
-            update_view();//setTable(tableid);
+            update_view_staff();
         },
         unexecute: function (){
             tableNr = this.oldTableNr;
             setDBTable(JSON.parse(this.oldDB));
-            update_view();
+            update_view_staff();
         },
         reexecute: function () {
             tableNr = this.newTableNr;
             setDBTable(JSON.parse(this.newDB));
-            update_view();
+            update_view_staff();
         },
     };
     return temp;
 }
 
-function update_view_staff(id){
-    setStaff(id);
-    clear_view_staff();
+function removeTableWindowUD(tableid) {
+    var temp = {
+        oldDB: JSON.stringify(getDBTable()),
+        newDB: null, // dummy value will be updated in execute
+        oldTableNr: tableNr,
+        newTableNr: null, //nummy value will be updated in execute
+
+        execute: function (){
+            removeTable(tableid);
+            setDefaultSelectedTable();
+            this.newDB = JSON.stringify(getDBTable());
+            this.newTableNr = tableNr;
+            //update_view_staff();
+        },
+        unexecute: function (){
+            tableNr = this.oldTableNr;
+            setDBTable(JSON.parse(this.oldDB));
+            //update_view_staff();
+        },
+        reexecute: function () {
+            tableNr = this.newTableNr;
+            setDBTable(JSON.parse(this.newDB));
+            //update_view_staff();
+        },
+    };
+    return temp;
+}
+
+function update_view_staff(){
+    //clear_view_staff();
+
+    setStaff(modeHtmlId+staff);
     setAllTableItems();
+
     for(i = 0; i < getNumTables(); i++){
         tableNr++;
         tableid = getTableId(i);
         setTable(tableid);
     }
+
+    update_view_dictionary();
+    setCheckout();
 }
 
-$(document).ready(function(){
+function init_staff(){
+  update_view_staff();
+  setDefaultSelectedTable();
   setCheckout();
   $(".not-on-the-house").fadeOut(0);
-    //update_view();
-});
+}
 
 // =====================================================================================================
 // =====================================================================================================
