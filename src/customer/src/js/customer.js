@@ -253,7 +253,7 @@ function onDrop(event) {
     var title = draggableElement.getElementsByClassName('shop-item-title')[0].innerText
     var price = draggableElement.getElementsByClassName('shop-item-price')[0].innerText
 
-    doit (addToCartObj(title, price, id, event) );
+    doit (addToCartObj(title, price, id) );
 }
 
 /*
@@ -302,18 +302,24 @@ function addItemToCart(title, price, artikelid, Quantity) {
     cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', quantityChanged)
 }
 function quantityChanged(event) {
+
     var input = event.target
 
     if (isNaN(input.value) || input.value <= 0) {
         input.value = 1
+        return;
     }
-    updateCartTotal()
+
+    var artikelid = input.parentElement.parentElement.id
+
+    doit (quantityChangedObj(artikelid, input.value));
 }
 
 function removeCartItem(event) {
-    var btnClicked = event.target
-    btnClicked.parentElement.parentElement.remove()
-    updateCartTotal()
+
+    var artikelid = event.target.parentElement.parentElement.id
+
+    doit (removeCartItemObj(artikelid));
 }
 
 function updateCartTotal() {

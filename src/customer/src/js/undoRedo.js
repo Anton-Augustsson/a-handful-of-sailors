@@ -11,19 +11,91 @@ function addToCartClicked(event){
     var artikelid = shopItem.parentElement.className.replace('shop-item ', '')
 
 
-    doit (addToCartObj(title, price, artikelid, event) );
+    doit (addToCartObj(title, price, artikelid) );
 }
 
-function orderInit(event){
 
+function orderInit(event){
 
     doit (orderObj(event));
 }
 
-function addToCartObj(title, price, artikelid, event){
+
+function quantityChangedObj(artikelid, newQuantity){
 
     var oldCartObj = JSON.parse(JSON.stringify(currentCart));
-    var newCartObj = calcNewCartObj(title, price, artikelid, event);
+
+    var newCartObj = JSON.parse(JSON.stringify(currentCart));
+
+    newCartObj[artikelid] = newQuantity;
+
+    var temp = {
+
+        oldCartObj,
+        newCartObj,
+
+        execute: function(){
+
+            currentCart = JSON.parse(JSON.stringify(newCartObj));
+            cartToHTML(currentCart);
+            updateCartTotal();
+        },
+
+        unexecute: function(){
+
+            clearCart();
+            currentCart = JSON.parse(JSON.stringify(oldCartObj));
+            cartToHTML(currentCart);
+            updateCartTotal();
+        },
+
+        reexecute: function(){
+
+            this.execute();
+        }
+    }
+    return temp;
+}
+
+function removeCartItemObj(artikelid){
+
+    var oldCartObj = JSON.parse(JSON.stringify(currentCart));
+
+    var newCartObj = JSON.parse(JSON.stringify(oldCartObj));
+    delete newCartObj[artikelid];
+
+    var temp = {
+
+        oldCartObj,
+        newCartObj,
+
+        execute: function(){
+
+            currentCart = JSON.parse(JSON.stringify(newCartObj));
+            cartToHTML(currentCart);
+            updateCartTotal();
+        },
+
+        unexecute: function(){
+
+            clearCart();
+            currentCart = JSON.parse(JSON.stringify(oldCartObj));
+            cartToHTML(currentCart);
+            updateCartTotal();
+        },
+
+        reexecute: function(){
+
+            this.execute();
+        }
+    }
+    return temp;
+}
+
+function addToCartObj(title, price, artikelid){
+
+    var oldCartObj = JSON.parse(JSON.stringify(currentCart));
+    var newCartObj = calcNewCartObj(title, price, artikelid);
 
     var temp = {
 
@@ -95,7 +167,7 @@ function orderObj(event){
 
 
 
-function calcNewCartObj(title, price, artikelid, event){
+function calcNewCartObj(title, price, artikelid){
 
     var cartItems = document.getElementsByClassName('cart-items')[0]
     var cartItemNames = cartItems.getElementsByClassName('cart-item-title')
