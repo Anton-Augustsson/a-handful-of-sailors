@@ -236,7 +236,7 @@ function clickItemForMoreInfo(event) {
 
 
 function onDragStart(event) {
-    event.dataTransfer.setData('text', event.target.id);
+    event.dataTransfer.setData('text', event.target.className.replace('shop-item ', ''));
 }
 
 function onDragOver(event) {
@@ -248,13 +248,12 @@ function onDrop(event) {
     console.log(event.dataTransfer);
     const id = event.dataTransfer.getData('text');
     console.log(id);
-    const draggableElement = document.getElementById(id);
+    const draggableElement = document.getElementsByClassName(id)[0];
 
     var title = draggableElement.getElementsByClassName('shop-item-title')[0].innerText
     var price = draggableElement.getElementsByClassName('shop-item-price')[0].innerText
 
-    addItemToCart(title, price);
-    updateCartTotal();
+    doit (addToCartObj(title, price, id, event) );
 }
 
 /*
