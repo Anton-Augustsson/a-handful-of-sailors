@@ -35,9 +35,9 @@ function createItem(articleno, name, info, stats){
 function createTable(tableNr) {
     var table = "table" + tableNr;
     var newTable = `
-    <div class="table" id=${table} onclick=clickTable(${tableNr})>
+    <div class="table" id=${table} >
         <span class="content-table">
-          <p class="table-text">Table ${tableNr}</p>
+          <p class="table-text" onclick=clickTable(${tableNr})>Table ${tableNr}</p>
           <button class="remove-table" onclick=removeTableWindow(${tableNr})>-</button>
         </span>
         <div class="dropdown">
@@ -99,13 +99,11 @@ function resetStaff(){
 
 function addTable(){
     doit(addTableUD());
-    update_view_staff();
 }
 
 function removeTableWindow(tableid){
     setDefaultSelectedTable();
-    update_view_staff();
-    //doit(removeTableWindowUD(tableid));
+    doit(removeTableWindowUD(tableid));
 }
 
 // Got to the table info page for a spesific table
@@ -269,17 +267,17 @@ function removeTableWindowUD(tableid) {
             setDefaultSelectedTable();
             this.newDB = JSON.stringify(getDBTable());
             this.newTableNr = tableNr;
-            //update_view_staff();
+            update_view_staff();
         },
         unexecute: function (){
             tableNr = this.oldTableNr;
             setDBTable(JSON.parse(this.oldDB));
-            //update_view_staff();
+            update_view_staff();
         },
         reexecute: function () {
             tableNr = this.newTableNr;
             setDBTable(JSON.parse(this.newDB));
-            //update_view_staff();
+            update_view_staff();
         },
     };
     return temp;
