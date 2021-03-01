@@ -133,7 +133,6 @@ dict = {
         }
     },
 
-
     'attr': {
         'keys' : ['username_input_field', 'password_input_field'],
 
@@ -144,6 +143,17 @@ dict = {
         'sv': {
             'username_input_field': ['placeholder', 'Användarnamn'],
             'password_input_field': ['placeholder', 'Lösenord'],
+        }
+    },
+
+    'vars': {
+        'keys' : ['total-price-table-message'],
+
+        'en': {
+            'total-price-table-message': "Total: ",
+        },
+        'sv' : {
+            'total-price-table-message': "Summa: ",
         }
     }
 };

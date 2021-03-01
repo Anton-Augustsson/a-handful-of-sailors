@@ -15,7 +15,7 @@ var tableNr = 0;
 // Helper functions
 
 // create new item with its content
-function createItem(articleno, name, info, stats){
+function createItem(tableid, articleno, name, info, stats){
   var newItem = `
         <div class="item">
             <div class="item-general">
@@ -24,8 +24,12 @@ function createItem(articleno, name, info, stats){
             </div>
             <div class="stats"><p>${stats}</p></div>
             <div class="item-options">
-                <button class="on-the-house" id="on-house-${articleno}" onclick=onHouse(${articleno})></button>
-                <button class="not-on-the-house" id="not-on-house-${articleno}" onclick=notOnHouse(${articleno})></button>
+                <button class="on-the-house" id="on-house-${tableid}-${articleno}" onclick=onHouse(${tableid},${articleno})></button>
+                <button class="not-on-the-house" id="not-on-house-${tableid}-${articleno}" onclick=notOnHouse(${tableid},${articleno})></button>
+                <forum>
+                  <input type="number" id="quantity" name="quantity" min="1" max="100" value="1">
+                </forum>
+                <button class="remove-item-order" id="remove-item-${tableid}-${articleno}" onclick=removeItemOrder(${tableid},${articleno})>remove</button>
             </div>
         </div>`;
   return newItem;
@@ -67,6 +71,7 @@ function createStaff(){
             <div id="options-table-info">
                 <button id="new-oder" onclick=newOrder()></button>
                 <button id="payment"></button>
+                <span id="total-price-table"></span>
                 <div id="modal-payment" class="modal">
                     <div class="modal-content-payment">
                         <span class="close">&times;</span>
@@ -81,8 +86,12 @@ function createStaff(){
 }
 
 // =====================================================================================================
-// Reset function
+// Helper function
 var defaultSelectedTable = 1;
+
+function getCurrentTable(){
+  return localStorage.getItem("selectedTable");
+}
 
 function setDefaultSelectedTable(){
   localStorage.setItem("selectedTable", defaultSelectedTable);
@@ -92,6 +101,23 @@ function resetStaff(){
   resetDBTable();
   resetDBWarehouse();
   setDefaultSelectedTable();
+}
+
+function calculatePriceForTable() {
+  var table = getCurrentTable();
+  var articleno;
+  var sum = 0;
+  var onHouse;
+
+  for(var i = 0; i < getNumOfOrders(table); ++i){
+    articleno = getOrderByIndex(table,i);
+    onHouse = getOrderOnHouseStatus(table, articleno);
+    if(!onHouse){
+      sum += getItemPrice(articleno);
+    }
+  }
+
+  return sum;
 }
 
 // =====================================================================================================
@@ -118,13 +144,14 @@ function clickTable(tableid) {
 // checkout all items and update the database
 function finishPayment(){
   //TODO: update model
+  changeItemQty(articleno, qty)
   alert ("Checkout success!");
   update_view();
 }
 
 // update the database and view with new quantity value
-function changeItemQty(){
-  //TODO:
+function changeItemQty(articleno, qty){
+  replenishStock(articleno, qty);
 }
 
 function newOrder() {
@@ -133,20 +160,24 @@ function newOrder() {
   // primary mode is set to staff
 }
 
-function onHouse(articleno){
+function onHouse(tableid, articleno){
   // hide not on house
-  $("#not-on-house-" + articleno).fadeIn(0);
-  $("#on-house-" + articleno).fadeOut(0);
+  setOnHouse(tableid,articleno,true);
+  update_view_staff();
 }
 
-function notOnHouse(articleno){
+function notOnHouse(tableid, articleno){
   // hide on the house
-  $("#on-house-" + articleno).fadeIn(0);
-  $("#not-on-house-" + articleno).fadeOut(0);
+  setOnHouse(tableid,articleno,false);
+  update_view_staff();
 }
 
 function notifySecurity(){
   alert ("Security has been notifyed!");
+}
+
+function removeItemOrder(tableid, articleno){
+  console.log("remove");
 }
 
 // =====================================================================================================
@@ -159,29 +190,43 @@ function setTable(tableNr){
 
 function setStaff(id){
     $("#"+id).html(createStaff());
-
 }
 
 // inserts new item in view
-function setItem(articleno, idParent, name, info, stats){
-  $("#"+idParent).append(createItem(articleno, name, info, stats));
+function setItem(table, articleno, name, info, stats){
+  $("#orders").append(createItem(table, articleno, name, info, stats));
+}
+
+function setTotalPriceTable(){
+    // need to update language before
+    getLanguage();
+    $("#total-price-table").text(get_string('vars', 'total-price-table-message') + calculatePriceForTable());
 }
 
 // update view with items of the tables stock
 function setAllTableItems(){
-  var table = localStorage.getItem("selectedTable");
-  var locationOfOrders = "orders";
+  var table = getCurrentTable();
   var item;
   var articleno;
   var length = getNumOfOrders(table);
+  var onHouse;
 
   if(length >= 0){
      for(i = 0; i < length; ++i){
        articleno = getOrderByIndex(table,i);
        item = itemDetails(articleno);
        // TODO: set if it is on the house or not
-       setItem(articleno, locationOfOrders, item.name, item.info, item.stats);
+       setItem(table, articleno, item.name, item.info, item.stats);
 
+       onHouse = getOrderOnHouseStatus(table, articleno);
+       if(onHouse){
+         $("#not-on-house-"+table+"-"+articleno).fadeIn(0);
+         $("#on-house-"+table+"-"+articleno).fadeOut(0);
+       }
+       else if(!onHouse){
+         $("#on-house-"+table+"-"+articleno).fadeIn(0);
+         $("#not-on-house-"+table+"-"+articleno).fadeOut(0);
+       }
      }
   }
   else{
@@ -288,6 +333,7 @@ function update_view_staff(){
 
     setStaff(modeHtmlId+staff);
     setAllTableItems();
+    setTotalPriceTable();
 
     for(i = 0; i < getNumTables(); i++){
         tableNr++;
@@ -303,7 +349,6 @@ function init_staff(){
   update_view_staff();
   setDefaultSelectedTable();
   setCheckout();
-  $(".not-on-the-house").fadeOut(0);
 }
 
 // =====================================================================================================
