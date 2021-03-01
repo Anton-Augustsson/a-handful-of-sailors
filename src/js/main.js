@@ -79,6 +79,7 @@ function showMode(modeid){
 
 function init(){
     // we need to update all views or we
+    getLanguage();
     init_staff();
 
     if(getMode()==null){

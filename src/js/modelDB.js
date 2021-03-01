@@ -38,7 +38,7 @@ function itemDetails(artikelid){
 // get the prise of an item inorder to calculate the cost
 function getItemPrice(artikelid){
     var index = getItemIndexDBBeverages(artikelid);
-    return DB2.spirits[index].prisinklmoms;
+    return parseInt(DB2.spirits[index].prisinklmoms);
 }
 
 // =====================================================================================================
@@ -65,6 +65,17 @@ function getTableidIndex(tableid){
         }
     }
     throw "Tableid dosen't exist";    // throw a text
+}
+
+function getOrderdIndex(tableid, articleno){
+    var table = getTableByID(tableid);
+    var length = table.orders.length;
+    for(i=0; i < length; ++i){
+        if(table.orders[i].articleno == articleno){
+            return i;
+        }
+    }
+    throw "Orderid dosen't exist";    // throw a text
 }
 
 function initDBTable(){
@@ -120,6 +131,12 @@ function getNumOfOrders(tableid){
     else{
         return orders.length;
     }
+}
+
+function getOrderOnHouseStatus(tableid, articleno){
+    var it = getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleno);
+    return DBTable.tables[it].orders[io].onHouse;
 }
 
 // =====================================================================================================
@@ -247,6 +264,14 @@ function removeTable(tableid){
     update_model();
 }
 
+function setOnHouse(tableid, articleno, status){
+    var it = getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleno);
+    DBTable.tables[it].orders[io].onHouse = status;
+
+    update_model();
+}
+
 // =====================================================================================================
 // Model, for DB4 aka DBTable
 
@@ -337,6 +362,7 @@ function replenishStock(articleno, qty){
     else{
         throw "replenish exided item stock (replenishStock)";
     }
+    update_model_DBWarehouse();
 }
 
 // remove

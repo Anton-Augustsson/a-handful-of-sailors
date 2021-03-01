@@ -84,6 +84,17 @@ dict = {
             'on-the-house': "Lägg till huset bjuder",
             'not-on-the-house': "Ta bort huset bjuder",
         }
+    },
+
+    'vars': {
+        'keys' : ['total-price-table-message'],
+
+        'en': {
+            'total-price-table-message': "Total: ",
+        },
+        'sv' : {
+            'total-price-table-message': "Summa: ",
+        }
     }
 };
 

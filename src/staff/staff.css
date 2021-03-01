@@ -89,6 +89,13 @@ General syle for table info
   padding: 9px;
 }
 
+#total-price-table{
+  position: relative;
+  left: 300px;
+  padding: 9px;
+  background-color: var(--color-four);
+}
+
 /*
 Dropdown desplays table content when hovering over a table div
 */
