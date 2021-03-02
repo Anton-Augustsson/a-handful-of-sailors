@@ -174,7 +174,7 @@ function printAllDrinks(allDrinks) {
 		shopItem.setAttribute('draggable', 'true');
         shopItem.setAttribute('ondragover', 'onDragOver(event)');
         shopItem.setAttribute('ondragstart', 'onDragStart(event)');
-        shopItem.id = articleId;
+        shopItem.className += " " + articleId;
 		
 		
         var shopItemContents = `
@@ -235,7 +235,7 @@ function clickItemForMoreInfo(event) {
 
 
 function onDragStart(event) {
-    event.dataTransfer.setData('text', event.target.id);
+    event.dataTransfer.setData('text', event.target.className.replace('shop-item ', ''));
 }
 
 function onDragOver(event) {
@@ -246,28 +246,30 @@ function onDrop(event) {
 
     const id = event.dataTransfer.getData('text');
 
-    const draggableElement = document.getElementById(id);
+    const draggableElement = document.getElementsByClassName(id)[0];
 
     var title = draggableElement.getElementsByClassName('shop-item-title')[0].innerText
     var price = draggableElement.getElementsByClassName('shop-item-price')[0].innerText
 
-    addItemToCart(title, price);
+    addItemToCart(title, price, id);
     updateCartTotal();
 }
 
 
-function addToCartClicked(event) {
+/*function addToCartClicked(event) {
     var button = event.target
     var shopItem = button.parentElement.parentElement
     var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
     var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText
-    addItemToCart(title,price)
-    updateCartTotal()
-}
+    var artikelid = shopItem.parentElement.id;
+    addItemToCart(title,price, artikelid);
+    updateCartTotal();
+}*/
 
-function addItemToCart(title, price) {
+function addItemToCart(title, price, artikelid) {
     var cartRow = document.createElement('div')
     cartRow.classList.add('cart-row')
+    cartRow.setAttribute("id", artikelid);
     var cartItems = document.getElementsByClassName('cart-items')[0]
     var cartItemNames = cartItems.getElementsByClassName('cart-item-title')
     for (var i = 0; i < cartItemNames.length; i++) {
@@ -293,6 +295,9 @@ function addItemToCart(title, price) {
 }
 function quantityChanged(event) {
     var input = event.target
+
+    console.log(event.target);
+
     if (isNaN(input.value) || input.value <= 0) {
         input.value = 1
     }

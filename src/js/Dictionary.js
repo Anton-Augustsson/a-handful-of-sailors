@@ -16,7 +16,7 @@
 // How to do this with more than two languages, is left as an
 // exercise.
 //
-var language;
+var language = 'en';
 
 
 // ==========================================================================
@@ -28,7 +28,34 @@ dict = {
     // the id and the key has the same name.
     'id': {
         'keys' : ['selected-language', 'undo','redo', 'add', 'checkout',
-                  'login', 'settings', 'logout'],       // keys for strings
+                  'login', 'settings', 'logout', 'login_header', 'login_continue_button',
+                  'close_login_window', 'menu_categories', 'menu_beer', 'menu_wine', 'menu_drinks',
+                  'without_gluten_text', 'without_lactose_text', 'without_nuts_text'],       // keys for strings
+
+
+        /*LÄGG TILL
+
+        Producer / tillverkare
+        Country  / land
+        Type     / typ
+        Alcohol  / Alkoholhalt
+        Size     / Storlek
+
+
+
+        ADD TO CART / LÄGG TILL KUNDVAGN
+
+        CART / KUNDVAGN
+
+        ITEM     / VARA
+        PRICE    / PRIS
+        QUANTITY / Antal
+        Total    / Totalt
+        Order    / Beställ
+
+         */
+
+
 
         // We use one JSON substructure for each language. If we have
         // many different languages and a large set of strings we might
@@ -36,7 +63,7 @@ dict = {
         // request.
         //
         'en': {
-            'selected-language': "English",
+            'selected-language': 'English',
             'undo': "Undo",
             'redo': "Redo",
             'add': "Add",
@@ -44,16 +71,36 @@ dict = {
             'login': "Login",
             'settings': "Settings",
             'logout': "Logout",
+            'login_header': 'Login',
+            'login_continue_button': 'Continue',
+            'close_login_window': 'close',
+            'menu_beer' : 'Beer',
+            'menu_wine' : 'Wine',
+            'menu_drinks' : 'Drinks',
+            'menu_categories': 'Categories',
+            'without_gluten_text': 'Without Gluten',
+            'without_lactose_text': 'Without Lactose',
+            'without_nuts_text': 'Without Nuts',
         },
         'sv' : {
-            'selected-language': "Svenska",
-            'undo': "Ångra",
-            'redo': "Åter gör",
-            'add': "Lägg till",
-            'checkout': "Checka ut",
-            'login': "Logga in",
-            'settings': "Inställningar",
-            'logout': "Logga ut",
+            'selected-language': 'Svenska',
+            'undo': 'Ångra',
+            'redo': 'Åter gör',
+            'add': 'Lägg till',
+            'checkout': 'Checka ut',
+            'login': 'Logga in',
+            'settings': 'Inställningar',
+            'logout': 'Logga ut',
+            'login_header': 'Logga in',
+            'login_continue_button': 'Fortsätt',
+            'close_login_window': 'stäng',
+            'menu_beer' : 'Öl',
+            'menu_wine' : 'Vin',
+            'menu_drinks' : 'Drinkar',
+            'menu_categories': 'Kategorier',
+            'without_gluten_text': 'Utan Gluten',
+            'without_lactose_text': 'Utan Laktos',
+            'without_nuts_text': 'Utan Nötter',
         }
     },
 
@@ -67,6 +114,20 @@ dict = {
         },
         'sv': {
             'test': "svergie text",
+        }
+    },
+
+
+    'attr': {
+        'keys' : ['username_input_field', 'password_input_field'],
+
+        'en': {
+            'username_input_field': ['placeholder', 'Username'],
+            'password_input_field': ['placeholder', 'Password'],
+        },
+        'sv': {
+            'username_input_field': ['placeholder', 'Användarnamn'],
+            'password_input_field': ['placeholder', 'Lösenord'],
         }
     }
 };
@@ -134,7 +195,21 @@ function update_view_dictionary() {
         console.log(key);
         $("." + key).text(get_string('cl', key));
     }
+
+
+    // For Attributes
+    keys_attr = dict.attr['keys'];
+    for (idx in keys_attr) {
+        key = keys_attr[idx];
+
+        input = get_string('attr', key);
+
+        $('#' + key).attr(input[0],input[1]);
+    }
+
+
 }
+
 
 $(document).ready(function() {
     getLanguage();
