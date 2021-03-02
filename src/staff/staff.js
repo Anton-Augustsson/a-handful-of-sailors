@@ -144,11 +144,12 @@ function clickTable(tableid) {
 // checkout all items and update the database
 function finishPayment(){
   //TODO: update model
-  changeItemQty(articleno, qty)
+  //changeItemQty(articleno, qty);
+  //checkoutTable(getCurrentTable());
+  doit(finishPaymentUD());
   alert ("Checkout success!");
   update_view();
 }
-
 // update the database and view with new quantity value
 function changeItemQty(articleno, qty){
   replenishStock(articleno, qty);
@@ -178,6 +179,115 @@ function notifySecurity(){
 
 function removeItemOrder(tableid, articleno){
   console.log("remove");
+  console.log(tableid);
+  console.log(articleno);
+  doit(removeItemOrderUD(tableid, articleno));
+}
+
+// =====================================================================================================
+// Undo redo functions
+
+function removeItemOrderUD(tableid, articleno){
+    var temp = {
+        oldDB: JSON.stringify(getDBTable()),
+        newDB: null, // dummy value will be updated in execute
+
+        execute: function (){
+            removeOrder(tableid, articleno);
+            this.newDB = JSON.stringify(getDBTable());
+            update_view_staff();
+        },
+        unexecute: function (){
+            setDBTable(JSON.parse(this.oldDB));
+            update_view_staff();
+        },
+        reexecute: function () {
+            setDBTable(JSON.parse(this.newDB));
+            update_view_staff();
+        },
+    };
+    return temp;
+}
+
+function finishPaymentUD(){
+   var temp = {
+        oldDB: JSON.stringify(getDBTable()),
+        newDB: null, // dummy value will be updated in execute
+
+        execute: function (){
+            checkoutTable(getCurrentTable());
+            this.newDB = JSON.stringify(getDBTable());
+            update_view_staff();
+        },
+        unexecute: function (){
+            setDBTable(JSON.parse(this.oldDB));
+            update_view_staff();
+        },
+        reexecute: function () {
+            setDBTable(JSON.parse(this.newDB));
+            update_view_staff();
+        },
+    };
+    return temp;
+}
+
+
+// We need to evaluate DBTable therfore we use JSON.stringify if you remove it the oldDB will be
+// the new DB
+function addTableUD() {
+    var temp = {
+        oldDB: JSON.stringify(getDBTable()),
+        newDB: null, // dummy value will be updated in execute
+        oldTableNr: tableNr,
+        newTableNr: null, //nummy value will be updated in execute
+
+        execute: function (){
+            var tableid = newTable();
+            tableNr = tableNr + 1;
+            this.newDB = JSON.stringify(getDBTable());
+            this.newTableNr = tableNr;
+            update_view_staff();
+        },
+        unexecute: function (){
+            tableNr = this.oldTableNr;
+            setDBTable(JSON.parse(this.oldDB));
+            update_view_staff();
+        },
+        reexecute: function () {
+            tableNr = this.newTableNr;
+            setDBTable(JSON.parse(this.newDB));
+            update_view_staff();
+        },
+    };
+    return temp;
+}
+
+function removeTableWindowUD(tableid) {
+    var temp = {
+        oldDB: JSON.stringify(getDBTable()),
+        newDB: null, // dummy value will be updated in execute
+        oldTableNr: tableNr,
+        newTableNr: null, //nummy value will be updated in execute
+
+        execute: function (){
+            removeTable(tableid);
+            setDefaultSelectedTable();
+            this.newDB = JSON.stringify(getDBTable());
+            this.newTableNr = tableNr;
+            update_view_staff();
+        },
+        unexecute: function (){
+            tableNr = this.oldTableNr;
+            setDBTable(JSON.parse(this.oldDB));
+            update_view_staff();
+        },
+        reexecute: function () {
+            tableNr = this.newTableNr;
+            setDBTable(JSON.parse(this.newDB));
+            update_view_staff();
+        },
+    };
+    return temp;
 }
 
 // =====================================================================================================
@@ -268,64 +378,6 @@ function setCheckout(){
     }
   };
 
-}
-
-// We need to evaluate DBTable therfore we use JSON.stringify if you remove it the oldDB will be
-// the new DB
-function addTableUD() {
-    var temp = {
-        oldDB: JSON.stringify(getDBTable()),
-        newDB: null, // dummy value will be updated in execute
-        oldTableNr: tableNr,
-        newTableNr: null, //nummy value will be updated in execute
-
-        execute: function (){
-            var tableid = newTable();
-            tableNr = tableNr + 1;
-            this.newDB = JSON.stringify(getDBTable());
-            this.newTableNr = tableNr;
-            update_view_staff();
-        },
-        unexecute: function (){
-            tableNr = this.oldTableNr;
-            setDBTable(JSON.parse(this.oldDB));
-            update_view_staff();
-        },
-        reexecute: function () {
-            tableNr = this.newTableNr;
-            setDBTable(JSON.parse(this.newDB));
-            update_view_staff();
-        },
-    };
-    return temp;
-}
-
-function removeTableWindowUD(tableid) {
-    var temp = {
-        oldDB: JSON.stringify(getDBTable()),
-        newDB: null, // dummy value will be updated in execute
-        oldTableNr: tableNr,
-        newTableNr: null, //nummy value will be updated in execute
-
-        execute: function (){
-            removeTable(tableid);
-            setDefaultSelectedTable();
-            this.newDB = JSON.stringify(getDBTable());
-            this.newTableNr = tableNr;
-            update_view_staff();
-        },
-        unexecute: function (){
-            tableNr = this.oldTableNr;
-            setDBTable(JSON.parse(this.oldDB));
-            update_view_staff();
-        },
-        reexecute: function () {
-            tableNr = this.newTableNr;
-            setDBTable(JSON.parse(this.newDB));
-            update_view_staff();
-        },
-    };
-    return temp;
 }
 
 function update_view_staff(){
