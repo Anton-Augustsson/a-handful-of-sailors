@@ -139,6 +139,12 @@ function getOrderOnHouseStatus(tableid, articleno){
     return DBTable.tables[it].orders[io].onHouse;
 }
 
+function getOrderQty(tableid, articleno){
+    var it = getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleno);
+    return DBTable.tables[it].orders[io].qty;
+}
+
 // =====================================================================================================
 // Interface update database
 
@@ -222,6 +228,13 @@ function replenishOrder(tableid, articleid, qty){
         }
     }
     throw "articleno dosent exist (replenishOrder)";
+}
+
+function setOrderQty(tableid, articleid, qty){
+    var ti =  getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleid);
+    DBTable.tables[ti].orders[io].qty = qty;
+    update_model();
 }
 
 // remove order regardless of quantaty
