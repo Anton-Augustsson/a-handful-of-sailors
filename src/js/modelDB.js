@@ -214,7 +214,7 @@ function replenishOrder(tableid, articleid, qty){
                 DBTable.tables[getTableidIndex(tableid)].orders[i].qty += qty;
 
                 update_model();
-                break;
+                return;
             }
             else{
                 throw "replenish exided order (replenishOrder)";
@@ -227,13 +227,13 @@ function replenishOrder(tableid, articleid, qty){
 // remove order regardless of quantaty
 //
 function removeOrder(tableid, articleid){
-    var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
+    var ti = getTableidIndex(tableid);
+    var length = DBTable.tables[ti].orders.length;
     for(i=0; i < length; ++i){
-        if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid){
-            DBTable.tables[getTableidIndex(tableid)].orders.splice(i,1);
-
+        if(DBTable.tables[ti].orders[i].articleno == articleid){
+            DBTable.tables[ti].orders.splice(i,1);
             update_model();
-            break;
+            return;
         }
     }
     throw "articleno dosent exist (removeOrder)";
@@ -243,14 +243,20 @@ function removeOrder(tableid, articleid){
 // update quantaty in database
 //
 function checkoutTable(tableid){
-    var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
+    var ti = getTableidIndex(tableid);
+    var length = DBTable.tables[ti].orders.length;
+    var articleno;
+    var order;
+
     for(i=0; i < length; ++i){
-        articleno = DBTable.tables[getTableidIndex(tableid)].orders[0].articleno;
-        qty = DBTable.tables[getTableidIndex(tableid)].orders[0].qty;
-        updateDB(articleno, qty);
-        DBTable.tables[getTableidIndex(tableid)].orders.splice(0,1);
+        order = DBTable.tables[ti].orders[0];
+        articleno = order.articleno;
+        qty = order.qty;
+        replenishStock(articleno, -qty);
+        DBTable.tables[ti].orders.splice(0,1);
     }
 
+    // set warehouse to null
     update_model();
 }
 
