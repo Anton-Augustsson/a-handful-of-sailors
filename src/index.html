@@ -19,13 +19,6 @@
     <script type="text/javascript" src="js/header-footer.js"></script>
     <script type="text/javascript" src="js/modelDB.js"></script>
     <script type="text/javascript" src="js/UNDOmanager.js"></script>
-    <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="js/Dictionary.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="css/color-scheme.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <script type="text/javascript" src="js/Dictionary.js"></script>
-    <script type="text/javascript" src="js/UNDOmanager.js"></script>
 
     <!-- Color scheme that is used for all css files -->
     <link rel="stylesheet" type="text/css" href="css/color-scheme.css">
@@ -35,7 +28,6 @@
 
     <!-- The main files spesific for index.html -->
     <script type="text/javascript" src="js/main.js"></script>
-    <script type="text/javascript" src="table_window/table_window.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
     <!-- Customer/VIP functions and styling -->
@@ -46,11 +38,14 @@
 
     <!-- Manager functions and styling -->
 
+    <!-- Login -->
+    <script type="text/javascript" src="login/login.js"></script>
+    <link rel="stylesheet" href="login/login.css">
 
 </head>
 
 <body>
-
+  <input type="checkbox" id="showButtonCheckbox">
   <header id="header"></header>
 
   <div id="content">
@@ -60,6 +55,7 @@
       <div class="mode" id="mode4">manager</div>
   </div>
 
+  <div class="loginContainer"></div>
 </body>
 
 </html>

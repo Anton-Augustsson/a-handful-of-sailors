@@ -16,6 +16,45 @@ var employee = "../table_window/table_window.html";
 var manager = "../management/inventory.html";
 
 // =====================================================================================================
+// Login popup
+
+function createLogin(){
+  return `
+    <label id="close_login_window" for="showButtonCheckbox" class="close-btn fas fa-times" title="close"> </label>
+    <form class="form" id="loginForm">
+        <h1 class="form__title" id="login_header"></h1>
+        <div class="custom-select">
+            <select id="mode">
+                <option value="0">Select login:</option>
+                <option value="1">VIP</option>
+                <option value="2">Manager</option>
+                <option value="3">Employee</option>
+            </select>
+        </div>
+        <div class="form__message form__message--error"></div>
+        <div class="form__input-group">
+            <input id="username_input_field" type="text" class="form__input" autofocus>
+            <div class="form__input-error-message"></div>
+        </div>
+        <div class="form__input-group">
+            <input id="password_input_field" type="password" class="form__input" autofocus>
+            <div class="form__input-error-message"></div>
+        </div>
+        <button id="login_continue_button" class="form__button" type="submit"></button>
+        <p class="form__text">
+            <a href="#" class="form__link">Forgot your password?</a>
+        </p>
+        <p class="form__text">
+            <a class="form__link" href="./" id="linkCreateAccount">Don't have an account? Create account</a>
+        </p>
+    </form>`;
+}
+
+function setLogin(){
+  $(".loginContainer").html(createLogin());
+}
+
+// =====================================================================================================
 // Message output functions
 
 function setFormMessage(formElement, type, message) {
@@ -185,6 +224,12 @@ function closeAllSelect(elmnt) {
 /* If the user clicks anywhere outside the select box,
 then close all select boxes: */
 document.addEventListener("click", closeAllSelect);
+
+$('document').ready(function() {
+  setLogin();
+});
+
+
 
 // =====================================================================================================
 // =====================================================================================================
