@@ -143,7 +143,7 @@ dict = {
         'sv': {
             'username_input_field': ['placeholder', 'Användarnamn'],
             'password_input_field': ['placeholder', 'Lösenord'],
-        }
+        },
     },
 
     'vars': {
@@ -156,6 +156,7 @@ dict = {
             'total-price-table-message': "Summa: ",
         }
     }
+
 };
 
 // ==========================================================================
@@ -235,11 +236,6 @@ function update_view_dictionary() {
 
 
 }
-
-$(document).ready(function() {
-    getLanguage();
-    update_view_dictionary();
-});
 
 // ==========================================================================
 // END OF FILE
