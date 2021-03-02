@@ -15,7 +15,7 @@ var tableNr = 0;
 // Helper functions
 
 // create new item with its content
-function createItem(tableid, articleno, name, info, stats){
+function createItem(tableid, articleno, name, info, stats, qty){
   var newItem = `
         <div class="item">
             <div class="item-general">
@@ -27,7 +27,7 @@ function createItem(tableid, articleno, name, info, stats){
                 <button class="on-the-house" id="on-house-${tableid}-${articleno}" onclick=onHouse(${tableid},${articleno})></button>
                 <button class="not-on-the-house" id="not-on-house-${tableid}-${articleno}" onclick=notOnHouse(${tableid},${articleno})></button>
                 <forum>
-                  <input type="number" id="quantity" name="quantity" min="1" max="100" value="1">
+                  <input type="number" id="quantity-${tableid}-${articleno}" name="quantity" min="1" max="100" value="${qty}" onchange=updateTableOrderQty(${tableid},${articleno})>
                 </forum>
                 <button class="remove-item-order" id="remove-item-${tableid}-${articleno}" onclick=removeItemOrder(${tableid},${articleno})>remove</button>
             </div>
@@ -44,10 +44,6 @@ function createTable(tableNr) {
           <p class="table-text" onclick=clickTable(${tableNr})>Table ${tableNr}</p>
           <button class="remove-table" onclick=removeTableWindow(${tableNr})>-</button>
         </span>
-        <div class="dropdown">
-          <p>Antal personer: 3</p>
-          <p>Pris: 500kr</p>
-        </div>
       </div> `;
     return newTable;
 }
@@ -113,7 +109,7 @@ function calculatePriceForTable() {
     articleno = getOrderByIndex(table,i);
     onHouse = getOrderOnHouseStatus(table, articleno);
     if(!onHouse){
-      sum += getItemPrice(articleno);
+      sum += getItemPrice(articleno)*getOrderQty(table,articleno);
     }
   }
 
@@ -182,6 +178,13 @@ function removeItemOrder(tableid, articleno){
   console.log(tableid);
   console.log(articleno);
   doit(removeItemOrderUD(tableid, articleno));
+}
+
+function updateTableOrderQty(tableid, articleno){
+  console.log("Update qty");
+  var value = $("#quantity-"+tableid+"-"+articleno).val();
+  setOrderQty(tableid, articleno, value);
+  update_view_staff();
 }
 
 // =====================================================================================================
@@ -303,8 +306,8 @@ function setStaff(id){
 }
 
 // inserts new item in view
-function setItem(table, articleno, name, info, stats){
-  $("#orders").append(createItem(table, articleno, name, info, stats));
+function setItem(table, articleno, name, info, stats, qty){
+  $("#orders").append(createItem(table, articleno, name, info, stats, qty));
 }
 
 function setTotalPriceTable(){
@@ -320,13 +323,15 @@ function setAllTableItems(){
   var articleno;
   var length = getNumOfOrders(table);
   var onHouse;
+  var qty;
 
   if(length >= 0){
      for(i = 0; i < length; ++i){
        articleno = getOrderByIndex(table,i);
        item = itemDetails(articleno);
        // TODO: set if it is on the house or not
-       setItem(table, articleno, item.name, item.info, item.stats);
+       qty = getOrderQty(table, articleno);
+       setItem(table, articleno, item.name, item.info, item.stats, qty);
 
        onHouse = getOrderOnHouseStatus(table, articleno);
        if(onHouse){
