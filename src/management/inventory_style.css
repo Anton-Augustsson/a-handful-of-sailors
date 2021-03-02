@@ -1,33 +1,46 @@
-html{
-    background-color: #f4f2f3;
-    /*background-color: #c0a9bd;*/
+@import "../css/color-scheme.css";
+
+
+.container {
+    width: 100%;
 }
 
-body{
-    background-color: #c0a9bd;
-    margin: 10px;
-    padding: 10px;
-}
-
-.menu{
-    background-color: #94a7ae;
-    margin: 10px;
-    padding: 9px;
-    border: 6px solid #f4f2f3;
-}
-
-.inventory{
-    background-color: #64766a;
+.beverages{
+    background-color: var(--color-three);
     margin: 10px;
     top: 2px;
-    padding: 30px;
-    border: 6px solid #f4f2f3;
+    padding: 15px;
+    border: 6px solid var(--color-four);
+    width: 32%;
+    float: left;
+    box-sizing: border-box;
 }
 
-.spririts{
-    background-color: #c0a9bd;
-    /* border-color: #f4f2f3;*/
-    padding: 20px;
-    border: 3px solid #64766a;
+.spirits{
+    background-color: var(--color-three);
+    padding: 10px;
+    border: 3px solid var(--color-four);
     opacity: 1;
+}
+
+.cart {
+    width: 32%;
+    margin: 10px;
+    top: 2px;
+    background-color: var(--color-three);
+    padding: 15px;
+    border: 6px solid var(--color-four);
+    float: left;
+    box-sizing: border-box;
+}
+
+.beveragesInformation {
+    width: 32%;
+    margin: 10px;
+    top: 2px;
+    padding: 15px;
+    border: 6px solid var(--color-four);
+    background-color: var(--color-three);
+    float: left;
+    box-sizing: border-box;
 }
