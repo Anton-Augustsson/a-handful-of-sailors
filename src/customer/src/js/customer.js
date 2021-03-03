@@ -17,7 +17,7 @@ $('document').ready(function() {
         button.addEventListener('click', addToCartClicked)
     }
 
-    document.getElementsByClassName('btn-purchase')[0].addEventListener('click', orderInit)
+    document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order)
 
     getBeers();
 });
@@ -149,12 +149,27 @@ function clearItems(){
 
 
 function order() {
-    alert("Thank you for ordering!")
-    var cartItems = document.getElementsByClassName('cart-items')[0]
-    while (cartItems.hasChildNodes()) {
-        cartItems.removeChild(cartItems.firstChild)
+
+    var cartItems = document.getElementsByClassName('cart-items')[0];
+    var cartItemArticleNrs = cartItems.getElementsByClassName('cart-row');
+    var cartItemQuantities = cartItems.getElementsByClassName('cart-quantity-input');
+
+    for (let i = 0; i < cartItemArticleNrs.length; i++) {
+        var artikelid = cartItemArticleNrs[i].id;
+        var quantity = cartItemQuantities[i].value;
+        console.log(quantity);
+        newOrder(1, artikelid, quantity);
     }
-    updateCartTotal()
+
+    clearCart();
+    updateCartTotal();
+
+    currentCart = {};
+
+    undostack = [];
+    redostack = [];
+
+    alert("Thank you for ordering!")
 }
 
 function printAllDrinks(allDrinks) {
