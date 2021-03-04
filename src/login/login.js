@@ -48,35 +48,35 @@ document.addEventListener("DOMContentLoaded", () => {
         loginForm.classList.add("form--hidden");
         createAccountForm.classList.remove("form--hidden");
     });
-
+/*
     document.querySelector("#linkLogin").addEventListener("click", e => {
         e.preventDefault();
         loginForm.classList.remove("form--hidden");
         createAccountForm.classList.add("form--hidden");
     });
-
+*/
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
 
         // Perform your AJAX/Fetch login
         var user = document.getElementById("user").value;
         var password = document.getElementById("password").value;
-        var mode = document.getElementById("mode").value;
+        var customSelectMode = document.getElementById("custom-select-mode").value;
 
         localStorage.setItem("username", user);
 
         // VIP
-        if(user=="u" && password=="p" && mode==1){
+        if(user=="u" && password=="p" && customSelectMode==1){
           window.location.href =  vip;
         }
 
         // Manager
-        else if (user=="u" && password=="p" && mode==2){
+        else if (user=="u" && password=="p" && customSelectMode==2){
           window.location.href =  manager;
         }
 
         // Employee
-        else if (user=="u" && password=="p" && mode==3){
+        else if (user=="u" && password=="p" && customSelectMode==3){
           window.location.href =  employee; // "../index.html";
         }
 

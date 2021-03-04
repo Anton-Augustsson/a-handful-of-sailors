@@ -81,7 +81,6 @@ function init(){
     // we need to update all views or we
     getLanguage();
     init_staff();
-    setLogin();
 
     if(getMode()==null){
         setMode(defaultMode);

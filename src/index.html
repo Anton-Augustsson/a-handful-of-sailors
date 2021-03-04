@@ -39,7 +39,8 @@
     <!-- Manager functions and styling -->
 
     <!-- Login -->
-    <script type="text/javascript" src="login/login.js"></script>
+    <!-- async is nessesary otherwise the mode menue will not show -->
+    <script type="text/javascript" src="login/login.js" async></script>
     <link rel="stylesheet" href="login/login.css">
 
 </head>
@@ -60,7 +61,7 @@
     <form class="form" id="loginForm">
         <h1 class="form__title" id="login_header"></h1>
         <div class="custom-select">
-            <select id="mode">
+            <select id="custom-select-mode">
                 <option value="0">Select login:</option>
                 <option value="1">VIP</option>
                 <option value="2">Manager</option>
