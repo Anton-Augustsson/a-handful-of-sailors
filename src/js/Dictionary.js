@@ -30,32 +30,27 @@ dict = {
         'keys' : ['selected-language', 'undo','redo', 'add', 'checkout',
                   'login', 'settings', 'logout', 'login_header', 'login_continue_button',
                   'close_login_window', 'menu_categories', 'menu_beer', 'menu_wine', 'menu_drinks',
-                  'without_gluten_text', 'without_lactose_text', 'without_nuts_text', 'addTable',
-                  'payment','logout','new-oder','payment-checkout', 'finish-payment','cancel-payment',
-                  'notify-security', 'remove-table'],    // keys for strings
+                  'without_gluten_text', 'without_lactose_text', 'without_nuts_text',
+                  'addTable', 'payment','new-oder','payment-checkout', 'finish-payment',
+                  'cancel-payment', 'notify-security', 'remove-table'],     // keys for strings
 
 
         /*LÄGG TILL
-
         Producer / tillverkare
         Country  / land
         Type     / typ
         Alcohol  / Alkoholhalt
         Size     / Storlek
-
-
-
         ADD TO CART / LÄGG TILL KUNDVAGN
-
         CART / KUNDVAGN
-
         ITEM     / VARA
         PRICE    / PRIS
         QUANTITY / Antal
         Total    / Totalt
         Order    / Beställ
-
          */
+
+
 
         // We use one JSON substructure for each language. If we have
         // many different languages and a large set of strings we might
@@ -66,8 +61,8 @@ dict = {
             'selected-language': 'English',
             'undo': "Undo",
             'redo': "Redo",
-            'addTable': "+",
-            'payment': "Payment",
+            'add': "Add",
+            'checkout': "Checkout",
             'login': "Login",
             'settings': "Settings",
             'logout': "Logout",
@@ -81,12 +76,15 @@ dict = {
             'without_gluten_text': 'Without Gluten',
             'without_lactose_text': 'Without Lactose',
             'without_nuts_text': 'Without Nuts',
+            'addTable': "+",
+            'payment': "Payment",
             'new-oder': "New order",
             'payment-checkout': "This will update stock and remove table orders",
             'finish-payment': "Confirm",
             'cancel-payment': "Cancel",
             'notify-security': "Notify security",
             'remove-table': "-",
+
         },
         'sv' : {
             'selected-language': 'Svenska',
@@ -107,7 +105,7 @@ dict = {
             'without_gluten_text': 'Utan Gluten',
             'without_lactose_text': 'Utan Laktos',
             'without_nuts_text': 'Utan Nötter',
-            'addTable': "Lägg till bord",
+            'addTable': "+",
             'payment': "Betalning",
             'new-oder': "Ny bestälning",
             'payment-checkout': "Detta kommer updatera lagret och ta bort bords orders",
@@ -126,12 +124,14 @@ dict = {
         'en': {
             'on-the-house': "Add on the house",
             'not-on-the-house': "Remove on the house",
+
         },
         'sv': {
             'on-the-house': "Lägg till huset bjuder",
             'not-on-the-house': "Ta bort huset bjuder",
         }
     },
+
 
     'attr': {
         'keys' : ['username_input_field', 'password_input_field'],
@@ -143,7 +143,7 @@ dict = {
         'sv': {
             'username_input_field': ['placeholder', 'Användarnamn'],
             'password_input_field': ['placeholder', 'Lösenord'],
-        },
+        }
     },
 
     'vars': {
@@ -156,7 +156,6 @@ dict = {
             'total-price-table-message': "Summa: ",
         }
     }
-
 };
 
 // ==========================================================================
@@ -208,7 +207,6 @@ function changeLanguage(lang){
 
 // update the view by inserting the text from the dictionary
 function update_view_dictionary() {
-    getLanguage();
     var idx;
 
     keys_id = dict.id['keys'];
@@ -220,6 +218,7 @@ function update_view_dictionary() {
     keys_cl = dict.cl['keys'];
     for (idx in keys_cl) {
         key = keys_cl[idx];
+        console.log(key);
         $("." + key).text(get_string('cl', key));
     }
 
@@ -236,6 +235,12 @@ function update_view_dictionary() {
 
 
 }
+
+
+$(document).ready(function() {
+    getLanguage();
+    update_view_dictionary();
+});
 
 // ==========================================================================
 // END OF FILE
