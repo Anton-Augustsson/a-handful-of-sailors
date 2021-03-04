@@ -8,13 +8,6 @@
 // =====================================================================================================
 // Varibles
 
-// the href for vip costomer page
-var vip = "../customer/src/customer.html";
-// the href for employee page
-var employee = "../table_window/table_window.html";
-// the href for manager page
-var manager = "../management/inventory.html";
-
 // =====================================================================================================
 // Message output functions
 
@@ -40,44 +33,38 @@ function clearInputError(inputElement) {
 // Lisens for login click
 
 document.addEventListener("DOMContentLoaded", () => {
-    const loginForm = document.querySelector("#login");
+    const loginForm = document.querySelector("#loginForm");
     const createAccountForm = document.querySelector("#createAccount");
 
-    document.querySelector("#linkCreateAccount").addEventListener("click", e => {
-        e.preventDefault();
-        loginForm.classList.add("form--hidden");
-        createAccountForm.classList.remove("form--hidden");
-    });
-/*
-    document.querySelector("#linkLogin").addEventListener("click", e => {
-        e.preventDefault();
-        loginForm.classList.remove("form--hidden");
-        createAccountForm.classList.add("form--hidden");
-    });
-*/
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
 
         // Perform your AJAX/Fetch login
-        var user = document.getElementById("user").value;
-        var password = document.getElementById("password").value;
+        var user = document.getElementById("username_input_field").value;
+        var password = document.getElementById("password_input_field").value;
         var customSelectMode = document.getElementById("custom-select-mode").value;
 
         localStorage.setItem("username", user);
 
         // VIP
         if(user=="u" && password=="p" && customSelectMode==1){
-          window.location.href =  vip;
+          console.log(vip);
+          $("#showButtonCheckbox").prop("checked", false);
+          setMode(vip);
         }
 
         // Manager
         else if (user=="u" && password=="p" && customSelectMode==2){
-          window.location.href =  manager;
+          console.log(manager);
+          $("#showButtonCheckbox").prop("checked", false);
+          setMode(manager);
         }
 
-        // Employee
+        // Staff
         else if (user=="u" && password=="p" && customSelectMode==3){
-          window.location.href =  employee; // "../index.html";
+          console.log(staff);
+          $("#showButtonCheckbox").prop("checked", false);
+          setMode(staff);
         }
 
         // Error

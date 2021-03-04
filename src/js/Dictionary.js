@@ -218,18 +218,14 @@ function update_view_dictionary() {
     keys_cl = dict.cl['keys'];
     for (idx in keys_cl) {
         key = keys_cl[idx];
-        console.log(key);
         $("." + key).text(get_string('cl', key));
     }
-
 
     // For Attributes
     keys_attr = dict.attr['keys'];
     for (idx in keys_attr) {
         key = keys_attr[idx];
-
         input = get_string('attr', key);
-
         $('#' + key).attr(input[0],input[1]);
     }
 
