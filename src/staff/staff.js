@@ -15,7 +15,7 @@ var tableNr = 0;
 // Helper functions
 
 // create new item with its content
-function createItem(tableid, articleno, name, info, stats, qty){
+function createItem(tableid, articleno, name, info, stats, qty, price){
   var newItem = `
         <div class="item">
             <div class="item-general">
@@ -26,10 +26,13 @@ function createItem(tableid, articleno, name, info, stats, qty){
             <div class="item-options">
                 <button class="on-the-house" id="on-house-${tableid}-${articleno}" onclick=onHouse(${tableid},${articleno})></button>
                 <button class="not-on-the-house" id="not-on-house-${tableid}-${articleno}" onclick=notOnHouse(${tableid},${articleno})></button>
-                <forum>
-                  <input type="number" id="quantity-${tableid}-${articleno}" name="quantity" min="1" max="100" value="${qty}" onchange=updateTableOrderQty(${tableid},${articleno})>
-                </forum>
                 <button class="remove-item-order" id="remove-item-${tableid}-${articleno}" onclick=removeItemOrder(${tableid},${articleno})>remove</button>
+                <div class="item-cost">
+                  <forum>
+                    <input type="number" id="quantity-${tableid}-${articleno}" name="quantity" min="1" max="100" value="${qty}" onchange=updateTableOrderQty(${tableid},${articleno})>
+                  </forum>
+                  <span class="item-price">Price: ${price}</span>
+                </div>
             </div>
         </div>`;
   return newItem;
@@ -306,8 +309,8 @@ function setStaff(id){
 }
 
 // inserts new item in view
-function setItem(table, articleno, name, info, stats, qty){
-  $("#orders").append(createItem(table, articleno, name, info, stats, qty));
+function setItem(table, articleno, name, info, stats, qty, price){
+  $("#orders").append(createItem(table, articleno, name, info, stats, qty, price));
 }
 
 function setTotalPriceTable(){
@@ -324,6 +327,7 @@ function setAllTableItems(){
   var length = getNumOfOrders(table);
   var onHouse;
   var qty;
+  var price;
 
   if(length >= 0){
      for(i = 0; i < length; ++i){
@@ -331,7 +335,8 @@ function setAllTableItems(){
        item = itemDetails(articleno);
        // TODO: set if it is on the house or not
        qty = getOrderQty(table, articleno);
-       setItem(table, articleno, item.name, item.info, item.stats, qty);
+       price = getItemPrice(articleno);//get(articleno);
+       setItem(table, articleno, item.name, item.info, item.stats, qty, price);
 
        onHouse = getOrderOnHouseStatus(table, articleno);
        if(onHouse){

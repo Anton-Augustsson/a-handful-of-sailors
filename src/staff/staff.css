@@ -142,6 +142,17 @@ Item spesific
   flex: 20%;
 }
 
+.item-cost{
+  position: relative;
+  left: 20px;
+  padding: 6px;
+}
+
+.item-price{
+  position: relative;
+  left: 10px;
+}
+
 /* popup checkout box */
 .modal {
   display: none; /* Hidden by default */
