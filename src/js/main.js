@@ -92,21 +92,26 @@ function init(){
 // Mode functions
 
 function customerMode(){
+    setUser("Customer");
+    setUser();
     showMode(customer);
     // TODO: update view for customer mode
 }
 
 function vipMode(){
+    setUser("VIP: " + getItemUser());
     showMode(vip);
     // TODO: update view for vip mode
 }
 
 function staffMode(){
+    setUser("Staff: " + getItemUser());
     showMode(staff);
     update_view_staff();
 }
 
 function managerMode(){
+    setUser("Manager: " + getItemUser());
     showMode(manager);
     // TODO: update view for manager mode
     //update_view_manager();
