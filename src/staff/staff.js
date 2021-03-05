@@ -68,7 +68,7 @@ function createStaff(){
         <div id="table-info">
             <div id="orders"></div>
             <div id="options-table-info">
-                <button id="new-oder" onclick=newOrder()></button>
+                <button id="new-order" onclick=newOrder()></button>
                 <button id="payment"></button>
                 <span id="total-price-table"></span>
                 <div id="modal-payment" class="modal">

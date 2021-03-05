@@ -31,7 +31,7 @@ dict = {
                   'login', 'settings', 'logout', 'login_header', 'login_continue_button',
                   'close_login_window', 'menu_categories', 'menu_beer', 'menu_wine', 'menu_drinks',
                   'without_gluten_text', 'without_lactose_text', 'without_nuts_text',
-                  'addTable', 'payment','new-oder','payment-checkout', 'finish-payment',
+                  'addTable', 'payment','new-order','payment-checkout', 'finish-payment',
                   'cancel-payment', 'notify-security', 'remove-table'],     // keys for strings
 
 
@@ -78,7 +78,7 @@ dict = {
             'without_nuts_text': 'Without Nuts',
             'addTable': "+",
             'payment': "Payment",
-            'new-oder': "New order",
+            'new-order': "New order",
             'payment-checkout': "This will update stock and remove table orders",
             'finish-payment': "Confirm",
             'cancel-payment': "Cancel",
@@ -107,7 +107,7 @@ dict = {
             'without_nuts_text': 'Utan Nötter',
             'addTable': "+",
             'payment': "Betalning",
-            'new-oder': "Ny bestälning",
+            'new-order': "Ny bestälning",
             'payment-checkout': "Detta kommer updatera lagret och ta bort bords orders",
             'finish-payment': "Bekräfta",
             'cancel-payment': "Avbryt",
@@ -228,8 +228,6 @@ function update_view_dictionary() {
         input = get_string('attr', key);
         $('#' + key).attr(input[0],input[1]);
     }
-
-
 }
 
 
