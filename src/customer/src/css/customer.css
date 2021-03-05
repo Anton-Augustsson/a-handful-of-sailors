@@ -58,7 +58,7 @@ div{
 .cart{
     background-color: var(--color-three);
     overflow: scroll;
-    width: 400px;
+    max-width: 400px;
     min-width: 350px;
 }
 
