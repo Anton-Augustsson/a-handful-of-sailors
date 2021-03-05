@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Inventory management</title>
-    <script type="text/javascript" src="../resources/db/Beverages.js"></script>
-    <script src="inventory_functions.js"></script>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="inventory_style.css">
-</head>
-<body onload="beverageList()">
-<section class="container">
+function createManager () {
+    return `
+    <section class="container">
 <div class="beverages" id="spirits">
     <button class="beveragebtn back" onclick=changeBeverageList("back")>Back</button>
     <button class="beveragebtn next" onclick=changeBeverageList("next")>Next</button>
@@ -42,5 +31,15 @@
     <button class="btn btn-primary btn-stockOrder" type="button">ORDER</button>
 </div>
 </section>
-</body>
-</html>
+    `;
+}
+
+function setManager (id) {
+    $("#"+id).html(createManager());
+
+}
+function update_view_manager() {
+
+    setManager(modeHtmlId + manager);
+    beverageList();
+}
