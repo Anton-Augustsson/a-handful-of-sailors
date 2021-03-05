@@ -4,29 +4,88 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Database Base Document</title>
+    <title>The Flying Dutchman</title>
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
 
+    <!-- Database -->
     <script type="text/javascript" src="resources/db/Beverages.js"></script>
     <script type="text/javascript" src="resources/db/DBLoaded.js"></script>
     <script type="text/javascript" src="resources/db/DBTable.js"></script>
     <script type="text/javascript" src="resources/db/DBWarehouse.js"></script>
 
+    <!-- Model -->
     <script type="text/javascript" src="js/loader.js"></script>
+    <script type="text/javascript" src="js/header-footer.js"></script>
     <script type="text/javascript" src="js/modelDB.js"></script>
+    <script type="text/javascript" src="js/UNDOmanager.js"></script>
+
+    <!-- Color scheme that is used for all css files -->
+    <link rel="stylesheet" type="text/css" href="css/color-scheme.css">
+
+    <!-- Dictionary needs to be last since everything needs to be set -->
+    <script type="text/javascript" src="js/Dictionary.js"></script>
+
+    <!-- The main files spesific for index.html -->
+    <script type="text/javascript" src="js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <!-- Customer/VIP functions and styling -->
+
+    <!-- Staff functions and styling -->
+    <script type="text/javascript" src="staff/staff.js"></script>
+    <link rel="stylesheet" type="text/css" href="staff/staff.css">
+
+    <!-- Manager functions and styling -->
+
+    <!-- Login -->
+    <!-- async is nessesary otherwise the mode menue will not show -->
+    <link rel="stylesheet" href="login/login.css">
 
 </head>
 
 <body>
+  <input type="checkbox" id="showButtonCheckbox">
+  <header id="header"></header>
 
-<!---
+  <div id="content">
+      <div class="mode" id="mode1">customer</div>
+      <div class="mode" id="mode2">vip</div>
+      <div class="mode" id="mode3">staff</div>
+      <div class="mode" id="mode4">manager</div>
+  </div>
 
-The html-file is just for loading the javascript files. If you go to the console under the "Inspect" of the popup menu,
-then you can enter javascript calls, to test the functions.
-
--->
-
+  <div class="loginContainer">
+    <label id="close_login_window" for="showButtonCheckbox" class="close-btn fas fa-times" title="close"> </label>
+    <form class="form" id="loginForm">
+        <h1 class="form__title" id="login_header"></h1>
+        <div class="custom-select">
+            <select id="custom-select-mode">
+                <option value="0">Select login:</option>
+                <option value="1">VIP</option>
+                <option value="2">Manager</option>
+                <option value="3">Employee</option>
+            </select>
+        </div>
+        <div class="form__message form__message--error"></div>
+        <div class="form__input-group">
+            <input id="username_input_field" type="text" class="form__input" autofocus>
+            <div class="form__input-error-message"></div>
+        </div>
+        <div class="form__input-group">
+            <input id="password_input_field" type="password" class="form__input" autofocus>
+            <div class="form__input-error-message"></div>
+        </div>
+        <button id="login_continue_button" class="form__button" type="submit"></button>
+        <p class="form__text">
+            <a href="#" class="form__link">Forgot your password?</a>
+        </p>
+        <p class="form__text">
+            <a class="form__link" href="./" id="linkCreateAccount">Don't have an account? Create account</a>
+        </p>
+    </form>
+  </div>
+  <script type="text/javascript" src="login/login.js"></script>
 </body>
 
 </html>
-

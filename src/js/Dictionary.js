@@ -30,29 +30,24 @@ dict = {
         'keys' : ['selected-language', 'undo','redo', 'add', 'checkout',
                   'login', 'settings', 'logout', 'login_header', 'login_continue_button',
                   'close_login_window', 'menu_categories', 'menu_beer', 'menu_wine', 'menu_drinks',
-                  'without_gluten_text', 'without_lactose_text', 'without_nuts_text'],       // keys for strings
+                  'without_gluten_text', 'without_lactose_text', 'without_nuts_text',
+                  'addTable', 'payment','new-order','payment-checkout', 'finish-payment',
+                  'cancel-payment', 'notify-security', 'remove-table'],     // keys for strings
 
 
         /*LÄGG TILL
-
         Producer / tillverkare
         Country  / land
         Type     / typ
         Alcohol  / Alkoholhalt
         Size     / Storlek
-
-
-
         ADD TO CART / LÄGG TILL KUNDVAGN
-
         CART / KUNDVAGN
-
         ITEM     / VARA
         PRICE    / PRIS
         QUANTITY / Antal
         Total    / Totalt
         Order    / Beställ
-
          */
 
 
@@ -81,6 +76,15 @@ dict = {
             'without_gluten_text': 'Without Gluten',
             'without_lactose_text': 'Without Lactose',
             'without_nuts_text': 'Without Nuts',
+            'addTable': "+",
+            'payment': "Payment",
+            'new-order': "New order",
+            'payment-checkout': "This will update stock and remove table orders",
+            'finish-payment': "Confirm",
+            'cancel-payment': "Cancel",
+            'notify-security': "Notify security",
+            'remove-table': "-",
+
         },
         'sv' : {
             'selected-language': 'Svenska',
@@ -101,19 +105,30 @@ dict = {
             'without_gluten_text': 'Utan Gluten',
             'without_lactose_text': 'Utan Laktos',
             'without_nuts_text': 'Utan Nötter',
+            'addTable': "+",
+            'payment': "Betalning",
+            'new-order': "Ny bestälning",
+            'payment-checkout': "Detta kommer updatera lagret och ta bort bords orders",
+            'finish-payment': "Bekräfta",
+            'cancel-payment': "Avbryt",
+            'notify-security': "Informera säkerhet",
+            'remove-table': "-",
         }
     },
 
     // The other Dictionary is class (cl) spesific dictionares make sure that each class name
     // matches the with the key. That is how it is identified.
     'cl': {
-        'keys' : ['test'],
+        'keys' : ['on-the-house','not-on-the-house'],
 
         'en': {
-            'test': "Text",
+            'on-the-house': "Add on the house",
+            'not-on-the-house': "Remove on the house",
+
         },
         'sv': {
-            'test': "svergie text",
+            'on-the-house': "Lägg till huset bjuder",
+            'not-on-the-house': "Ta bort huset bjuder",
         }
     },
 
@@ -128,6 +143,17 @@ dict = {
         'sv': {
             'username_input_field': ['placeholder', 'Användarnamn'],
             'password_input_field': ['placeholder', 'Lösenord'],
+        }
+    },
+
+    'vars': {
+        'keys' : ['total-price-table-message'],
+
+        'en': {
+            'total-price-table-message': "Total: ",
+        },
+        'sv' : {
+            'total-price-table-message': "Summa: ",
         }
     }
 };
@@ -192,22 +218,16 @@ function update_view_dictionary() {
     keys_cl = dict.cl['keys'];
     for (idx in keys_cl) {
         key = keys_cl[idx];
-        console.log(key);
         $("." + key).text(get_string('cl', key));
     }
-
 
     // For Attributes
     keys_attr = dict.attr['keys'];
     for (idx in keys_attr) {
         key = keys_attr[idx];
-
         input = get_string('attr', key);
-
         $('#' + key).attr(input[0],input[1]);
     }
-
-
 }
 
 

@@ -19,37 +19,35 @@ var logInPage = "../login/login.html";
 function createFooter(user){
   return `
     <div id="footer-options">
-    <link rel="stylesheet" type="text/css" href="../css/header-footer.css">
        <button id="settings">settings</button>
-        
-        
-        <button>Log In</button>
-        <label for="showButtonCheckbox" class="login-btn" id="logout"> Log In </label>
+        <label for="showButtonCheckbox" class="login-btn"> Log In </label>
     </div>`;
 }
 
 function createHeader(){
   return `
-    <nav>
-    <link rel="stylesheet" type="text/css" href="../css/header-footer.css">
-      <button id="undo" onclick="undoit()"> </button>
-      <button id="redo" onclick="redoit()"> </button>
+    <div id=header-content>
+      <span id=title>The Flying Dutchman</span>
+      <div id=header-buttons>
+        <button id="undo" onclick=undoit()></button>
+        <button id="redo" onclick=redoit()></button>
+        <label for="showButtonCheckbox" class="login-btn" id=login></label>
+      </div>
       <div class="lang">
         <div class="lang-menu">
-          <div class="selected-lang" id="selected-language">
-            English
+          <div class="selected-lang" id="selected-language"></div>
+            <ul>
+              <li>
+                <a href="#" class="se" onclick=swedish()>Svenska</a>
+              </li>
+              <li>
+                <a href="" class="en" onclick=english()>English</a>
+              </li>
+            </ul>
           </div>
-          <ul>
-            <li>
-              <a href="#" class="se" onclick="swedish()">Svenska</a>
-            </li>
-            <li>
-              <a href="#" class="en" onclick="english()">English</a>
-            </li>
-          </ul>
         </div>
       </div>
-    </nav>
+    </div>
   `;
 }
 
@@ -79,7 +77,7 @@ function setHeader(){
 
 // insert the header and footer when the page has loaded
 $(document).ready(function(){
-  setFooter();
+  //setFooter();
   setHeader();
 });
 

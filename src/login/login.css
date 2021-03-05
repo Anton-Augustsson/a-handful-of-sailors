@@ -202,6 +202,7 @@
 input[id="showButtonCheckbox"]{
     display: none;
 }
+
 .loginContainer{
     display: none;
     background: #fff;
@@ -215,7 +216,7 @@ input[id="showButtonCheckbox"]{
 }
 
 
-#showButtonCheckbox:checked ~ .content{
+#showButtonCheckbox:checked ~ #content{
     -webkit-filter: blur(3px);
     -moz-filter: blur(3px);
     -o-filter: blur(3px);

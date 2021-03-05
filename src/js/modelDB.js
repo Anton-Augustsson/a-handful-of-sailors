@@ -38,7 +38,7 @@ function itemDetails(artikelid){
 // get the prise of an item inorder to calculate the cost
 function getItemPrice(artikelid){
     var index = getItemIndexDBBeverages(artikelid);
-    return DB2.spirits[index].prisinklmoms;
+    return parseInt(DB2.spirits[index].prisinklmoms);
 }
 
 // =====================================================================================================
@@ -65,6 +65,17 @@ function getTableidIndex(tableid){
         }
     }
     throw "Tableid dosen't exist";    // throw a text
+}
+
+function getOrderdIndex(tableid, articleno){
+    var table = getTableByID(tableid);
+    var length = table.orders.length;
+    for(i=0; i < length; ++i){
+        if(table.orders[i].articleno == articleno){
+            return i;
+        }
+    }
+    throw "Orderid dosen't exist";    // throw a text
 }
 
 function initDBTable(){
@@ -122,6 +133,18 @@ function getNumOfOrders(tableid){
     }
 }
 
+function getOrderOnHouseStatus(tableid, articleno){
+    var it = getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleno);
+    return DBTable.tables[it].orders[io].onHouse;
+}
+
+function getOrderQty(tableid, articleno){
+    var it = getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleno);
+    return DBTable.tables[it].orders[io].qty;
+}
+
 // =====================================================================================================
 // Interface update database
 
@@ -138,6 +161,10 @@ function updateDB(articleid, qty){
 function setDBTable(UpdatedDBTable){
     DBTable = UpdatedDBTable;
     localStorage.setItem("DBTable", JSON.stringify(UpdatedDBTable));
+}
+
+function resetDBTable(){
+    setDBTable(DB3);
 }
 
 // Need to update model whenever making a change to the database
@@ -193,7 +220,7 @@ function replenishOrder(tableid, articleid, qty){
                 DBTable.tables[getTableidIndex(tableid)].orders[i].qty += qty;
 
                 update_model();
-                break;
+                return;
             }
             else{
                 throw "replenish exided order (replenishOrder)";
@@ -203,16 +230,23 @@ function replenishOrder(tableid, articleid, qty){
     throw "articleno dosent exist (replenishOrder)";
 }
 
+function setOrderQty(tableid, articleid, qty){
+    var ti =  getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleid);
+    DBTable.tables[ti].orders[io].qty = qty;
+    update_model();
+}
+
 // remove order regardless of quantaty
 //
 function removeOrder(tableid, articleid){
-    var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
+    var ti = getTableidIndex(tableid);
+    var length = DBTable.tables[ti].orders.length;
     for(i=0; i < length; ++i){
-        if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid){
-            DBTable.tables[getTableidIndex(tableid)].orders.splice(i,1);
-
+        if(DBTable.tables[ti].orders[i].articleno == articleid){
+            DBTable.tables[ti].orders.splice(i,1);
             update_model();
-            break;
+            return;
         }
     }
     throw "articleno dosent exist (removeOrder)";
@@ -222,22 +256,37 @@ function removeOrder(tableid, articleid){
 // update quantaty in database
 //
 function checkoutTable(tableid){
-    var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
+    var ti = getTableidIndex(tableid);
+    var length = DBTable.tables[ti].orders.length;
+    var articleno;
+    var order;
+
     for(i=0; i < length; ++i){
-        articleno = DBTable.tables[getTableidIndex(tableid)].orders[0].articleno;
-        qty = DBTable.tables[getTableidIndex(tableid)].orders[0].qty;
-        updateDB(articleno, qty);
-        DBTable.tables[getTableidIndex(tableid)].orders.splice(0,1);
+        order = DBTable.tables[ti].orders[0];
+        articleno = order.articleno;
+        qty = order.qty;
+        replenishStock(articleno, -qty);
+        DBTable.tables[ti].orders.splice(0,1);
     }
 
+    // set warehouse to null
     update_model();
 }
 
 // remove table from database
 //
 function removeTable(tableid){
-    checkoutTable(tableid);
-    DBTable.tables.splice(getTableidIndex(tableid),1);
+    //checkoutTable(tableid);
+    var i = getTableidIndex(tableid);
+    DBTable.tables.splice(i,1);
+
+    update_model();
+}
+
+function setOnHouse(tableid, articleno, status){
+    var it = getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleno);
+    DBTable.tables[it].orders[io].onHouse = status;
 
     update_model();
 }
@@ -332,6 +381,7 @@ function replenishStock(articleno, qty){
     else{
         throw "replenish exided item stock (replenishStock)";
     }
+    update_model_DBWarehouse();
 }
 
 // remove
