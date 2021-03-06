@@ -19,8 +19,8 @@ $('document').ready(function() {
 
     document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order)
 
-    getTablesForCustomer();
-    getBeers();
+    //getTablesForCustomer();
+    //getBeers();
 });
 
 function getTablesForCustomer() {
