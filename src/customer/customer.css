@@ -8,15 +8,21 @@
     width: 100%;
 }
 
+.customer div{
+    flex-grow: 1;
+}
+
 .menu-wrapper{
     display: flex;
     flex-direction: row;
+    flex-grow: 1;
 }
 
 .categories{
     flex-direction: column;
     background-color: var(--color-three);
-    width: 110px;
+    min-width: 200px;
+    max-width: 300px;
 }
 
 .pick-table-menu .selected-table {
@@ -103,6 +109,7 @@
 .cart{
     background-color: var(--color-three);
     overflow: scroll;
+    flex-grow: 1;
     max-width: 400px;
     min-width: 350px;
 }

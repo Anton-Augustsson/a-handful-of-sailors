@@ -72,4 +72,6 @@ function setCustomer(id) {
 
 function update_view_customer() {
     setCustomer(modeHtmlId + customer);
+    getTablesForCustomer();
+    getBeers();
 }
