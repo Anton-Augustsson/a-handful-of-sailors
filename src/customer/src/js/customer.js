@@ -19,8 +19,25 @@ $('document').ready(function() {
 
     document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order)
 
+    getTablesForCustomer();
     getBeers();
 });
+
+function getTablesForCustomer() {
+    var nrOfTables = getNumTables();
+
+    for (let i = 0; i < nrOfTables; i++) {
+        //var table = getTableByIndex(i);
+        var listElem = document.createElement('div');
+        var listElemContent = `
+        <li>
+            <a href="#" onclick="">Table ${i}</a>
+        </li>`
+        listElem.innerHTML = listElemContent;
+        var list = document.getElementsByClassName('pick-table-menu-list')[0];
+        list.append(listElem);
+    }
+}
 
 function fetchFromDb(str){
 
@@ -149,12 +166,27 @@ function clearItems(){
 
 
 function order() {
-    alert("Thank you for ordering!")
-    var cartItems = document.getElementsByClassName('cart-items')[0]
-    while (cartItems.hasChildNodes()) {
-        cartItems.removeChild(cartItems.firstChild)
+
+    var cartItems = document.getElementsByClassName('cart-items')[0];
+    var cartItemArticleNrs = cartItems.getElementsByClassName('cart-row');
+    var cartItemQuantities = cartItems.getElementsByClassName('cart-quantity-input');
+
+    for (let i = 0; i < cartItemArticleNrs.length; i++) {
+        var artikelid = cartItemArticleNrs[i].id;
+        var quantity = cartItemQuantities[i].value;
+        console.log(quantity);
+        newOrder(1, artikelid, quantity);
     }
-    updateCartTotal()
+
+    clearCart();
+    updateCartTotal();
+
+    currentCart = {};
+
+    undostack = [];
+    redostack = [];
+
+    alert("Thank you for ordering!")
 }
 
 function printAllDrinks(allDrinks) {
@@ -174,7 +206,7 @@ function printAllDrinks(allDrinks) {
 		shopItem.setAttribute('draggable', 'true');
         shopItem.setAttribute('ondragover', 'onDragOver(event)');
         shopItem.setAttribute('ondragstart', 'onDragStart(event)');
-        shopItem.className += " " + articleId;
+        shopItem.classList.add(articleId);
 		
 		
         var shopItemContents = `
@@ -243,22 +275,25 @@ function onDragOver(event) {
 }
 
 function onDrop(event) {
-
+    console.log(event);
+    console.log(event.dataTransfer);
     const id = event.dataTransfer.getData('text');
-
+    console.log(id);
     const draggableElement = document.getElementsByClassName(id)[0];
 
     var title = draggableElement.getElementsByClassName('shop-item-title')[0].innerText
     var price = draggableElement.getElementsByClassName('shop-item-price')[0].innerText
 
-    addItemToCart(title, price, id);
-    updateCartTotal();
+    doit (addToCartObj(title, price, id) );
 }
 
-
-/*function addToCartClicked(event) {
+/*
+function addToCartClicked(event) {
+    console.log(event);
     var button = event.target
+    console.log(button);
     var shopItem = button.parentElement.parentElement
+    console.log(shopItem);
     var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
     var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText
     var artikelid = shopItem.parentElement.id;
@@ -266,7 +301,10 @@ function onDrop(event) {
     updateCartTotal();
 }*/
 
-function addItemToCart(title, price, artikelid) {
+function addItemToCart(title, price, artikelid, Quantity) {
+
+
+
     var cartRow = document.createElement('div')
     cartRow.classList.add('cart-row')
     cartRow.setAttribute("id", artikelid);
@@ -285,8 +323,9 @@ function addItemToCart(title, price, artikelid) {
         </div>
         <span class="cart-price cart-column">${price}</span>
         <div class="cart-quantity cart-column">
-            <input class="cart-quantity-input" type="number" value="1">
-            <button class="remove-item-from-cart" type="button">REMOVE</button>
+            <input class="cart-quantity-input" type="number" value=${Quantity}>
+            
+            <button class="remove-item-from-cart" type="button"><i class="fa fa-trash"></i></button>
         </div>`
     cartRow.innerHTML = cartRowContents
     cartItems.append(cartRow)
@@ -294,20 +333,24 @@ function addItemToCart(title, price, artikelid) {
     cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', quantityChanged)
 }
 function quantityChanged(event) {
-    var input = event.target
 
-    console.log(event.target);
+    var input = event.target
 
     if (isNaN(input.value) || input.value <= 0) {
         input.value = 1
+        return;
     }
-    updateCartTotal()
+
+    var artikelid = input.parentElement.parentElement.id
+
+    doit (quantityChangedObj(artikelid, input.value));
 }
 
 function removeCartItem(event) {
-    var btnClicked = event.target
-    btnClicked.parentElement.parentElement.remove()
-    updateCartTotal()
+
+    var artikelid = event.target.parentElement.parentElement.id
+
+    doit (removeCartItemObj(artikelid));
 }
 
 function updateCartTotal() {
@@ -317,9 +360,12 @@ function updateCartTotal() {
     for (var i = 0; i < cartRows.length; i++) {
         var cartRow = cartRows[i]
         var priceElement = cartRow.getElementsByClassName('cart-price')[0]
+        console.log(priceElement);
         var quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0]
         var price = parseFloat(priceElement.innerText.replace('$', ''))
+        console.log(price);
         var quantity = quantityElement.value
+        console.log(quantity);
         total = total + (price * quantity)
     }
     total = Math.round(total * 100) / 100

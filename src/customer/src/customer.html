@@ -7,6 +7,7 @@
     <title>Customer</title>
 
     <link rel="stylesheet" type="text/css" href="../../css/style.css">  <!--Tror de flesta sidorna brukar vara att body är margin 0?-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/customer.css">
     <link rel="stylesheet" type="text/css" href="../../css/header-footer.css">
     <link rel="stylesheet" href="../../login/login.css">
@@ -20,6 +21,7 @@
     <script src="js/undoRedo.js" async></script>
     <script src="js/customer.js" async></script>
     <script src="../../login/login.js" async></script>
+    <script src="../../js/modelDB.js" async></script>
 </head>
 <body>
 
@@ -36,6 +38,15 @@
     <div class="customer">
         <div class="menu-wrapper">
             <div class="categories">
+                <div class="pick-table">
+                    <div class="pick-table-menu">
+                        <div class="selected-table" id="selected-table">
+                            table 1
+                        </div>
+                        <ul class="pick-table-menu-list">
+                        </ul>
+                    </div>
+                </div>
                 <p id="menu_categories"></p>
                 <div class="category" id="menu_beer" data-status="inactive" onclick="getBeers()"></div>
                 <div class="category" id="menu_wine" data-status="inactive" onclick="getWines()"></div>
@@ -84,7 +95,9 @@
         </div>
 
     </div>
+    <footer id="footer">
 
+    </footer>
 </div>
 
 <div class="loginContainer">
@@ -144,9 +157,5 @@
     </form>
     -->
 </div>
-
-<footer id="footer">
-
-</footer>
 </body>
 </html>
