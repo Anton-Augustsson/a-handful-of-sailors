@@ -19,8 +19,25 @@ $('document').ready(function() {
 
     document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order)
 
+    getTablesForCustomer();
     getBeers();
 });
+
+function getTablesForCustomer() {
+    var nrOfTables = getNumTables();
+
+    for (let i = 0; i < nrOfTables; i++) {
+        //var table = getTableByIndex(i);
+        var listElem = document.createElement('div');
+        var listElemContent = `
+        <li>
+            <a href="#" onclick="">Table ${i}</a>
+        </li>`
+        listElem.innerHTML = listElemContent;
+        var list = document.getElementsByClassName('pick-table-menu-list')[0];
+        list.append(listElem);
+    }
+}
 
 function fetchFromDb(str){
 

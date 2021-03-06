@@ -34,6 +34,69 @@ div{
 .categories{
     flex-direction: column;
     background-color: var(--color-three);
+    width: 110px;
+}
+
+.pick-table-menu .selected-table {
+    display: flex;
+    justify-content: space-between;
+    line-height: 2;
+    cursor: pointer;
+}
+
+.pick-table-menu .selected-table:before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.pick-table-menu ul {
+    margin: 0;
+    padding: 0;
+    display: none;
+    background-color: #fff;
+    border: 1px solid #f8f8f8;
+    position: absolute;
+    width: 125px;
+    border-radius: 5px;
+    box-shadow: 0px 1px 10px rgba(0,0,0,0.2);
+}
+
+
+.pick-table-menu ul li {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pick-table-menu ul li a {
+    text-decoration: none;
+    width: 125px;
+    padding: 5px 10px;
+    display: block;
+}
+
+.pick-table-menu ul li:hover {
+    background-color: #f2f2f2;
+}
+
+.pick-table-menu ul li a:before {
+    content: '';
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    margin-right: 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.pick-table-menu:hover ul {
+    display: block;
 }
 
 .category{
