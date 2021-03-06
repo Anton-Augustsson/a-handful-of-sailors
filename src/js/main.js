@@ -94,6 +94,7 @@ function init(){
 function customerMode(){
     showMode(customer);
     // TODO: update view for customer mode
+    update_view_customer();
 }
 
 function vipMode(){
