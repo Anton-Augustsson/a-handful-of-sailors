@@ -29,7 +29,7 @@ function itemDetails(artikelid){
         name: DB2.spirits[index].namn, // name on item
         info: DB2.spirits[index].leverantor, // company, year, what type
         stats: DB2.spirits[index].alkoholhalt, // alkohlhalt, flask typ, liter, pris
-        price: DB2.spirits[index].prisinklmoms;
+        price: DB2.spirits[index].prisinklmoms,
         };
     return details;
 }
