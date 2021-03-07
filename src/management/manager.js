@@ -21,14 +21,14 @@ function createManager () {
         <span class="stockOrder-price stockOrder-header stockOrder-column">PRICE</span>
         <span class="stockOrder-quantity stockOrder-header stockOrder-column">QUANTITY</span>
     </div>
-    <div class="stockOrder-items">
+    <div id="stockOrder-items">
 
     </div>
     <div class="stockOrder-total">
         <strong class="stockOrder-total-title">Total</strong>
         <span class="stockOrder-total-price">$0.00</span>
     </div>
-    <button class="btn btn-primary btn-stockOrder" type="button">ORDER</button>
+    <button class="btn btn-primary btn-stockOrder" id="purchaseInventoryOrder" onclick=makeInvOrder() type="button">ORDER</button>
 </div>
 </section>
     `;
