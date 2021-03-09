@@ -43,7 +43,7 @@ function createHeader(){
 // =====================================================================================================
 // Control
 
-function setUser(modeAndUser){
+function setUserHeader(modeAndUser){
   $("#header-username").html(modeAndUser);
 }
 
