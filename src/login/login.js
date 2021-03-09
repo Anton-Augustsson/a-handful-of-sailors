@@ -6,7 +6,15 @@
 // https://www.youtube.com/watch?v=3GsKEtBcGTk&t=2001s
 //
 // =====================================================================================================
-// Varibles
+// User interface
+
+function setItemUser(user){
+  localStorage.setItem("username", user);
+}
+
+function getItemUser(){
+  return localStorage.getItem("username");
+}
 
 // =====================================================================================================
 // Message output functions
@@ -37,42 +45,42 @@ document.addEventListener("DOMContentLoaded", () => {
     const createAccountForm = document.querySelector("#createAccount");
 
     loginForm.addEventListener("submit", e => {
-        e.preventDefault();
+      e.preventDefault();
 
-        // Perform your AJAX/Fetch login
-        var user = document.getElementById("username_input_field").value;
-        var password = document.getElementById("password_input_field").value;
-        var customSelectMode = document.getElementById("custom-select-mode").value;
+      // Perform your AJAX/Fetch login
+      var user = document.getElementById("username_input_field").value;
+      var password = document.getElementById("password_input_field").value;
+      var customSelectMode = document.getElementById("custom-select-mode").value;
 
-        localStorage.setItem("username", user);
+      setItemUser(user);
 
-        // VIP
-        if(user=="u" && password=="p" && customSelectMode==1){
-          console.log(vip);
-          $("#showButtonCheckbox").prop("checked", false);
-          setMode(vip);
-        }
+      // VIP
+      if(user=="u" && password=="p" && customSelectMode==1){
+        console.log(vip);
+        $("#showButtonCheckbox").prop("checked", false);
+        setMode(vip);
+      }
 
-        // Manager
-        else if (user=="u" && password=="p" && customSelectMode==2){
-          console.log(manager);
-          $("#showButtonCheckbox").prop("checked", false);
-          setMode(manager);
-        }
+      // Manager
+      else if (user=="u" && password=="p" && customSelectMode==2){
+        console.log(manager);
+        $("#showButtonCheckbox").prop("checked", false);
+        setMode(manager);
+      }
 
-        // Staff
-        else if (user=="u" && password=="p" && customSelectMode==3){
-          console.log(staff);
-          $("#showButtonCheckbox").prop("checked", false);
-          setMode(staff);
-        }
+      // Staff
+      else if (user=="u" && password=="p" && customSelectMode==3){
+        console.log(staff);
+        $("#showButtonCheckbox").prop("checked", false);
+        setMode(staff);
+      }
 
-        // Error
-        else{
-          setFormMessage(loginForm,
-            "error",
-            "Invalid username/password/mode combination");
-        }
+      // Error
+      else{
+        setFormMessage(loginForm,
+                       "error",
+                       "Invalid username/password/mode combination");
+      }
 
     });
 

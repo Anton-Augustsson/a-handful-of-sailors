@@ -15,7 +15,8 @@ general syle for all pages. Both for the itire html and body but also for button
 
 /*
 Main style.
- */
+*/
+
 #content{
   position: absolute;
   background-color: var(--color-one);
@@ -69,10 +70,17 @@ Header css
   font-weight: bolder;
 }
 
+#header-username{
+  position: absolute;
+  color: var(--color-four);
+  right: 180px;
+  top: 30px;
+}
+
 #header-buttons{
   position: absolute;
   width: 30vw;
-  right: 100px;
+  right: 200px;
   top: 20px;
 }
 
