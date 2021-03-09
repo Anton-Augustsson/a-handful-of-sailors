@@ -81,6 +81,7 @@ function init(){
     // we need to update all views or we
     getLanguage();
     init_staff();
+    update_view_customer();
 
     if(getMode()==null){
         setMode(defaultMode);

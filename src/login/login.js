@@ -30,6 +30,28 @@ function clearInputError(inputElement) {
 }
 
 // =====================================================================================================
+// Helper functions
+
+function showLogin(){
+  $("#login").fadeIn(0);
+  $("#logout").fadeOut(0);
+}
+
+function showLogout(){
+  $("#login").fadeOut(0);
+  $("#logout").fadeIn(0);
+}
+
+// =====================================================================================================
+// Event handeling
+
+function logout(){
+  localStorage.setItem("username", null);
+  showLogin();
+  resetMode();
+}
+
+// =====================================================================================================
 // Lisens for login click
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -50,21 +72,30 @@ document.addEventListener("DOMContentLoaded", () => {
         if(user=="u" && password=="p" && customSelectMode==1){
           console.log(vip);
           $("#showButtonCheckbox").prop("checked", false);
-          setMode(vip);
+          showLogout();
+
+          setPrimaryMode(vip);
+          goToPrimaryMode();
         }
 
         // Manager
         else if (user=="u" && password=="p" && customSelectMode==2){
           console.log(manager);
           $("#showButtonCheckbox").prop("checked", false);
-          setMode(manager);
+          showLogout();
+
+          setPrimaryMode(manager);
+          goToPrimaryMode();
         }
 
         // Staff
         else if (user=="u" && password=="p" && customSelectMode==3){
           console.log(staff);
           $("#showButtonCheckbox").prop("checked", false);
-          setMode(staff);
+          showLogout();
+
+          setPrimaryMode(staff);
+          goToPrimaryMode();
         }
 
         // Error
