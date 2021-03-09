@@ -1,23 +1,23 @@
 $('document').ready(function() {
-    var removeCartItemButtons = document.getElementsByClassName('remove-item-from-cart')
+    var removeCartItemButtons = document.getElementsByClassName('remove-item-from-cart');
     for (var i = 0; i < removeCartItemButtons.length; i++) {
-        var btn = removeCartItemButtons[i]
-        btn.addEventListener('click', removeCartItem)
+        var btn = removeCartItemButtons[i];
+        btn.addEventListener('click', removeCartItem);
     }
 
-    var quantityInputs = document.getElementsByClassName('cart-quantity-input')
+    var quantityInputs = document.getElementsByClassName('cart-quantity-input');
     for (i = 0; i < quantityInputs.length; i++) {
-        var input = quantityInputs[i]
-        input.addEventListener('change', quantityChanged)
+        var input = quantityInputs[i];
+        input.addEventListener('change', quantityChanged);
     }
 
-    var addToCartButtons = document.getElementsByClassName('shop-item-button')
+    var addToCartButtons = document.getElementsByClassName('shop-item-button');
     for (i = 0; i < addToCartButtons.length; i++) {
-        var button = addToCartButtons[i]
-        button.addEventListener('click', addToCartClicked)
+        var button = addToCartButtons[i];
+        button.addEventListener('click', addToCartClicked);
     }
 
-    document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order)
+    //document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order);
 
     //getTablesForCustomer();
     //getBeers();
@@ -57,7 +57,6 @@ function fetchFromDb(str){
 }
 
 function getBeers(event){
-
     if(document.getElementById("menu_beer").getAttribute("data-status") === "active" && event !== "filter"){
         return;
     }
@@ -66,46 +65,33 @@ function getBeers(event){
     document.getElementById("menu_wine").setAttribute("data-status", "inactive");
     document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
 
-
     var str = FiltersAsString();
-
     str = "DB2.spirits[i].varugrupp.includes('\u00c3\u2013l') " + str;
-
     var items = fetchFromDb(str);
-
     clearItems();
-
     printAllDrinks(items);
 }
 
 
 
 function getWines(event){
-
     if(document.getElementById("menu_wine").getAttribute("data-status") === "active" && event !== "filter"){
         return;
     }
-
 
     document.getElementById("menu_beer").setAttribute("data-status", "inactive");
     document.getElementById("menu_wine").setAttribute("data-status", "active");
     document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
 
-
     var str = FiltersAsString();
-
     str = "DB2.spirits[i].varugrupp.includes('vin') " + str;
-
     var items = fetchFromDb(str);
-
     clearItems();
-
     printAllDrinks(items);
 
 }
 
 function getDrinks(event){
-
     if(document.getElementById("menu_drinks").getAttribute("data-status") === "active" && event !== "filter"){
         return;
     }
@@ -116,15 +102,10 @@ function getDrinks(event){
 
 
     var str = FiltersAsString();
-
     str = "DB2.spirits[i].varugrupp.includes('Lik\u00c3\u00b6r') " + str;
-
     var items = fetchFromDb(str);
-
     clearItems();
-
     printAllDrinks(items);
-
 }
 
 function FiltersAsString(){
@@ -170,10 +151,15 @@ function order() {
     var cartItems = document.getElementsByClassName('cart-items')[0];
     var cartItemArticleNrs = cartItems.getElementsByClassName('cart-row');
     var cartItemQuantities = cartItems.getElementsByClassName('cart-quantity-input');
+    var artikelid;
+    var quantity;
 
-    for (let i = 0; i < cartItemArticleNrs.length; i++) {
-        var artikelid = cartItemArticleNrs[i].id;
-        var quantity = cartItemQuantities[i].value;
+    console.log(cartItemArticleNrs.length);
+
+    for (i = 0; i < cartItemArticleNrs.length; ++i) {
+        artikelid= cartItemArticleNrs[i].id;
+        quantity = cartItemQuantities[i].value;
+        console.log(artikelid);
         console.log(quantity);
         newOrder(1, artikelid, quantity);
     }
@@ -186,22 +172,28 @@ function order() {
     undostack = [];
     redostack = [];
 
-    alert("Thank you for ordering!")
+    console.log(getPrimaryMode());
+    setMode(3);
+//    goToPrimaryMode();
+    //alert("Thank you for ordering!");
+
+    // When done go back to primary mode if somone has called this mode then go back to that
+    // else go back to customer again
 }
 
 function printAllDrinks(allDrinks) {
 
     for (var i = 0; i < allDrinks.length; i++) {
         var drink = allDrinks[i];
-        var name = drink[0]
-        var price = drink[1]
-        var articleId = drink[2]
-        var producer = drink[3]
-        var country = drink[4]
-        var type = drink[5]
-        var strength = drink[6]
-        var size = drink[7]
-        var shopItem = document.createElement('div')
+        var name = drink[0];
+        var price = drink[1];
+        var articleId = drink[2];
+        var producer = drink[3];
+        var country = drink[4];
+        var type = drink[5];
+        var strength = drink[6];
+        var size = drink[7];
+        var shopItem = document.createElement('div');
         shopItem.classList.add('shop-item')
 		shopItem.setAttribute('draggable', 'true');
         shopItem.setAttribute('ondragover', 'onDragOver(event)');

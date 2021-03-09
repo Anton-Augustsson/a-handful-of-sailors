@@ -58,7 +58,7 @@ function createCustomer() {
                         <strong class="cart-total-title">Total</strong>
                         <span class="cart-total-price">$0.00</span>
                     </div>
-                    <button class="btn btn-primary btn-purchase" type="button">ORDER</button>
+                    <button class="btn btn-primary btn-purchase" type="button" onclick=order()>ORDER</button>
                 </div>
         
             </div>

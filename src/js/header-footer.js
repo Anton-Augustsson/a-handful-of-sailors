@@ -19,6 +19,7 @@ function createHeader(){
       <div id=header-buttons>
         <button id="undo" onclick=undoit()></button>
         <button id="redo" onclick=redoit()></button>
+        <button id="logout" onclick=logout()></button>
         <label for="showButtonCheckbox" class="login-btn" id=login></label>
       </div>
       <div class="lang">
