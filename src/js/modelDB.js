@@ -269,17 +269,20 @@ function checkoutTable(tableid){
     var length = DBTable.tables[ti].orders.length;
     var articleno;
     var order;
+    var result = [];
 
     for(i=0; i < length; ++i){
         order = DBTable.tables[ti].orders[0];
         articleno = order.articleno;
         qty = order.qty;
-        replenishStock(articleno, -qty);
+        result[result.length] = [articleno,replenishStock(articleno, -qty)];
         DBTable.tables[ti].orders.splice(0,1);
     }
 
     // set warehouse to null
     update_model();
+    console.log(result);
+    return result; // what is leaft
 }
 
 // remove table from database
@@ -386,11 +389,12 @@ function replenishStock(articleno, qty){
     if(DBWarehouse.item[itemIndex].stock > -qty){
         DBWarehouse.item[itemIndex].stock += qty;
         update_model_DBWarehouse();
+        update_model_DBWarehouse();
+        return DBWarehouse.item[itemIndex].stock; // Qty leaft
     }
     else{
         throw "replenish exided item stock (replenishStock)";
     }
-    update_model_DBWarehouse();
 }
 
 // remove
