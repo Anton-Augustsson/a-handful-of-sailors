@@ -29,7 +29,7 @@ function createItem(tableid, articleno, name, info, stats, qty, price){
                 <button class="remove-item-order" id="remove-item-${tableid}-${articleno}" onclick=removeItemOrder(${tableid},${articleno})>remove</button>
                 <div class="item-cost">
                   <forum>
-                    <input type="number" id="quantity-${tableid}-${articleno}" name="quantity" min="1" max="100" value="${qty}" onchange=updateTableOrderQty(${tableid},${articleno})>
+                    <input type="number" id="quantity-${tableid}-${articleno}" name="quantity" min="1" max="10" value="${qty}" onchange=updateTableOrderQty(${tableid},${articleno})>
                   </forum>
                   <span class="item-price">Price: ${price}</span>
                 </div>
