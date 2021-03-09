@@ -195,15 +195,25 @@ function newTable(){
 // tableid starts from 1
 //
 function newOrder(tableid, articleid, qty){
-    var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
-    var newOrderObj = {
-        "articleno": articleid,
-        "qty": qty
-    };
+    //var index = get
+    try{
+        var aricleidIndex = getDBWarehouseItemIndex(articleid);
+        var index = getTableidIndex(tableid);
 
-    DBTable.tables[getTableidIndex(tableid)].orders[length] = newOrderObj;
+        var length = DBTable.tables[index].orders.length;
 
-    update_model();
+        var newOrderObj = {
+            "articleno": articleid,
+            "onHouse": false,
+            "qty": qty
+        };
+
+        DBTable.tables[index].orders[length] = newOrderObj;
+
+        update_model();
+    } catch(error){
+        console.log("Could not add order");
+    }
 }
 
 // change the stock of an item

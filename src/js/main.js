@@ -30,6 +30,9 @@ var defaultMode = customer;
 var modeVarible = "mode";
 var primaryModeVariable = "primaryMode";
 
+// The first needs to be the default mode
+var userModeStr = ["Customer", "VIP", "Staff", "Manager"];
+
 var numOfMode = 4;
 // =====================================================================================================
 // Mode operations
@@ -46,7 +49,9 @@ function getMode(){
 }
 
 function resetMode(){
+    setPrimaryMode(defaultMode);
     setMode(defaultMode);
+    setUser();
     update_view();
 }
 
@@ -61,6 +66,18 @@ function getPrimaryMode(){
 // when preseed to checkout from customer go back to primary mode since other primary modes can call customer
 function goToPrimaryMode(){
     setMode(getPrimaryMode());
+}
+
+function setUser(){
+    // Desplay username and mode in header
+    var primaryMode = getPrimaryMode();
+    if(primaryMode > customer){
+        setUserHeader(userModeStr[primaryMode-1] + ": " + getItemUser());
+        showLogout();
+    } else {
+        setUserHeader(userModeStr[0]);
+        showLogin();
+    }
 }
 
 // =====================================================================================================
@@ -81,10 +98,14 @@ function init(){
     // we need to update all views or we
     getLanguage();
     init_staff();
+    update_view_customer();
 
     if(getMode()==null){
         setMode(defaultMode);
     }
+
+    setUser();
+
     update_view();
 }
 
@@ -92,27 +113,21 @@ function init(){
 // Mode functions
 
 function customerMode(){
-    setUser("Customer");
-    setUser();
     showMode(customer);
-    // TODO: update view for customer mode
     update_view_customer();
 }
 
 function vipMode(){
-    setUser("VIP: " + getItemUser());
     showMode(vip);
     // TODO: update view for vip mode
 }
 
 function staffMode(){
-    setUser("Staff: " + getItemUser());
     showMode(staff);
     update_view_staff();
 }
 
 function managerMode(){
-    setUser("Manager: " + getItemUser());
     showMode(manager);
     // TODO: update view for manager mode
     //update_view_manager();
