@@ -1,6 +1,9 @@
-
-
 @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+
+#options-vip{
+  position: relative;
+  left: 20px;
+}
 
 #modal-vip-balance {
   display: none; /* Hidden by default */
@@ -18,11 +21,36 @@
 
 /* Modal Content */
 #modal-content-vip-balance {
-  background-color: #fefefe;
+  position: relative;
+  background-color: var(--color-two);
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+}
+
+#flex-vip-balance {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: relative;
+  padding: 20px;
+}
+
+#vip-balance-name{
+  font-size: x-large;
+}
+
+#vip-balance-text, #vip-balance{
+  font-size: large;
+}
+
+#vip-balance-details{
+  background-color: var(--color-four);
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--color-two);
+  padding-left: 30px;
 }
 
 /* The Close Button */
