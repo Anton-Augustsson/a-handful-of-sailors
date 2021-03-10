@@ -27,12 +27,16 @@ function itemDetails(artikelid){
 
     var details = {
         name: DB2.spirits[index].namn, // name on item
+        details: DB2.spirits[index].namn2, //Details about item
         info: DB2.spirits[index].leverantor, // company, year, what type
         stats: DB2.spirits[index].alkoholhalt, // alkohlhalt, flask typ, liter, pris
+        itemKind: DB2.spirits[index].varugrupp, // kind of alcohol
+        artikelNo: artikelid,
         price: DB2.spirits[index].prisinklmoms,
         };
     return details;
 }
+
 
 // get the prise of an item inorder to calculate the cost
 function getItemPrice(artikelid){

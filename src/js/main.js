@@ -130,7 +130,7 @@ function staffMode(){
 function managerMode(){
     showMode(manager);
     // TODO: update view for manager mode
-    //update_view_manager();
+    update_view_manager();
 }
 
 // =====================================================================================================
