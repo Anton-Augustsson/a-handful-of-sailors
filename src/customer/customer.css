@@ -1,40 +1,28 @@
-@import "../../../css/color-scheme.css";
-
-html{
-    height: 100vh;
-    overflow: hidden;
-}
-body{
-}
-
-div{
-    flex-grow: 1;
-}
-
-.content{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    align-items: stretch;
-}
-
-
 .customer{
+    background-color: var(--color-one);
     display: flex;
     flex-direction: row;
     flex-grow: 8;
+    position: relative;
     height: 100%;
+    width: 100%;
+}
+
+.customer div{
+    flex-grow: 1;
 }
 
 .menu-wrapper{
     display: flex;
     flex-direction: row;
+    flex-grow: 1;
 }
 
 .categories{
     flex-direction: column;
     background-color: var(--color-three);
-    width: 110px;
+    min-width: 200px;
+    max-width: 300px;
 }
 
 .pick-table-menu .selected-table {
@@ -121,6 +109,7 @@ div{
 .cart{
     background-color: var(--color-three);
     overflow: scroll;
+    flex-grow: 1;
     max-width: 400px;
     min-width: 350px;
 }

@@ -68,7 +68,7 @@ function createStaff(){
         <div id="table-info">
             <div id="orders"></div>
             <div id="options-table-info">
-                <button id="new-order" onclick=newOrder()></button>
+                <button id="new-order" onclick=newOrderCustomer()></button>
                 <button id="payment"></button>
                 <span id="total-price-table"></span>
                 <div id="modal-payment" class="modal">
@@ -154,8 +154,9 @@ function changeItemQty(articleno, qty){
   replenishStock(articleno, qty);
 }
 
-function newOrder() {
+function newOrderCustomer() {
   console.log("newOrder");
+  setMode(customer);
   // change mode to customer
   // primary mode is set to staff
 }

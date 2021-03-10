@@ -17,7 +17,6 @@ function getItemIndexDBBeverages(artikelid){
             return i;
         }
     }
-
     throw "Artikelid dosen't exist";    // throw a text
 }
 
@@ -33,16 +32,11 @@ function itemDetails(artikelid){
         stats: DB2.spirits[index].alkoholhalt, // alkohlhalt, flask typ, liter, pris
         itemKind: DB2.spirits[index].varugrupp, // kind of alcohol
         artikelNo: artikelid,
-    };
-
+        price: DB2.spirits[index].prisinklmoms,
+        };
     return details;
 }
 
-//get the whole JSon element from DB2 with article number
-function getItemElement(artikelid){
-    var index = getItemIndexDBBeverages(artikelid);
-    return DB2.spirits[index];
-}
 
 // get the prise of an item inorder to calculate the cost
 function getItemPrice(artikelid){
@@ -205,15 +199,25 @@ function newTable(){
 // tableid starts from 1
 //
 function newOrder(tableid, articleid, qty){
-    var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
-    var newOrderObj = {
-        "articleno": articleid,
-        "qty": qty
-    };
+    //var index = get
+    try{
+        var aricleidIndex = getDBWarehouseItemIndex(articleid);
+        var index = getTableidIndex(tableid);
 
-    DBTable.tables[getTableidIndex(tableid)].orders[length] = newOrderObj;
+        var length = DBTable.tables[index].orders.length;
 
-    update_model();
+        var newOrderObj = {
+            "articleno": articleid,
+            "onHouse": false,
+            "qty": qty
+        };
+
+        DBTable.tables[index].orders[length] = newOrderObj;
+
+        update_model();
+    } catch(error){
+        console.log("Could not add order");
+    }
 }
 
 // change the stock of an item

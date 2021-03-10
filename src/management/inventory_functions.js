@@ -35,6 +35,7 @@ function beverageList(arg){
         if(arg === "all" || arg == itemInformation.itemKind || arg == undefined) {
             var stockAmount = getStock(itemInformation.artikelNo);
             var bevaregeContent = `
+
             <div class="spirits" id="${itemInformation.artikelNo}"   onclick=beverageInfo(${itemInformation.artikelNo}) >
                 <button class="btn order-iteam" type="button">ADD TO ORDER</button>
                 <span> Namn: ${itemInformation.name} <br> Detaljer: ${itemInformation.details} <br> Article Nr: ${itemInformation.artikelNo} <br> In store: ${stockAmount} <span>
@@ -64,12 +65,13 @@ function beverageList2(arg){
             <div class="spirits" id="${itemInformation.artikelNo}"   onclick=beverageInfo(${itemInformation.artikelNo}) >
                 <button class="btn order-iteam" type="button">ADD TO ORDER</button>
                 <span> Namn: ${itemInformation.name} <br> Detaljer: ${itemInformation.details} <br> Article Nr: ${itemInformation.artikelNo} <br> In store: ${stockAmount} <span>
+
             </div>`;
             var beverageElement = document.createElement('div');
             beverageElement.innerHTML = bevaregeContent;
             beveragelist.appendChild(beverageElement);
+
         }
-        lowestIndexNr = getDBWarehouseItemIndex(itemInformation.artikelNo);
     }
     lowestIndexNr = getDBWarehouseItemIndex(itemInformation.artikelNo);
     var listOfBeverages = document.getElementsByClassName("spirits");
@@ -161,6 +163,7 @@ function updatestockOrderTotal() {
         var stockOrderRow = stockOrderRows[i]
         var priceElement = stockOrderRow.getElementsByClassName('stockOrder-price')[0]
         var quantityElement = stockOrderRow.getElementsByClassName('stockOrder-quantity-input')[0]
+
         var price = parseFloat(priceElement.innerText.replace('$', ''))
         var quantity = quantityElement.value
         total = total + (price * quantity)
@@ -180,3 +183,4 @@ function makeInvOrder (){
         stockOrderItemsArtId[0].parentElement.parentElement.remove()    }
         changingKind();
 }
+

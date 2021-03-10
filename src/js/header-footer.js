@@ -7,30 +7,19 @@
  * UNDOmanager
  */
 //
-// =====================================================================================================
-// Varibles
-
-// the href for the login page
-var logInPage = "../login/login.html";
 
 // =====================================================================================================
-// Helper functions
-
-function createFooter(user){
-  return `
-    <div id="footer-options">
-       <button id="settings">settings</button>
-        <label for="showButtonCheckbox" class="login-btn"> Log In </label>
-    </div>`;
-}
+// Viewer
 
 function createHeader(){
   return `
     <div id=header-content>
       <span id=title>The Flying Dutchman</span>
+      <span id="header-username">Manager: User</span>
       <div id=header-buttons>
         <button id="undo" onclick=undoit()></button>
         <button id="redo" onclick=redoit()></button>
+        <button id="logout" onclick=logout()></button>
         <label for="showButtonCheckbox" class="login-btn" id=login></label>
       </div>
       <div class="lang">
@@ -52,21 +41,10 @@ function createHeader(){
 }
 
 // =====================================================================================================
-// Event functions
+// Control
 
-// Go to the login page
-function goToLoginPage() {
-  localStorage.setItem("username", null);
-  window.location.href = logInPage;
-}
-
-// =====================================================================================================
-// View update
-
-// insert the footer html elemnt on top of the screen
-function setFooter(){
-  /* In each file import this js file and add a empty footer at the end */
-  $("#footer").append(createFooter(localStorage.getItem("username")));
+function setUserHeader(modeAndUser){
+  $("#header-username").html(modeAndUser);
 }
 
 // there needs to exist a header_undo() and a header_redo() function in the imported page

@@ -6,7 +6,15 @@
 // https://www.youtube.com/watch?v=3GsKEtBcGTk&t=2001s
 //
 // =====================================================================================================
-// Varibles
+// User interface
+
+function setItemUser(user){
+  localStorage.setItem("username", user);
+}
+
+function getItemUser(){
+  return localStorage.getItem("username");
+}
 
 // =====================================================================================================
 // Message output functions
@@ -30,6 +38,69 @@ function clearInputError(inputElement) {
 }
 
 // =====================================================================================================
+// Helper functions
+
+function showLogin(){
+  $("#login").fadeIn(0);
+  $("#logout").fadeOut(0);
+}
+
+function showLogout(){
+  $("#login").fadeOut(0);
+  $("#logout").fadeIn(0);
+}
+
+// =====================================================================================================
+// Event handeling
+
+function logout(){
+  localStorage.setItem("username", null);
+  showLogin();
+  resetMode();
+}
+
+function login(mode, user, password){
+  localStorage.setItem("username", user);
+
+  // VIP
+  if(user=="u" && password=="p" && mode==1){
+    console.log(vip);
+    $("#showButtonCheckbox").prop("checked", false);
+
+    setPrimaryMode(vip);
+    goToPrimaryMode();
+    setUser(); // Needs to be after setPrimaryMode
+  }
+
+  // Manager
+  else if (user=="u" && password=="p" && mode==2){
+    console.log(manager);
+    $("#showButtonCheckbox").prop("checked", false);
+
+    setPrimaryMode(manager);
+    goToPrimaryMode();
+    setUser(); // Needs to be after setPrimaryMode
+  }
+
+  // Staff
+  else if (user=="u" && password=="p" && mode==3){
+    console.log(staff);
+    $("#showButtonCheckbox").prop("checked", false);
+
+    setPrimaryMode(staff);
+    goToPrimaryMode();
+    setUser(); // Needs to be after setPrimaryMode
+  }
+
+  // Error
+  else{
+    setFormMessage(loginForm,
+      "error",
+      "Invalid username/password/mode combination");
+  }
+}
+
+// =====================================================================================================
 // Lisens for login click
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -39,41 +110,12 @@ document.addEventListener("DOMContentLoaded", () => {
     loginForm.addEventListener("submit", e => {
         e.preventDefault();
 
-        // Perform your AJAX/Fetch login
-        var user = document.getElementById("username_input_field").value;
-        var password = document.getElementById("password_input_field").value;
-        var customSelectMode = document.getElementById("custom-select-mode").value;
+      // Perform your AJAX/Fetch login
+      var user = document.getElementById("username_input_field").value;
+      var password = document.getElementById("password_input_field").value;
+      var customSelectMode = document.getElementById("custom-select-mode").value;
 
-        localStorage.setItem("username", user);
-
-        // VIP
-        if(user=="u" && password=="p" && customSelectMode==1){
-          console.log(vip);
-          $("#showButtonCheckbox").prop("checked", false);
-          setMode(vip);
-        }
-
-        // Manager
-        else if (user=="u" && password=="p" && customSelectMode==2){
-          console.log(manager);
-          $("#showButtonCheckbox").prop("checked", false);
-          setMode(manager);
-        }
-
-        // Staff
-        else if (user=="u" && password=="p" && customSelectMode==3){
-          console.log(staff);
-          $("#showButtonCheckbox").prop("checked", false);
-          setMode(staff);
-        }
-
-        // Error
-        else{
-          setFormMessage(loginForm,
-            "error",
-            "Invalid username/password/mode combination");
-        }
-
+      login(customSelectMode, user, password);
     });
 
     document.querySelectorAll(".form__input").forEach(inputElement => {
