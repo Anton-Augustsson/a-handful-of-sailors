@@ -59,11 +59,12 @@ function createCustomer() {
                         <span class="cart-total-price">$0.00</span>
                     </div>
                     <button class="btn btn-primary btn-purchase" type="button" onclick=order()>ORDER</button>
+                    <div id="customer-vip"></div>
                 </div>
         
             </div>
         </div>
-    `
+    `;
 }
 
 function setCustomer(id) {
