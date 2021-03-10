@@ -482,9 +482,10 @@ function getCapitalIndex(index){
 }
 
 function changeCapitalIndex(index, qty){
+    var amount = parseInt(qty);
     var capital = DBUser.users[index].capital;
-    if(capital > -qty){
-        return DBUser.users[index].capital += qty;
+    if(capital > -amount){
+        return DBUser.users[index].capital += amount;
     }
     else {
         throw "Can not change capital, unallowed operation";
@@ -493,6 +494,20 @@ function changeCapitalIndex(index, qty){
 
 // =====================================================================================================
 // Get information functions
+
+function getUserDetails(username){
+    var index = getUserIndexUsername(username);
+
+    var details = {
+        firstName: DBUser.users[index].first_name, // name on item
+        lastName: DBUser.users[index].last_name, // name on item
+        email: DBUser.users[index].email, // name on item
+        phone: DBUser.users[index].phone, // name on item
+        capital: DBUser.users[index].capital, // name on item
+        };
+    return details;
+
+}
 
 function getCapitalUserID(user_id){
     capital = getCapitalIndex(getUserIndexUserId(user_id));
