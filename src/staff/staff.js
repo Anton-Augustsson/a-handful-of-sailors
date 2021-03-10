@@ -1,5 +1,5 @@
 // =====================================================================================================
-// Control, for table info.
+// Control, for Staff.
 // =====================================================================================================
 // Author: Anton Augustsson, 2021
 //
@@ -97,8 +97,7 @@ function setDefaultSelectedTable(){
 }
 
 function resetStaff(){
-  resetDBTable();
-  resetDBWarehouse();
+  reset();
   setDefaultSelectedTable();
 }
 

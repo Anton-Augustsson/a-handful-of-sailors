@@ -413,6 +413,126 @@ function addWarehouseItem(articleno){
 }
 
 // =====================================================================================================
+// Model, for DB5 aka DBUser
+
+// =====================================================================================================
+// varible
+
+// global varible for doing the operations for the database
+var DBUser;
+
+
+// =====================================================================================================
+// Helper functions
+
+function setDBUser(NewDBUser){
+    DBUser = NewDBUser;
+    localStorage.setItem("DBUser", JSON.stringify(NewDBUser));
+}
+
+function update_model_DBUser(){
+    setDBUser(DBUser);
+}
+
+function initDBUser(){
+    DBUser = JSON.parse(localStorage.getItem("DBUser"));
+
+    // if there is no local DB then use the default one
+    if(DBUser == null){
+        DBUser = DB5;
+        update_model_DBUser();
+    }
+}
+
+function resetDBUser(){
+    setDBUser(DB5);
+}
+
+function getUserIndexUserId(user_id){
+    for(i = 0; i < DBUser.users.length; i++){
+        if(DBUser.users[i].user_id == user_id){
+            return i;
+        }
+    }
+    throw "User can not be found by user_id";
+}
+
+function getUserIndexUsername(username){
+    for(i = 0; i < DBUser.users.length; i++){
+        if(DBUser.users[i].username == username){
+            return i;
+        }
+    }
+    throw "User can not be found by username";
+}
+
+function getCapitalIndex(index){
+    return DBUser.users[index].capital;
+}
+
+function changeCapitalIndex(index, qty){
+    var capital = DBUser.users[index].capital;
+    if(capital > -qty){
+        return DBUser.users[index].capital += qty;
+    }
+    else {
+        throw "Can not change capital, unallowed operation";
+    }
+}
+
+// =====================================================================================================
+// Get information functions
+
+function getCapitalUserID(user_id){
+    capital = getCapitalIndex(getUserIndexUserId(user_id));
+    update_model_DBUser();
+    return capital;
+}
+
+function getCapital(username){
+    capital = getCapitalIndex(getUserIndexUsername(username));
+    update_model_DBUser();
+    return capital;
+}
+
+function verifyVipCredentials(username, password){
+    try{
+        index = getUserIndexUsername(username);
+        if(DBUser.users[index].password == password){
+            return true;
+        }
+        return false;
+    } catch(error){
+        return false;
+    }
+}
+
+// =====================================================================================================
+// Model update funtions
+
+initDBUser();
+
+function changeCapitalUserID(user_id, qty){
+    capital = changeCapitalIndex(getUserIndexUserId(user_id), qty);
+    update_model_DBUser();
+    return capital;
+}
+
+function changeCapital(username, qty){
+    capital = changeCapitalIndex(getUserIndexUsername(username), qty);
+    update_model_DBUser();
+    return capital;
+}
+
+function addUser(){
+   //TODO
+}
+
+function removeUser(){
+   //TODO
+}
+
+// =====================================================================================================
 // =====================================================================================================
 // END OF FILE
 // =====================================================================================================
