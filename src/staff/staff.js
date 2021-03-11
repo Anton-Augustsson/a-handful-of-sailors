@@ -29,7 +29,7 @@ function createItem(tableid, articleno, name, info, stats, qty, price){
                 <button class="remove-item-order" id="remove-item-${tableid}-${articleno}" onclick=removeItemOrder(${tableid},${articleno})>remove</button>
                 <div class="item-cost">
                   <forum>
-                    <input type="number" id="quantity-${tableid}-${articleno}" name="quantity" min="1" max="100" value="${qty}" onchange=updateTableOrderQty(${tableid},${articleno})>
+                    <input type="number" id="quantity-${tableid}-${articleno}" name="quantity" min="1" max="10" value="${qty}" onchange=updateTableOrderQty(${tableid},${articleno})>
                   </forum>
                   <span class="item-price">Price: ${price}</span>
                 </div>
@@ -187,8 +187,14 @@ function removeItemOrder(tableid, articleno){
 function updateTableOrderQty(tableid, articleno){
   console.log("Update qty");
   var value = $("#quantity-"+tableid+"-"+articleno).val();
-  setOrderQty(tableid, articleno, value);
-  update_view_staff();
+  if(value <= 10){
+    setOrderQty(tableid, articleno, value);
+    update_view_staff();
+  }
+  else{
+    alert("Can not add more then 10 quantity of a items");
+    $("#quantity-"+tableid+"-"+articleno).val('10');
+  }
 }
 
 // =====================================================================================================
