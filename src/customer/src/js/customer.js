@@ -54,7 +54,6 @@ function fetchFromDb(str){
     var artikelid;
     var item;
 
-
     for (let i = 0; i < getNumberOfItemsInWarehouse(); i++) {
 
         artikelid = getArticleNumber(i);
@@ -98,6 +97,7 @@ function checkFilters(itemDetails){
     return true;
 
 }
+
 function getBeers(event){
     if(document.getElementById("menu_beer").getAttribute("data-status") === "active" && event !== "filter"){
         return;
@@ -139,7 +139,6 @@ function getDrinks(event){
     document.getElementById("menu_beer").setAttribute("data-status", "inactive");
     document.getElementById("menu_wine").setAttribute("data-status", "inactive");
     document.getElementById("menu_drinks").setAttribute("data-status", "active");
-
 
     var str = "item.itemKind.includes('Lik\u00c3\u00b6r') ";    // TODO: sökning efter faktiskt namn.
     var items = fetchFromDb(str);
@@ -206,6 +205,7 @@ function getOrders(){
 
         console.log(artikelid);
         console.log(quantity);
+
         result[result.length] = [artikelid, quantity];
     }
     return result;
