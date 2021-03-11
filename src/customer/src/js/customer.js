@@ -1,4 +1,4 @@
-//var customersActiveTable = 1;
+var customersActiveTable = {};
 
 $('document').ready(function() {
     var removeCartItemButtons = document.getElementsByClassName('remove-item-from-cart');
@@ -194,7 +194,7 @@ function order() {
     var cartItemQuantities = cartItems.getElementsByClassName('cart-quantity-input');
     var artikelid;
     var quantity;
-    var tableId = customersActiveTable;
+    var tableId = customersActiveTable.tableid;
 
     console.log(cartItemArticleNrs.length);
 
