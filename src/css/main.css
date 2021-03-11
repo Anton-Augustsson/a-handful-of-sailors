@@ -37,6 +37,10 @@ button, .login-btn{
   font-size: 16px;
 }
 
+#login:hover{
+    background-color: var(--color-btn-hover);
+}
+
 button:hover{
   background-color: var(--color-btn-hover);
 }

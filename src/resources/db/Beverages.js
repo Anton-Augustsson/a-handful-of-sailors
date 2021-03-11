@@ -24,7 +24,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "FS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1031401",
             "artikelid": "638574",
@@ -49,7 +52,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1031501",
             "artikelid": "586715",
@@ -74,7 +80,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1031701",
             "artikelid": "678936",
@@ -99,7 +108,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1032304",
             "artikelid": "490844",
@@ -124,7 +136,10 @@ var DB2 = {
             "modul": "T9",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1032501",
             "artikelid": "677091",
@@ -149,7 +164,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1032701",
             "artikelid": "677060",
@@ -174,7 +192,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1033101",
             "artikelid": "568606",
@@ -199,7 +220,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1033301",
             "artikelid": "159537",
@@ -224,7 +248,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "BS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1033802",
             "artikelid": "600540",
@@ -249,7 +276,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1033901",
             "artikelid": "596581",
@@ -274,7 +304,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1034301",
             "artikelid": "596562",
@@ -299,7 +332,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1034401",
             "artikelid": "596575",
@@ -324,7 +360,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1034502",
             "artikelid": "600524",
@@ -349,7 +388,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1035101",
             "artikelid": "677935",
@@ -374,7 +416,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1035201",
             "artikelid": "568669",
@@ -399,7 +444,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1035602",
             "artikelid": "539688",
@@ -424,7 +472,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1036202",
             "artikelid": "600594",
@@ -449,7 +500,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1036302",
             "artikelid": "600603",
@@ -474,7 +528,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1036401",
             "artikelid": "600868",
@@ -499,7 +556,10 @@ var DB2 = {
             "modul": "T5",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1037001",
             "artikelid": "600567",
@@ -524,7 +584,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1037101",
             "artikelid": "673941",
@@ -549,7 +612,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "FS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1038001",
             "artikelid": "568680",
@@ -574,7 +640,10 @@ var DB2 = {
             "modul": "T7",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "nej",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1039302",
             "artikelid": "676690",
@@ -599,7 +668,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1039401",
             "artikelid": "567642",
@@ -624,7 +696,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "10401",
             "artikelid": "181",
@@ -649,7 +724,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "FS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1040201",
             "artikelid": "579762",
@@ -674,7 +752,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1040301",
             "artikelid": "684193",
@@ -699,7 +780,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1040401",
             "artikelid": "579741",
@@ -724,7 +808,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "ja"
         }, {
             "nr": "1040501",
             "artikelid": "344701",
@@ -749,7 +836,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "BS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1040601",
             "artikelid": "689317",
@@ -774,7 +864,10 @@ var DB2 = {
             "modul": "T7",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1040701",
             "artikelid": "48981",
@@ -799,7 +892,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "FS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1041001",
             "artikelid": "653271",
@@ -824,7 +920,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1041102",
             "artikelid": "688531",
@@ -849,7 +948,10 @@ var DB2 = {
             "modul": "T7",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1041301",
             "artikelid": "304394",
@@ -874,7 +976,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "FS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1041401",
             "artikelid": "342442",
@@ -899,7 +1004,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "BS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1041601",
             "artikelid": "586743",
@@ -924,7 +1032,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "ja",
+            "nötter": "nej"
         }, {
             "nr": "1041901",
             "artikelid": "303866",
@@ -949,7 +1060,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "FS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1042001",
             "artikelid": "582074",
@@ -974,7 +1088,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1042701",
             "artikelid": "534651",
@@ -999,7 +1116,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "BS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1042804",
             "artikelid": "343315",
@@ -1024,7 +1144,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "FS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1043001",
             "artikelid": "510253",
@@ -1049,7 +1172,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "FS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1043101",
             "artikelid": "215285",
@@ -1074,7 +1200,10 @@ var DB2 = {
             "modul": "",
             "sortiment": "FS",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1043301",
             "artikelid": "689471",
@@ -1099,7 +1228,10 @@ var DB2 = {
             "modul": "T7",
             "sortiment": "TSE",
             "ekologisk": "0",
-            "koscher": "0"
+            "koscher": "0",
+            "gluten": "ja",
+            "laktos": "nej",
+            "nötter": "nej"
         }, {
             "nr": "1043401",
             "artikelid": "688662",

@@ -1,3 +1,5 @@
+//var customersActiveTable = 1;
+
 $('document').ready(function() {
     var removeCartItemButtons = document.getElementsByClassName('remove-item-from-cart');
     for (var i = 0; i < removeCartItemButtons.length; i++) {
@@ -23,6 +25,11 @@ $('document').ready(function() {
     //getBeers();
 });
 
+function customersTable(index) {
+    var table = getTableByIndex(index);
+    customersActiveTable = table;
+}
+
 function getTablesForCustomer() {
     var nrOfTables = getNumTables();
 
@@ -31,7 +38,7 @@ function getTablesForCustomer() {
         var listElem = document.createElement('div');
         var listElemContent = `
         <li>
-            <a href="#" onclick="">Table ${i}</a>
+            <a href="#" id="table-${i}" onclick="customersTable(${i})">Table ${i}</a>
         </li>`
         listElem.innerHTML = listElemContent;
         var list = document.getElementsByClassName('pick-table-menu-list')[0];
@@ -42,18 +49,52 @@ function getTablesForCustomer() {
 function fetchFromDb(str){
 
     let items = [];
+    var artikelid;
+    var item;
 
-    for (let i = 0; i < DB2.spirits.length; i++) {
 
-        if(eval(str)){
-            items.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms,
-                DB2.spirits[i].artikelid, DB2.spirits[i].producent,
-                DB2.spirits[i].ursprunglandnamn, DB2.spirits[i].varugrupp,
-                DB2.spirits[i].alkoholhalt, DB2.spirits[i].volymiml]);
+    for (let i = 0; i < getNumberOfItemsInWarehouse(); i++) {
+
+        artikelid = getArticleNumber(i);
+        item = itemDetails(artikelid);
+
+        if(checkFilters(item)) {
+
+            items.push([item.name, item.price, item.artikelNo, item.producer, item.country, item.itemKind,
+                item.stats, item.volume]);
         }
     }
 
     return items;
+}
+
+function checkFilters(itemDetails){
+    var elements = document.getElementsByClassName("checkbox");
+
+    for(let i = 0; i < elements.length; i++){
+
+        if(elements[i].checked === true){
+
+            if(i === 0){
+                if(itemDetails.gluten !== "nej"){
+                    return false;
+                }
+            }
+            else if(i === 1){
+                if(itemDetails.laktos !== "nej"){
+                    return false;
+                }
+            }
+            else if(i === 2){
+                if(itemDetails.nötter !== "nej"){
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+
 }
 
 function getBeers(event){
@@ -66,7 +107,7 @@ function getBeers(event){
     document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
 
     var str = FiltersAsString();
-    str = "DB2.spirits[i].varugrupp.includes('\u00c3\u2013l') " + str;
+    str = "d.itemKind.includes('\u00c3\u2013l') " + str;
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
@@ -84,7 +125,7 @@ function getWines(event){
     document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
 
     var str = FiltersAsString();
-    str = "DB2.spirits[i].varugrupp.includes('vin') " + str;
+    str = "d.itemKind.includes('vin') " + str;
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
@@ -102,7 +143,7 @@ function getDrinks(event){
 
 
     var str = FiltersAsString();
-    str = "DB2.spirits[i].varugrupp.includes('Lik\u00c3\u00b6r') " + str;
+    str = "d.itemKind.includes('Lik\u00c3\u00b6r') " + str;
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
@@ -117,7 +158,7 @@ function FiltersAsString(){
     for(let i = 0; i < elements.length; i++){
 
         if(elements[i].checked === true){
-            filterString += "&& DB2.spirits[i]." + elements[i].getAttribute("id").toString() + " === 'nej'";
+            filterString += "&& d." + elements[i].getAttribute("id").toString() + " === 'nej'";
         }
     }
     return filterString;
@@ -153,15 +194,17 @@ function order() {
     var cartItemQuantities = cartItems.getElementsByClassName('cart-quantity-input');
     var artikelid;
     var quantity;
+    var tableId = customersActiveTable;
 
     console.log(cartItemArticleNrs.length);
 
     for (i = 0; i < cartItemArticleNrs.length; ++i) {
         artikelid= cartItemArticleNrs[i].id;
         quantity = cartItemQuantities[i].value;
+
         console.log(artikelid);
         console.log(quantity);
-        newOrder(1, artikelid, quantity);
+        newOrder(tableId, artikelid, quantity);
     }
 
     clearCart();
