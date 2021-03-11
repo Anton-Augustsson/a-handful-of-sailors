@@ -119,6 +119,14 @@ function calculatePriceForTable() {
   return sum;
 }
 
+function alertLowStock(articlenoQty){
+  for(i = 0; i < articlenoQty.length; i++){
+    if(articlenoQty[i][1]<10){
+      alert("Running low on " + articlenoQty[i][0]);
+    }
+  }
+}
+
 // =====================================================================================================
 // Event functions
 
@@ -228,9 +236,10 @@ function finishPaymentUD(){
         newDB: null, // dummy value will be updated in execute
 
         execute: function (){
-            checkoutTable(getCurrentTable());
-            this.newDB = JSON.stringify(getDBTable());
-            update_view_staff();
+          result = checkoutTable(getCurrentTable());
+          alertLowStock(result);
+          this.newDB = JSON.stringify(getDBTable());
+          update_view_staff();
         },
         unexecute: function (){
             setDBTable(JSON.parse(this.oldDB));
