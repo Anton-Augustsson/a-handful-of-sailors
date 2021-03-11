@@ -18,6 +18,7 @@ function createManager () {
     <h3 class="section-header">Stock Order</h3>
     <div class="stockOrder-row">
         <span class="stockOrder-item stockOrder-header stockOrder-column">ITEM</span>
+        <span class="stockOrder-artId stockOrder-header stockOrder-column">Art Id</span>
         <span class="stockOrder-price stockOrder-header stockOrder-column">PRICE</span>
         <span class="stockOrder-quantity stockOrder-header stockOrder-column">QUANTITY</span>
     </div>

@@ -38,7 +38,9 @@ function beverageList(arg){
 
             <div class="spirits" id="${itemInformation.artikelNo}"   onclick=beverageInfo(${itemInformation.artikelNo}) >
                 <button class="btn order-iteam" type="button">ADD TO ORDER</button>
+                <button class="btn change-stock" type="button">Change stock</button>
                 <span> Namn: ${itemInformation.name} <br> Detaljer: ${itemInformation.details} <br> Article Nr: ${itemInformation.artikelNo} <br> In store: ${stockAmount} <span>
+                <input class="stockOrder-quantity-change" type="number" value="1">
             </div>`;
             var beverageElement = document.createElement('div');
             beverageElement.innerHTML = bevaregeContent;
@@ -49,7 +51,8 @@ function beverageList(arg){
     highestIndexNr = getDBWarehouseItemIndex(itemInformation.artikelNo);
     var listOfBeverages = document.getElementsByClassName("spirits");
     for (j = 0; j < listOfBeverages.length; j++) {
-        listOfBeverages[j].getElementsByClassName("order-iteam")[0].addEventListener('click', addToOrderClicked)
+        listOfBeverages[j].getElementsByClassName("order-iteam")[0].addEventListener('click', addToOrderClicked);
+       listOfBeverages[j].getElementsByClassName("change-stock")[0].addEventListener('click', reviseInventory);
     }
 }
 
@@ -63,9 +66,10 @@ function beverageList2(arg){
             var stockAmount = getStock(itemInformation.artikelNo);
             var bevaregeContent = `
             <div class="spirits" id="${itemInformation.artikelNo}"   onclick=beverageInfo(${itemInformation.artikelNo}) >
+                <button class="btn change-stock" type="button">Change stock</button>
                 <button class="btn order-iteam" type="button">ADD TO ORDER</button>
                 <span> Namn: ${itemInformation.name} <br> Detaljer: ${itemInformation.details} <br> Article Nr: ${itemInformation.artikelNo} <br> In store: ${stockAmount} <span>
-
+                <input class="stockOrder-quantity-change" type="number" value="1">
             </div>`;
             var beverageElement = document.createElement('div');
             beverageElement.innerHTML = bevaregeContent;
@@ -77,30 +81,34 @@ function beverageList2(arg){
     var listOfBeverages = document.getElementsByClassName("spirits");
     for (j = 0; j < listOfBeverages.length; j++) {
         listOfBeverages[j].getElementsByClassName("order-iteam")[0].addEventListener('click', addToOrderClicked)
+        listOfBeverages[j].getElementsByClassName("change-stock")[0].addEventListener('click', reviseInventory);
     }
 }
 
 
 function beverageInfo(artId){
-    var allInformation = "";
-
-           var element, x;
-           element = getItemElement(artId);
-           for (x in element) {
-               allInformation += x + ":\xa0" + element[x] + "<br>";
-           }
+    choosenItem = itemDetails(artId);
     var c = document.querySelector(".beveragesInformation");
     c.lastChild.remove();
     var bevaregeInfo = `
         <div class=${artId}></div>
-            <span> ${allInformation} </span>
+            <span> Namn: ${choosenItem.name} <br> Detaljer: ${choosenItem.details} <br> Leverantör: ${choosenItem.info}<br> Alkoholhalt: ${choosenItem.stats}<br> Varugrupp: ${choosenItem.itemKind}<br> Artikel nr: ${choosenItem.artikelNo}<br> Pris:${choosenItem.price} <br> Ursprungs land: ${choosenItem.ursprung} <br> Producent: ${choosenItem.producer} <br> Årgång: ${choosenItem.yearMade} </span>
         </div>`;
     var beverageInfoEl = document.createElement("div");
     beverageInfoEl.innerHTML = bevaregeInfo;
     c.appendChild(beverageInfoEl);
 
 }
-
+/*
+function reviseInventory(event) {
+    var button = event.target;
+    var choosenItem = button.parentElement;
+    var reviseAmount = $('#spirits').find(choosenItem).find('.stockOrder-quantity-change').value;
+    window.alert(reviseAmount);
+    replenishStock(choosenItem.id, parseInt(reviseAmount));
+    changingKind();
+}
+*/
 function addToOrderClicked(event) {
     var button = event.target
     var iteamId = button.parentElement.id
@@ -151,21 +159,18 @@ function quantityChanged(event) {
 
 function removestockOrderItem(event) {
     var btnClicked = event.target
-    btnClicked.parentElement.parentElement.parentElement.remove()
+    btnClicked.parentElement.parentElement.remove()
     updatestockOrderTotal()
 }
 
 function updatestockOrderTotal() {
-    var stockOrderItemContainer = document.getElementById('stockOrder-items')[0]
-    var stockOrderRows = stockOrderItemContainer.getElementsByClassName('stockOrder-row')
+    var stockOrderItems = document.getElementById('stockOrder-items')
+    var stockOrderItemsArtId = stockOrderItems.getElementsByClassName("stockOrder-item-artId")
+    var stockOrderItemsQuantity = stockOrderItems.getElementsByClassName("stockOrder-quantity-input")
     var total = 0
-    for (var i = 0; i < stockOrderRows.length; i++) {
-        var stockOrderRow = stockOrderRows[i]
-        var priceElement = stockOrderRow.getElementsByClassName('stockOrder-price')[0]
-        var quantityElement = stockOrderRow.getElementsByClassName('stockOrder-quantity-input')[0]
-
-        var price = parseFloat(priceElement.innerText.replace('$', ''))
-        var quantity = quantityElement.value
+    for (var i = 0; i < stockOrderItemsArtId.length; i++) {
+        var price = getItemPrice(stockOrderItemsArtId[i].innerText);
+        var quantity = parseFloat(stockOrderItemsQuantity[i].value);
         total = total + (price * quantity)
     }
     total = Math.round(total * 100) / 100
@@ -183,4 +188,3 @@ function makeInvOrder (){
         stockOrderItemsArtId[0].parentElement.parentElement.remove()    }
         changingKind();
 }
-
