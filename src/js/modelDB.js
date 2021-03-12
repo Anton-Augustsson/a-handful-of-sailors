@@ -550,6 +550,7 @@ function changeCapital(username, qty){
     return capital;
 }
 
+<<<<<<< HEAD
 function pay(username, articleno, qty){
     try{
         changeCapital(username, -(getItemPrice(articleno)*parseInt(qty)));
@@ -559,6 +560,8 @@ function pay(username, articleno, qty){
     }
 }
 
+=======
+>>>>>>> 135e754 (the foundation of vip)
 function addUser(){
    //TODO
 }
