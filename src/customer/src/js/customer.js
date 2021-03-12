@@ -145,14 +145,18 @@ function clearItems(){
     return;
 }
 
-
-function order() {
-
+// Get all order items from cart inorder to process them
+// result[i][0] = articleno
+// result[i][1] = qty
+//
+function getOrders(){
     var cartItems = document.getElementsByClassName('cart-items')[0];
     var cartItemArticleNrs = cartItems.getElementsByClassName('cart-row');
     var cartItemQuantities = cartItems.getElementsByClassName('cart-quantity-input');
     var artikelid;
     var quantity;
+
+    var result = []; // [(articleno,qty),..]
 
     console.log(cartItemArticleNrs.length);
 
@@ -161,8 +165,14 @@ function order() {
         quantity = cartItemQuantities[i].value;
         console.log(artikelid);
         console.log(quantity);
-        newOrder(1, artikelid, quantity);
+        result[result.length] = [artikelid, quantity];
     }
+
+    return result;
+}
+
+// When an order has been made then to clean up use this funtion
+function finnishCustomerSession(){
 
     clearCart();
     updateCartTotal();
@@ -172,6 +182,18 @@ function order() {
     undostack = [];
     redostack = [];
 
+}
+
+function order() {
+    var tableid = 1; //TODO: get the select table
+    var orders = getOrders();
+    var order;
+
+    for (order in orders) {
+        newOrder(tableid, order[0], order[1]);
+    }
+
+    finnishCustomerSession();
     goToPrimaryMode(); // if there is primary mode that isen't customer some one has called it
     alert("Thank you for ordering!");
 }

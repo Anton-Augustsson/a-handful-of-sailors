@@ -550,6 +550,15 @@ function changeCapital(username, qty){
     return capital;
 }
 
+function pay(username, articleno, qty){
+    try{
+        changeCapital(username, -(getItemPrice(articleno)*parseInt(qty)));
+    }
+    catch{
+        console.log("Unable to pay");
+    }
+}
+
 function addUser(){
    //TODO
 }
