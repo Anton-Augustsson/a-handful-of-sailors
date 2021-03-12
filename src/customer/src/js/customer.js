@@ -199,7 +199,7 @@ function getOrders(){
 
     console.log(cartItemArticleNrs.length);
 
-    for (i = 0; i < cartItemArticleNrs.length; ++i) {
+    for (var i = 0; i < cartItemArticleNrs.length; ++i) {
         artikelid= cartItemArticleNrs[i].id;
         quantity = cartItemQuantities[i].value;
 
