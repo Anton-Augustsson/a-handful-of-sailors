@@ -1,4 +1,4 @@
-var customersActiveTable = {};
+var customersActiveTable;
 
 $('document').ready(function() {
     var removeCartItemButtons = document.getElementsByClassName('remove-item-from-cart');
@@ -26,7 +26,7 @@ $('document').ready(function() {
 
 function customersTable(index) {
     var table = getTableByIndex(index);
-    customersActiveTable = table;
+    customersActiveTable = table.tableid;
     console.log(customersActiveTable);
 }
 
@@ -196,11 +196,11 @@ function order() {
     var cartItemQuantities = cartItems.getElementsByClassName('cart-quantity-input');
     var artikelid;
     var quantity;
-    var tableId = customersActiveTable.tableid;
+    var tableId = customersActiveTable;
 
     console.log(cartItemArticleNrs.length);
 
-    for (i = 0; i < cartItemArticleNrs.length; ++i) {
+    for (var i = 0; i < cartItemArticleNrs.length; ++i) {
         artikelid= cartItemArticleNrs[i].id;
         quantity = cartItemQuantities[i].value;
 
