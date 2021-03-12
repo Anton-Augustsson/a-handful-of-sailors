@@ -33,6 +33,9 @@ function itemDetails(artikelid){
         itemKind: DB2.spirits[index].varugrupp, // kind of alcohol
         artikelNo: artikelid,
         price: DB2.spirits[index].prisinklmoms,
+        ursprung: DB2.spirits[index].ursprunglandnamn,
+        producer: DB2.spirits[index].producent,
+        yearMade: DB2.spirits[index].argang,
         };
     return details;
 }
