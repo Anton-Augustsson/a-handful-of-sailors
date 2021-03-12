@@ -19,8 +19,6 @@ $('document').ready(function() {
         button.addEventListener('click', addToCartClicked);
     }
 
-    customersActiveTable = customersTable(0);
-
     //document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order);
     //getTablesForCustomer();
     //getBeers();
