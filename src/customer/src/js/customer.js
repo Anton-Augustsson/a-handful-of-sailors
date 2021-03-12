@@ -205,7 +205,6 @@ function getOrders(){
 
         console.log(artikelid);
         console.log(quantity);
-
         result[result.length] = [artikelid, quantity];
     }
     return result;
