@@ -45,6 +45,16 @@ function vipSeeBalance(){
 }
 
 function vipPayment(){
+    var username = "u"; //TODO: add the right name
+    var orders = getOrders();
+    var order;
+
+    for (order in orders) {
+        pay(username, order[0], order[1]);
+    }
+
+    finnishCustomerSession();
+    alert("Thank you for ordering!");
 }
 
 function addBalance(){
