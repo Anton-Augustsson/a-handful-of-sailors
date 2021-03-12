@@ -19,8 +19,9 @@ $('document').ready(function() {
         button.addEventListener('click', addToCartClicked);
     }
 
-    //document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order);
+    customersActiveTable = customersTable(0);
 
+    //document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order);
     //getTablesForCustomer();
     //getBeers();
 });
@@ -38,7 +39,7 @@ function getTablesForCustomer() {
         var listElem = document.createElement('div');
         var listElemContent = `
         <li>
-            <a href="#" id="table-${i}" onclick="customersTable(${i})">Table ${i}</a>
+            <a href="#" id="table-${i}" onclick="customersTable(${i})">Table ${i + 1}</a>
         </li>`
         listElem.innerHTML = listElemContent;
         var list = document.getElementsByClassName('pick-table-menu-list')[0];
@@ -204,6 +205,7 @@ function order() {
 
         console.log(artikelid);
         console.log(quantity);
+        console.log(tableId);
         newOrder(tableId, artikelid, quantity);
     }
 
