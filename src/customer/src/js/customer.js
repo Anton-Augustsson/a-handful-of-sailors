@@ -19,8 +19,6 @@ $('document').ready(function() {
         button.addEventListener('click', addToCartClicked);
     }
 
-    customersActiveTable = customersTable(0);
-
     //document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order);
     //getTablesForCustomer();
     //getBeers();
@@ -29,6 +27,7 @@ $('document').ready(function() {
 function customersTable(index) {
     var table = getTableByIndex(index);
     customersActiveTable = table;
+    console.log(customersActiveTable);
 }
 
 function getTablesForCustomer() {
@@ -45,6 +44,8 @@ function getTablesForCustomer() {
         var list = document.getElementsByClassName('pick-table-menu-list')[0];
         list.append(listElem);
     }
+
+    customersTable(0); //TODO:  change to activeTable-element?
 }
 
 function fetchFromDb(str){
