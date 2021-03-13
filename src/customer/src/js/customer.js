@@ -60,7 +60,7 @@ function fetchFromDb(str){
         artikelid = getArticleNumber(i);
         item = itemDetails(artikelid);
 
-        if(checkFilters(item)) {
+        if(checkFilters(item) && eval(str)) {
 
             items.push([item.name, item.price, item.artikelNo, item.producer, item.country, item.itemKind,
                 item.stats, item.volume]);
@@ -108,8 +108,7 @@ function getBeers(event){
     document.getElementById("menu_wine").setAttribute("data-status", "inactive");
     document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
 
-    var str = FiltersAsString();
-    str = "d.itemKind.includes('\u00c3\u2013l') " + str;
+    var str = "item.itemKind.includes('') ";    // TODO: sökning efter faktiskt namn.
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
@@ -126,8 +125,7 @@ function getWines(event){
     document.getElementById("menu_wine").setAttribute("data-status", "active");
     document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
 
-    var str = FiltersAsString();
-    str = "d.itemKind.includes('vin') " + str;
+    var str = "item.itemKind.includes('v') ";   // TODO: sökning efter faktiskt namn.
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
@@ -144,8 +142,7 @@ function getDrinks(event){
     document.getElementById("menu_drinks").setAttribute("data-status", "active");
 
 
-    var str = FiltersAsString();
-    str = "d.itemKind.includes('Lik\u00c3\u00b6r') " + str;
+    var str = "item.itemKind.includes('Lik\u00c3\u00b6r') ";    // TODO: sökning efter faktiskt namn.
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
