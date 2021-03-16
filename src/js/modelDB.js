@@ -151,11 +151,25 @@ function getOrderQty(tableid, articleno){
     return DBTable.tables[it].orders[io].qty;
 }
 
+function getOrderPrice(tableid, articleno){
+    var it = getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleno);
+    return DBTable.tables[it].orders[io].price;
+}
+
 // =====================================================================================================
 // Interface update database
 
 // Initialise the DBTable
 initDBTable();
+
+function setOrderPrice(tableid, articleno, newPrice){
+    var it = getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleno);
+    var result = (DBTable.tables[it].orders[io].price = parseInt(newPrice));
+    update_model();
+    return result;
+}
 
 // update the quantity in the stock database
 function updateDB(articleid, qty){
@@ -212,7 +226,8 @@ function newOrder(tableid, articleid, qty){
         var newOrderObj = {
             "articleno": articleid,
             "onHouse": false,
-            "qty": qty
+            "qty": qty,
+            "price": getItemPrice(articleid)
         };
 
         DBTable.tables[index].orders[length] = newOrderObj;

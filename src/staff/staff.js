@@ -8,14 +8,12 @@
 // Varibles
 
 var tableNr = 0;
-//var tableInfo = "table_info.html";
-//var tableWindow = "table_window.html";
 
 // =====================================================================================================
 // Helper functions
 
 // create new item with its content
-function createItem(tableid, articleno, name, info, stats, qty, price){
+function createItem(tableid, articleno, name, info, stats, qty, oldPrice, newPrice){
   var newItem = `
         <div class="item">
             <div class="item-general">
@@ -24,15 +22,19 @@ function createItem(tableid, articleno, name, info, stats, qty, price){
             </div>
             <div class="stats"><p>${stats}</p></div>
             <div class="item-options">
+
                 <button class="on-the-house" id="on-house-${tableid}-${articleno}" onclick=onHouse(${tableid},${articleno})></button>
                 <button class="not-on-the-house" id="not-on-house-${tableid}-${articleno}" onclick=notOnHouse(${tableid},${articleno})></button>
                 <button class="remove-item-order" id="remove-item-${tableid}-${articleno}" onclick=removeItemOrder(${tableid},${articleno})>remove</button>
-                <div class="item-cost">
-                  <forum>
-                    <input type="number" id="quantity-${tableid}-${articleno}" name="quantity" min="1" max="10" value="${qty}" onchange=updateTableOrderQty(${tableid},${articleno})>
-                  </forum>
-                  <span class="item-price">Price: ${price}</span>
-                </div>
+                <forum>
+                  <label class="item-mod-qty" for="quantity-${tableid}-${articleno}"></label>
+                  <input type="number" id="quantity-${tableid}-${articleno}" name="quantity" min="1" max="10" value="${qty}" onchange=updateTableOrderQty(${tableid},${articleno})>
+                </forum>
+                <forum>
+                  <label class="item-mod-price" for="price-${tableid}-${articleno}"></label>
+                  <input type="number" id="price-${tableid}-${articleno}" name="price" min="1" max="10000" value="${newPrice}" onchange=updateTableOrderPrice(${tableid},${articleno})>
+                </forum>
+                <span class="item-price" id="old-price-${tableid}-${articleno}"></span>
             </div>
         </div>`;
   return newItem;
@@ -111,7 +113,7 @@ function calculatePriceForTable() {
     articleno = getOrderByIndex(table,i);
     onHouse = getOrderOnHouseStatus(table, articleno);
     if(!onHouse){
-      sum += getItemPrice(articleno)*getOrderQty(table,articleno);
+      sum += getOrderPrice(table,articleno)*getOrderQty(table,articleno);
     }
   }
 
@@ -149,9 +151,6 @@ function clickTable(tableid) {
 
 // checkout all items and update the database
 function finishPayment(){
-  //TODO: update model
-  //changeItemQty(articleno, qty);
-  //checkoutTable(getCurrentTable());
   doit(finishPaymentUD());
   alert ("Checkout success!");
   update_view();
@@ -201,6 +200,19 @@ function updateTableOrderQty(tableid, articleno){
   else{
     alert("Can not add more then 10 quantity of a items");
     $("#quantity-"+tableid+"-"+articleno).val('10');
+  }
+}
+
+function updateTableOrderPrice(tableid, articleno){
+  console.log("Update price");
+  var value = $("#price-"+tableid+"-"+articleno).val();
+  if(value <= 10000){
+    setOrderPrice(tableid, articleno, value);
+    update_view_staff();
+  }
+  else{
+    alert("Can not add more then 10000 in price");
+    $("#price-"+tableid+"-"+articleno).val(getItemPrice(articleno));
   }
 }
 
@@ -324,14 +336,20 @@ function setStaff(id){
 }
 
 // inserts new item in view
-function setItem(table, articleno, name, info, stats, qty, price){
-  $("#orders").append(createItem(table, articleno, name, info, stats, qty, price));
+function setItem(table, articleno, name, info, stats, qty, oldPrice, newPrice){
+  $("#orders").append(createItem(table, articleno, name, info, stats, qty, oldPrice, newPrice));
 }
 
 function setTotalPriceTable(){
     // need to update language before
     getLanguage();
     $("#total-price-table").text(get_string('vars', 'total-price-table-message') + calculatePriceForTable());
+}
+
+function setPriceOrder(table, articleno){
+    // need to update language before
+    getLanguage();
+    $("#old-price-"+table+"-"+articleno).text(get_string('vars', 'item-price-message') + getItemPrice(articleno));
 }
 
 // update view with items of the tables stock
@@ -348,10 +366,13 @@ function setAllTableItems(){
      for(i = 0; i < length; ++i){
        articleno = getOrderByIndex(table,i);
        item = itemDetails(articleno);
-       // TODO: set if it is on the house or not
        qty = getOrderQty(table, articleno);
-       price = getItemPrice(articleno);//get(articleno);
-       setItem(table, articleno, item.name, item.info, item.stats, qty, price);
+       oldPrice = getItemPrice(articleno);
+       newPrice = getOrderPrice(table, articleno);
+       getLanguage();
+       stats = get_string('vars', 'alcohol-content-message') + item.stats;
+       setItem(table, articleno, item.name, item.info, stats, qty, oldPrice, newPrice);
+       setPriceOrder(table, articleno);
 
        onHouse = getOrderOnHouseStatus(table, articleno);
        if(onHouse){

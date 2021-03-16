@@ -119,16 +119,22 @@ dict = {
     // The other Dictionary is class (cl) spesific dictionares make sure that each class name
     // matches the with the key. That is how it is identified.
     'cl': {
-        'keys' : ['on-the-house','not-on-the-house'],
+        'keys' : ['on-the-house','not-on-the-house', 'remove-item-order', 'item-mod-qty', 'item-mod-price'],
 
         'en': {
             'on-the-house': "Add on the house",
             'not-on-the-house': "Remove on the house",
+            'remove-item-order': "Remove",
+            'item-mod-qty': "Qty",
+            'item-mod-price': "Price",
 
         },
         'sv': {
             'on-the-house': "Lägg till huset bjuder",
             'not-on-the-house': "Ta bort huset bjuder",
+            'remove-item-order': "Ta bort",
+            'item-mod-qty': "Antal",
+            'item-mod-price': "Pris",
         }
     },
 
@@ -147,13 +153,17 @@ dict = {
     },
 
     'vars': {
-        'keys' : ['total-price-table-message'],
+        'keys' : ['total-price-table-message', 'item-price-message', 'alcohol-content-message'],
 
         'en': {
             'total-price-table-message': "Total: ",
+            'item-price-message': "Original Price: ",
+            'alcohol-content-message': "Alcohol: ",
         },
         'sv' : {
             'total-price-table-message': "Summa: ",
+            'item-price-message': "Orginal Pris: ",
+            'alcohol-content-message': "Alkoholhalt: ",
         }
     }
 };
