@@ -197,7 +197,6 @@ function getOrders(){
     var cartItemQuantities = cartItems.getElementsByClassName('cart-quantity-input');
     var artikelid;
     var quantity;
-
     var result = []; // [(articleno,qty),..]
 
     console.log(cartItemArticleNrs.length);
