@@ -87,18 +87,38 @@
     display: block;
 }
 
+#menu_categories{
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+}
+
 .category{
     height: 100px;
     background-color: var(--color-three);
-    border: 6px solid var(--color-four);
-    border-bottom: 0;
-    border-right: 0;
+    border: 3px solid var(--color-one);
+    border-bottom: 0px;
+    border-radius: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
-.category:last-child{
-    border: 6px solid var(--color-four);
-    border-right: 0;
+.category:hover{
+    filter: grayscale(40%);
+    cursor: pointer;
 }
+
+#menu_drinks{
+    border-bottom: 3px solid var(--color-one);
+}
+
 .menu{
     flex-grow: 3;
     background-color: var(--color-four);
@@ -116,12 +136,14 @@
 
 .section-header{
     margin: 0;
+    padding: 5px;
 }
 
 .cart-header {
     font-weight: bold;
     font-size: 1.25em;
     color: #333;
+    margin-left: 5px;
 }
 
 .cart-column {

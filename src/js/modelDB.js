@@ -34,8 +34,13 @@ function itemDetails(artikelid){
         artikelNo: artikelid,
         price: DB2.spirits[index].prisinklmoms,
         ursprung: DB2.spirits[index].ursprunglandnamn,
-        producer: DB2.spirits[index].producent,
         yearMade: DB2.spirits[index].argang,
+        producer: DB2.spirits[index].producent,
+        country: DB2.spirits[index].ursprunglandnamn,
+        volume: DB2.spirits[index].volymiml,
+        gluten: DB2.spirits[index].gluten,
+        laktos: DB2.spirits[index].laktos,
+        nötter: DB2.spirits[index].nötter,
         };
     return details;
 }

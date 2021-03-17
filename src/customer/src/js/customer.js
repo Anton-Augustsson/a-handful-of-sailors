@@ -1,3 +1,5 @@
+var customersActiveTable;
+
 $('document').ready(function() {
     var removeCartItemButtons = document.getElementsByClassName('remove-item-from-cart');
     for (var i = 0; i < removeCartItemButtons.length; i++) {
@@ -23,6 +25,12 @@ $('document').ready(function() {
     //getBeers();
 });
 
+function customersTable(index) {
+    var table = getTableByIndex(index);
+    customersActiveTable = table.tableid;
+    console.log(customersActiveTable);
+}
+
 function getTablesForCustomer() {
     var nrOfTables = getNumTables();
 
@@ -31,31 +39,66 @@ function getTablesForCustomer() {
         var listElem = document.createElement('div');
         var listElemContent = `
         <li>
-            <a href="#" onclick="">Table ${i}</a>
+            <a href="#" id="table-${i}" onclick="customersTable(${i})">Table ${i + 1}</a>
         </li>`
         listElem.innerHTML = listElemContent;
         var list = document.getElementsByClassName('pick-table-menu-list')[0];
         list.append(listElem);
     }
+
+    customersTable(0); //TODO:  change to activeTable-element?
 }
 
 function fetchFromDb(str){
 
     let items = [];
+    var artikelid;
+    var item;
 
-    for (let i = 0; i < DB2.spirits.length; i++) {
 
-        if(eval(str)){
-            items.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms,
-                DB2.spirits[i].artikelid, DB2.spirits[i].producent,
-                DB2.spirits[i].ursprunglandnamn, DB2.spirits[i].varugrupp,
-                DB2.spirits[i].alkoholhalt, DB2.spirits[i].volymiml]);
+    for (let i = 0; i < getNumberOfItemsInWarehouse(); i++) {
+
+        artikelid = getArticleNumber(i);
+        item = itemDetails(artikelid);
+
+        if(checkFilters(item) && eval(str)) {
+
+            items.push([item.name, item.price, item.artikelNo, item.producer, item.country, item.itemKind,
+                        item.stats, item.volume]);
         }
     }
 
     return items;
 }
 
+function checkFilters(itemDetails){
+    var elements = document.getElementsByClassName("checkbox");
+
+    for(let i = 0; i < elements.length; i++){
+
+        if(elements[i].checked === true){
+
+            if(i === 0){
+                if(itemDetails.gluten !== "nej"){
+                    return false;
+                }
+            }
+            else if(i === 1){
+                if(itemDetails.laktos !== "nej"){
+                    return false;
+                }
+            }
+            else if(i === 2){
+                if(itemDetails.nötter !== "nej"){
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+
+}
 function getBeers(event){
     if(document.getElementById("menu_beer").getAttribute("data-status") === "active" && event !== "filter"){
         return;
@@ -65,8 +108,7 @@ function getBeers(event){
     document.getElementById("menu_wine").setAttribute("data-status", "inactive");
     document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
 
-    var str = FiltersAsString();
-    str = "DB2.spirits[i].varugrupp.includes('\u00c3\u2013l') " + str;
+    var str = "item.itemKind.includes('') ";    // TODO: sökning efter faktiskt namn.
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
@@ -83,8 +125,7 @@ function getWines(event){
     document.getElementById("menu_wine").setAttribute("data-status", "active");
     document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
 
-    var str = FiltersAsString();
-    str = "DB2.spirits[i].varugrupp.includes('vin') " + str;
+    var str = "item.itemKind.includes('v') ";   // TODO: sökning efter faktiskt namn.
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
@@ -101,13 +142,13 @@ function getDrinks(event){
     document.getElementById("menu_drinks").setAttribute("data-status", "active");
 
 
-    var str = FiltersAsString();
-    str = "DB2.spirits[i].varugrupp.includes('Lik\u00c3\u00b6r') " + str;
+    var str = "item.itemKind.includes('Lik\u00c3\u00b6r') ";    // TODO: sökning efter faktiskt namn.
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
 }
 
+/*
 function FiltersAsString(){
 
     var filterString = "";
@@ -117,11 +158,12 @@ function FiltersAsString(){
     for(let i = 0; i < elements.length; i++){
 
         if(elements[i].checked === true){
-            filterString += "&& DB2.spirits[i]." + elements[i].getAttribute("id").toString() + " === 'nej'";
+            filterString += "&& d." + elements[i].getAttribute("id").toString() + " === 'nej'";
         }
     }
     return filterString;
 }
+*/
 
 function updateFilters(){
 
@@ -163,11 +205,12 @@ function getOrders(){
     for (i = 0; i < cartItemArticleNrs.length; ++i) {
         artikelid= cartItemArticleNrs[i].id;
         quantity = cartItemQuantities[i].value;
+
         console.log(artikelid);
         console.log(quantity);
+
         result[result.length] = [artikelid, quantity];
     }
-
     return result;
 }
 
@@ -185,13 +228,17 @@ function finnishCustomerSession(){
 }
 
 function order() {
-    var tableid = 1; //TODO: get the select table
+    var tableId = customersActiveTable;
     var orders = getOrders();
     var order;
+    console.log(orders);
 
-    for (order in orders) {
-        newOrder(tableid, order[0], order[1]);
+    for (let i = 0; i < orders.length; i++) {
+        order = orders[i];
+        console.log(order);
+        newOrder(tableId, order[0], parseInt(order[1]));
     }
+
 
     finnishCustomerSession();
     goToPrimaryMode(); // if there is primary mode that isen't customer some one has called it
