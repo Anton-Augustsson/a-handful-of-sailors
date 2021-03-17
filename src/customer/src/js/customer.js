@@ -19,8 +19,9 @@ $('document').ready(function() {
         button.addEventListener('click', addToCartClicked);
     }
 
-    //document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order);
+    customersActiveTable = customersTable(0);
 
+    //document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order);
     //getTablesForCustomer();
     //getBeers();
 });
@@ -207,7 +208,6 @@ function getOrders(){
 
         console.log(artikelid);
         console.log(quantity);
-
         result[result.length] = [artikelid, quantity];
     }
     return result;
