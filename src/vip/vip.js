@@ -9,12 +9,13 @@
 function createVip(){
    return `
     <div id="options-vip">
-        <button id="vip-payment" onclick=vipPayment()>pay</button>
         <button id="vip-see-balance">see balance</button>
+        <button id="vip-payment" onclick=vipPayment()>pay</button>
+        <button id="vip-see-special-drink" onclick=vipSpecialDrink()>special drink</button>
     </div>
-    <div id="modal-vip-balance">
-        <div id="modal-content-vip-balance">
-            <span id="close-vip-balance">&times;</span>
+    <div class="modal-vip" id="modal-vip-balance">
+        <div class="modal-content-vip" id="modal-content-vip-balance">
+            <span class="modal-vip-close" id="close-vip-balance">&times;</span>
             <div id="flex-vip-balance">
                 <div id="vip-balance-details">
                     <div id="vip-balance-name"></div>
@@ -32,20 +33,53 @@ function createVip(){
             </div>
         </div>
     </div>
+    <div class="modal-vip" id="modal-vip-special-drink">
+        <div class="modal-content-vip" id="modal-content-vip-special-drink">
+            <span class="modal-vip-close" id="close-vip-special-drink">&times;</span>
+            <div id="flex-vip-special-drink">
+                <div id="vip-special-drink-list"></div>
+                <button id="cancel-vip-special-drink">close</button>
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+function createSpecialDrink(name, articleno, price){
+   return `
+    <div class="special-drink">
+        <span>${name}</span>
+        <span>${price}</span>
+        <button class="buy-special-drink" onclick=buySpecialDrink(${articleno})>Buy</button>
+    </div>
     `;
 }
 
 // =====================================================================================================
 // Event functions
 
+function buySpecialDrink(articleno){
+    var username = getItemUser();
+    var specialDrinkCode = "2231";
+    pay(username, articleno, 1);
+    alert("Thank you for making a purches! The code is: " + specialDrinkCode);
+    update_view_vip();
+}
+
+function vipSpecialDrink(articleno){
+    var modal  = document.getElementById("modal-vip-special-drink");
+    modal.style.display = "block";
+    console.log("special-drink.onclick");
+}
+
 function vipSeeBalance(){
-    var modal  = document.getElementById("#modal-vip-balance");
+    var modal  = document.getElementById("modal-vip-balance");
     modal.style.display = "block";
     console.log("payment.onclick");
 }
 
 function vipPayment(){
-    var username = "u"; //TODO: add the right name
+    var username = getItemUser();
     var orders = getOrders();
     var order;
 
@@ -100,8 +134,57 @@ function setViewBalance(){
         }
     };
 }
+
+function setViewSpecialDrink(){
+    var modal  = document.getElementById("modal-vip-special-drink");
+    var view   = document.getElementById("vip-see-special-drink");
+    var span   = document.getElementById("close-vip-special-drink");
+    var cancel = document.getElementById("cancel-vip-special-drink");
+
+    view.onclick = function() {
+        modal.style.display = "block";
+        console.log("payment.onclick");
+    };
+
+    cancel.onclick = function() {
+        modal.style.display = "none";
+        console.log("cancel.onclick");
+    };
+
+    span.onclick = function() {
+        modal.style.display = "none";
+        console.log("span.onclick");
+    };
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+}
+
 // =====================================================================================================
 // View update
+function setSpecialDrinkList(){
+    var id = "#vip-special-drink-list";
+    var articleno;
+    var details;
+    var name;
+    var price;
+    var i;
+
+    $(id).html("");
+
+    for (i=0; i<getSpecialDrinkLength(); i++){
+        articleno = getSpecialDrink(i);
+        details = itemDetails(articleno);
+        name = details.name;
+        price = details.price;
+
+        $(id).append(createSpecialDrink(name, articleno, price));
+    }
+    console.log(i);
+}
 
 function setVipBalance(){
     var details = getUserDetails(getItemUser());
@@ -113,24 +196,14 @@ function setVip(){
     $("#customer-vip").html(createVip());
 }
 
-function newOrderVip(){
-    // TODO: make an order use model
-}
-
-function showVip(){
-    // TODO: fadeIn fadeOut
-}
-
-function hideVip(){
-    // TODO: fadeIn fadeOut
-}
-
 function update_view_vip(){
     update_view_customer();
 
     setVip();
     setViewBalance();
+    setViewSpecialDrink();
     setVipBalance();
+    setSpecialDrinkList();
 }
 
 function init_vip(){
