@@ -232,7 +232,7 @@ function order() {
     for (let i = 0; i < orders.length; i++) {
         order = orders[i];
         console.log(order);
-        newOrder(tableId, order[0], parseInt(order[1]));
+        newOrder(tableId, order[0], order[1]);
     }
 
 

@@ -231,7 +231,7 @@ function newOrder(tableid, articleid, qty){
         var newOrderObj = {
             "articleno": articleid,
             "onHouse": false,
-            "qty": qty,
+            "qty": parseInt(qty),
             "price": getItemPrice(articleid)
         };
 
@@ -574,7 +574,7 @@ function pay(username, articleno, qty){
     try{
         changeCapital(username, -(getItemPrice(articleno)*parseInt(qty)));
     }
-    catch{
+    catch(error){
         console.log("Unable to pay");
     }
 }

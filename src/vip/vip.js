@@ -49,12 +49,14 @@ function vipPayment(){
     var orders = getOrders();
     var order;
 
-    for (order in orders) {
+    for (let i = 0; i < orders.length; i++) {
+        order = orders[i];
         pay(username, order[0], order[1]);
     }
 
     finnishCustomerSession();
-    alert("Thank you for ordering!");
+    alert("Thank you for making a purches!");
+    update_view_vip();
 }
 
 function addBalance(){
