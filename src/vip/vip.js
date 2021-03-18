@@ -9,9 +9,9 @@
 function createVip(){
    return `
     <div id="options-vip">
-        <button id="vip-see-balance">see balance</button>
-        <button id="vip-payment" onclick=vipPayment()>pay</button>
-        <button id="vip-see-special-drink" onclick=vipSpecialDrink()>special drink</button>
+        <button id="vip-see-balance"></button>
+        <button id="vip-payment" onclick=vipPayment()></button>
+        <button id="vip-see-special-drink" onclick=vipSpecialDrink()></button>
     </div>
     <div class="modal-vip" id="modal-vip-balance">
         <div class="modal-content-vip" id="modal-content-vip-balance">
@@ -19,16 +19,16 @@ function createVip(){
             <div id="flex-vip-balance">
                 <div id="vip-balance-details">
                     <div id="vip-balance-name"></div>
-                    <span id="vip-balance-text">Balance: </span>
+                    <span id="vip-balance-text"></span>
                     <span id="vip-balance"></span>
                     <form>
-                        <label for="lamoutn">Amount to add: </label><br>
+                        <label id="vip-balance-amount" for="lamoutn"></label><br>
                         <input type="number" id="lamount" name="lamount" min="0" max="10000" value="0"><br><br>
                     </form>
                 </div>
                 <div id="options-vip-balance">
-                    <button onclick=addBalance()>Add amount</button>
-                    <button id="cancel-vip-balance">close</button>
+                    <button id="vip-add-balance" onclick=addBalance()></button>
+                    <button id="cancel-vip-balance"></button>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@ function createVip(){
             <span class="modal-vip-close" id="close-vip-special-drink">&times;</span>
             <div id="flex-vip-special-drink">
                 <div id="vip-special-drink-list"></div>
-                <button id="cancel-vip-special-drink">close</button>
+                <button id="cancel-vip-special-drink"></button>
             </div>
         </div>
     </div>
@@ -50,7 +50,7 @@ function createSpecialDrink(name, articleno, price){
     <div class="special-drink">
         <span>${name}</span>
         <span>${price}</span>
-        <button class="buy-special-drink" onclick=buySpecialDrink(${articleno})>Buy</button>
+        <button class="buy-special-drink" onclick=buySpecialDrink(${articleno})></button>
     </div>
     `;
 }
