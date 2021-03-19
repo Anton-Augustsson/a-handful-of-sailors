@@ -224,6 +224,8 @@ function update_view_vip(){
     setViewSpecialDrink();
     setVipBalance();
     setSpecialDrinkList();
+
+    update_view_dictionary();
 }
 
 function init_vip(){

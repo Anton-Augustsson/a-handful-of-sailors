@@ -608,6 +608,32 @@ function getSpecialDrinkLength(){
 }
 
 // =====================================================================================================
+// Model, selected table
+
+// =====================================================================================================
+
+
+var defaultSelectedTable = 1;
+
+function initSellectedTable(){
+  var selectedTable = localStorage.getItem("selectedTable");
+  if(selectedTable==null){
+    setDefaultSelectedTable();
+  }
+}
+
+initSellectedTable();
+
+function getCurrentTable(){
+  return localStorage.getItem("selectedTable");
+}
+
+function setDefaultSelectedTable(){
+  localStorage.setItem("selectedTable", defaultSelectedTable);
+}
+
+
+// =====================================================================================================
 // =====================================================================================================
 // END OF FILE
 // =====================================================================================================
