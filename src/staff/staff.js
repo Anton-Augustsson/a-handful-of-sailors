@@ -88,15 +88,7 @@ function createStaff(){
 
 // =====================================================================================================
 // Helper function
-var defaultSelectedTable = 1;
 
-function getCurrentTable(){
-  return localStorage.getItem("selectedTable");
-}
-
-function setDefaultSelectedTable(){
-  localStorage.setItem("selectedTable", defaultSelectedTable);
-}
 
 function resetStaff(){
   reset();

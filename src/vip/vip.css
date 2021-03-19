@@ -5,7 +5,7 @@
   left: 20px;
 }
 
-#modal-vip-balance {
+.modal-vip{
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 3; /* Sit on top */
@@ -20,7 +20,7 @@
 }
 
 /* Modal Content */
-#modal-content-vip-balance {
+.modal-content-vip {
   position: relative;
   background-color: var(--color-two);
   margin: auto;
@@ -29,7 +29,7 @@
   width: 80%;
 }
 
-#flex-vip-balance {
+#flex-vip-balance, #flex-vip-special-drink{
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -54,15 +54,15 @@
 }
 
 /* The Close Button */
-#close-vip-balance {
+.modal-vip-close {
   color: #aaaaaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-#close-vip-balance:hover,
-#close-vip-balance:focus {
+.close-vip:hover,
+.close-vip:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;

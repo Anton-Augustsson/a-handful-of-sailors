@@ -231,7 +231,7 @@ function newOrder(tableid, articleid, qty){
         var newOrderObj = {
             "articleno": articleid,
             "onHouse": false,
-            "qty": qty,
+            "qty": parseInt(qty),
             "price": getItemPrice(articleid)
         };
 
@@ -574,7 +574,7 @@ function pay(username, articleno, qty){
     try{
         changeCapital(username, -(getItemPrice(articleno)*parseInt(qty)));
     }
-    catch{
+    catch(error){
         console.log("Unable to pay");
     }
 }
@@ -586,6 +586,52 @@ function addUser(){
 function removeUser(){
    //TODO
 }
+
+// =====================================================================================================
+// Model, special drinks
+
+// =====================================================================================================
+// varible
+
+// global varible for doing the operations for the database
+var DBSpecialDrinks = [596562, 689471, 343315, 582074, 342442];
+
+// =====================================================================================================
+// Get information functions
+
+function getSpecialDrink(index){
+    return DBSpecialDrinks[parseInt(index)];
+}
+
+function getSpecialDrinkLength(){
+    return DBSpecialDrinks.length;
+}
+
+// =====================================================================================================
+// Model, selected table
+
+// =====================================================================================================
+
+
+var defaultSelectedTable = 1;
+
+function initSellectedTable(){
+  var selectedTable = localStorage.getItem("selectedTable");
+  if(selectedTable==null){
+    setDefaultSelectedTable();
+  }
+}
+
+initSellectedTable();
+
+function getCurrentTable(){
+  return localStorage.getItem("selectedTable");
+}
+
+function setDefaultSelectedTable(){
+  localStorage.setItem("selectedTable", defaultSelectedTable);
+}
+
 
 // =====================================================================================================
 // =====================================================================================================

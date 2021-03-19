@@ -32,7 +32,10 @@ dict = {
                   'close_login_window', 'menu_categories', 'menu_beer', 'menu_wine', 'menu_drinks',
                   'without_gluten_text', 'without_lactose_text', 'without_nuts_text',
                   'addTable', 'payment','new-order','payment-checkout', 'finish-payment',
-                  'cancel-payment', 'notify-security', 'remove-table'],     // keys for strings
+                  'cancel-payment', 'notify-security', 'remove-table',
+                  'vip-see-balance', 'vip-payment', 'vip-see-special-drink', 'vip-balance-text',
+                  'vip-balance-amount', 'vip-add-balance', 'cancel-vip-balance', 'cancel-vip-special-drink'],
+                  // keys for strings
 
 
         /*LÄGG TILL
@@ -84,7 +87,14 @@ dict = {
             'cancel-payment': "Cancel",
             'notify-security': "Notify security",
             'remove-table': "-",
-
+            'vip-see-balance': "See balance",
+            'vip-payment': "Payment",
+            'vip-see-special-drink': "See special drinks",
+            'vip-balance-text': "Amount: ",
+            'vip-balance-amount': "Add Amount",
+            'vip-add-balance': "Add",
+            'cancel-vip-balance': "Cancel",
+            'cancel-vip-special-drink': "Cancel",
         },
         'sv' : {
             'selected-language': 'Svenska',
@@ -113,13 +123,22 @@ dict = {
             'cancel-payment': "Avbryt",
             'notify-security': "Informera säkerhet",
             'remove-table': "-",
+            'vip-see-balance': "Se innehav",
+            'vip-payment': "Betala",
+            'vip-see-special-drink': "Se spesial drikor",
+            'vip-balance-text': "Innehav: ",
+            'vip-balance-amount': "Lägg till innehav",
+            'vip-add-balance': "Lägg till",
+            'cancel-vip-balance': "Avbryt",
+            'cancel-vip-special-drink': "Avbryt",
         }
     },
 
     // The other Dictionary is class (cl) spesific dictionares make sure that each class name
     // matches the with the key. That is how it is identified.
     'cl': {
-        'keys' : ['on-the-house','not-on-the-house', 'remove-item-order', 'item-mod-qty', 'item-mod-price'],
+        'keys' : ['on-the-house','not-on-the-house', 'remove-item-order', 'item-mod-qty', 'item-mod-price',
+                  'buy-special-drink'],
 
         'en': {
             'on-the-house': "Add on the house",
@@ -127,6 +146,7 @@ dict = {
             'remove-item-order': "Remove",
             'item-mod-qty': "Qty",
             'item-mod-price': "Price",
+            'buy-special-drink': "Buy",
 
         },
         'sv': {
@@ -135,6 +155,7 @@ dict = {
             'remove-item-order': "Ta bort",
             'item-mod-qty': "Antal",
             'item-mod-price': "Pris",
+            'buy-special-drink': "Köp",
         }
     },
 
