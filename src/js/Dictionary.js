@@ -34,7 +34,8 @@ dict = {
                   'addTable', 'payment','new-order','payment-checkout', 'finish-payment',
                   'cancel-payment', 'notify-security', 'remove-table',
                   'vip-see-balance', 'vip-payment', 'vip-see-special-drink', 'vip-balance-text',
-                  'vip-balance-amount', 'vip-add-balance', 'cancel-vip-balance', 'cancel-vip-special-drink'],
+                  'vip-balance-amount', 'vip-add-balance', 'cancel-vip-balance', 'cancel-vip-special-drink',
+                  'select-all-items-label'],
                   // keys for strings
 
 
@@ -95,6 +96,7 @@ dict = {
             'vip-add-balance': "Add",
             'cancel-vip-balance': "Cancel",
             'cancel-vip-special-drink': "Cancel",
+            'select-all-items-label': "Select all items",
         },
         'sv' : {
             'selected-language': 'Svenska',
@@ -131,6 +133,7 @@ dict = {
             'vip-add-balance': "Lägg till",
             'cancel-vip-balance': "Avbryt",
             'cancel-vip-special-drink': "Avbryt",
+            'select-all-items-label': "Välj all orders",
         }
     },
 

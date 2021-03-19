@@ -301,9 +301,11 @@ function checkoutTable(tableid){
     for(i=0; i < length; ++i){
         order = DBTable.tables[ti].orders[0];
         articleno = order.articleno;
-        qty = order.qty;
-        result[result.length] = [articleno,replenishStock(articleno, -qty)];
-        DBTable.tables[ti].orders.splice(0,1);
+        if(isSelected(tableid, articleno)){
+            qty = order.qty;
+            result[result.length] = [articleno,replenishStock(articleno, -qty)];
+            DBTable.tables[ti].orders.splice(0,1);
+        }
     }
 
     // set warehouse to null
