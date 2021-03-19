@@ -6,6 +6,7 @@
 // =====================================================================================================
 // View
 
+// the intire view for a vip customer
 function createVip(){
    return `
     <div id="options-vip">
@@ -45,6 +46,7 @@ function createVip(){
     `;
 }
 
+// view of a special drink
 function createSpecialDrink(name, articleno, price){
    return `
     <div class="special-drink">
@@ -56,8 +58,11 @@ function createSpecialDrink(name, articleno, price){
 }
 
 // =====================================================================================================
-// Event functions
+// Control: Event functions
 
+// update the balance of a vip costumer
+// alerts the user that a purches has been made
+// gives a code to the lock to access the special drinks
 function buySpecialDrink(articleno){
     var username = getItemUser();
     var specialDrinkCode = "2231";
@@ -66,18 +71,24 @@ function buySpecialDrink(articleno){
     update_view_vip();
 }
 
+// show the view of the popup window of special drinks
 function vipSpecialDrink(articleno){
     var modal  = document.getElementById("modal-vip-special-drink");
     modal.style.display = "block";
     console.log("special-drink.onclick");
 }
 
+// show the view of the popup window of vip account
 function vipSeeBalance(){
     var modal  = document.getElementById("modal-vip-balance");
     modal.style.display = "block";
     console.log("payment.onclick");
 }
 
+// removes all listed items in the cart
+// update the balance of a vip costmer
+// alerts the user that the pershus has been made
+// undo of payments is not allow from the vip costumer to prevent cheeting
 function vipPayment(){
     var username = getItemUser();
     var orders = getOrders();
@@ -93,6 +104,8 @@ function vipPayment(){
     update_view_vip();
 }
 
+// add amount to balance of a vip customer
+// a limit is set to 10000 to prevent abnormal large amounts
 function addBalance(){
     var amount = $("#lamount").val();
     if(amount < 10000){
@@ -107,6 +120,7 @@ function addBalance(){
     $("#lamount").val('0');
 }
 
+// set what the will happen when clicking on spesific divs for vip balance
 function setViewBalance(){
     var modal  = document.getElementById("modal-vip-balance");
     var view   = document.getElementById("vip-see-balance");
@@ -135,6 +149,7 @@ function setViewBalance(){
     };
 }
 
+// set what the will happen when clicking on spesific divs for special drinks
 function setViewSpecialDrink(){
     var modal  = document.getElementById("modal-vip-special-drink");
     var view   = document.getElementById("vip-see-special-drink");
@@ -164,7 +179,9 @@ function setViewSpecialDrink(){
 }
 
 // =====================================================================================================
-// View update
+// Control: View update
+
+// List all special drinks in a popup window
 function setSpecialDrinkList(){
     var id = "#vip-special-drink-list";
     var articleno;
@@ -186,16 +203,19 @@ function setSpecialDrinkList(){
     console.log(i);
 }
 
+// Update the view with vip users balance
 function setVipBalance(){
     var details = getUserDetails(getItemUser());
     $("#vip-balance").text(details.capital);
     $("#vip-balance-name").text(details.firstName + " " + details.lastName);
 }
 
+// inserts the view in a div in the customer view
 function setVip(){
     $("#customer-vip").html(createVip());
 }
 
+// Rerender the view if any changes has been made
 function update_view_vip(){
     update_view_customer();
 
