@@ -577,7 +577,7 @@ function pay(username, articleno, qty){
         changeCapital(username, -(getItemPrice(articleno)*parseInt(qty)));
     }
     catch(error){
-        console.log("Unable to pay");
+        throw("Unable to pay");
     }
 }
 

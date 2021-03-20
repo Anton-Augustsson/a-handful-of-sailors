@@ -66,9 +66,14 @@ function createSpecialDrink(name, articleno, price){
 function buySpecialDrink(articleno){
     var username = getItemUser();
     var specialDrinkCode = "2231";
-    pay(username, articleno, 1);
-    alert("Thank you for making a purches! The code is: " + specialDrinkCode);
-    update_view_vip();
+    try{
+        pay(username, articleno, 1);
+        alert(get_string('vars', 'purches-message') + " " + get_string('vars', 'special-drink-code-message') + specialDrinkCode);
+        update_view_vip();
+    }
+    catch(error){
+        alert(get_string('vars', 'low-balance-message'));
+    }
 }
 
 // show the view of the popup window of special drinks
@@ -93,15 +98,26 @@ function vipPayment(){
     var username = getItemUser();
     var orders = getOrders();
     var order;
+    var total = 0;
 
     for (let i = 0; i < orders.length; i++) {
         order = orders[i];
-        pay(username, order[0], order[1]);
+        total += order[1] * getItemPrice(order[0]);
     }
 
-    finnishCustomerSession();
-    alert("Thank you for making a purches!");
-    update_view_vip();
+    if(total < getCapital(getItemUser())){
+        for (let i = 0; i < orders.length; i++) {
+            order = orders[i];
+            pay(username, order[0], order[1]);
+        }
+
+        finnishCustomerSession();
+        alert(get_string('vars', 'purches-message'));
+        update_view_vip();
+    }
+    else{
+        alert(get_string('vars', 'low-balance-message'));
+    }
 }
 
 // add amount to balance of a vip customer
