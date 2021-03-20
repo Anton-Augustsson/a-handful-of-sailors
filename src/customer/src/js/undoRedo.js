@@ -1,5 +1,17 @@
+// =====================================================================================================
+// Control, for Customer.
+// =====================================================================================================
+// Author: Pontus Ljungren, Henrik Alderborn 2021
+//
+
+// =====================================================================================================
+// Variables
+
 var currentCart = {};
 
+// =====================================================================================================
+
+//adds clicked item to the cart
 function addToCartClicked(event){
     var button = event.target
     var shopItem = button.parentElement.parentElement
@@ -11,6 +23,7 @@ function addToCartClicked(event){
     doit (addToCartObj(title, price, artikelid) );
 }
 
+// returns a functionobject for either executing, unexecuting or reexecuting a quantity change of a cart item
 function quantityChangedObj(artikelid, newQuantity){
 
     var oldCartObj = JSON.parse(JSON.stringify(currentCart));
@@ -47,6 +60,7 @@ function quantityChangedObj(artikelid, newQuantity){
     return temp;
 }
 
+// returns a functionobject for either executing, unexecuting or reexecuting a remove of a cart item
 function removeCartItemObj(artikelid){
 
     var oldCartObj = JSON.parse(JSON.stringify(currentCart));
@@ -82,6 +96,7 @@ function removeCartItemObj(artikelid){
     return temp;
 }
 
+// returns a functionobject for either executing, unexecuting or reexecuting an add shop item to cart action
 function addToCartObj(title, price, artikelid){
 
     var oldCartObj = JSON.parse(JSON.stringify(currentCart));
@@ -116,6 +131,8 @@ function addToCartObj(title, price, artikelid){
     return temp;
 }
 
+// returns a new cart object with a new item added
+// if the item was already in the cart, the quantity is incremented
 function calcNewCartObj(title, price, artikelid){
 
     var cartItems = document.getElementsByClassName('cart-items')[0]
@@ -133,7 +150,6 @@ function calcNewCartObj(title, price, artikelid){
         newCart[artikelid] = "1";
         return newCart;
     }
-
     else{
         var value = newCart[id];
         value = parseInt(value) + 1
@@ -143,6 +159,9 @@ function calcNewCartObj(title, price, artikelid){
 
 }
 
+// checks if a specific item is in the cart
+// returns 0 if the searched item (title) wasn't in there,
+// if the searched item was already in the cart, the article number is returned
 function isItemAlreadyInCart(cartItemNames, title){
 
     for (var i = 0; i < cartItemNames.length; i++) {
@@ -156,6 +175,7 @@ function isItemAlreadyInCart(cartItemNames, title){
     return 0;
 }
 
+// Removes all the items from the cart interface
 function clearCart(){
 
     var cartItems = document.getElementsByClassName('cart-items')[0]
@@ -165,6 +185,8 @@ function clearCart(){
     }
 }
 
+// Converts a cart object to a cart HTML-element
+// adds the item to the cart interface
 function cartToHTML(cartObj){
 
     clearCart();

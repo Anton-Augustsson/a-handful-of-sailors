@@ -1,3 +1,12 @@
+// =====================================================================================================
+// View, for Customer.
+// =====================================================================================================
+// Author: Pontus Ljungren, Henrik Alderborn 2021
+//
+//
+// =====================================================================================================
+
+//Sets the html structure for customer
 function createCustomer() {
     return `
     <!-- html -->
@@ -67,10 +76,12 @@ function createCustomer() {
     `;
 }
 
+//Loads customer into given div
 function setCustomer(id) {
     $("#"+id).html(createCustomer());
 }
 
+//Loads and updates all data in customer
 function update_view_customer() {
     setCustomer(modeHtmlId + customer);
     update_view_dictionary();
