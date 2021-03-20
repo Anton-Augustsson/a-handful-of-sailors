@@ -164,23 +164,6 @@ function getDrinks(event){
     printAllDrinks(items);
 }
 
-/*
-function FiltersAsString(){
-
-    var filterString = "";
-
-    var elements = document.getElementsByClassName("checkbox");
-
-    for(let i = 0; i < elements.length; i++){
-
-        if(elements[i].checked === true){
-            filterString += "&& d." + elements[i].getAttribute("id").toString() + " === 'nej'";
-        }
-    }
-    return filterString;
-}
-*/
-
 // Updates which drinks are shown when filters are checked
 function updateFilters(){
 
@@ -312,22 +295,6 @@ function printAllDrinks(drinks) {
         shopItem.getElementsByClassName('shop-item-title')[0].addEventListener("click", clickItemForMoreInfo);
     }
 }
-/*
-function clickItemForMoreInfo(event) {
-    var shopItem = event.target.parentElement.parentElement
-    console.log(shopItem)
-    var moreInfo = shopItem.getElementsByClassName('shop-item-more-info')[0]
-    console.log(moreInfo)
-    if (moreInfo.classList.contains('shop-item-more-info-hide')) {
-        moreInfo.classList.remove('shop-item-more-info-hide')
-        moreInfo.classList.add('shop-item-more-info-show')
-    }
-    else {
-        moreInfo.classList.remove('shop-item-more-info-show')
-        moreInfo.classList.add('shop-item-more-info-hide')
-    }
-    console.log("test2")
-}*/
 
 // Slides down a div with extra info about the item clicked
 // Slides up if the extra info is already shown
@@ -367,20 +334,6 @@ function onDrop(event) {
 
     doit (addToCartObj(title, price, id) );
 }
-
-/*
-function addToCartClicked(event) {
-    console.log(event);
-    var button = event.target
-    console.log(button);
-    var shopItem = button.parentElement.parentElement
-    console.log(shopItem);
-    var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
-    var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText
-    var artikelid = shopItem.parentElement.id;
-    addItemToCart(title,price, artikelid);
-    updateCartTotal();
-}*/
 
 // Puts a shop-item in the cart interface
 function addItemToCart(title, price, artikelid, Quantity) {
