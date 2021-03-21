@@ -40,7 +40,7 @@ function createCustomer() {
                     </div>
                     <div class="menu">
                         <section class="container content-section">
-                            <h2 class="section-header">BEER</h2>
+                            <h2 id="drinks-content-header" class="section-header"></h2>
                             <div class="shop-items">
                                 <div class="shop-items-column-1"></div>
                                 <div class="shop-items-column-2"></div>
@@ -53,20 +53,20 @@ function createCustomer() {
                 </div>
         
                 <div class="cart" id="cart" ondrop="onDrop(event)" ondragover="onDragOver(event)" >
-                    <h3 class="section-header">CART</h3>
+                    <h3 id="cart-header-name" class="section-header"></h3>
                     <div class="cart-row">
-                        <span class="cart-item cart-header cart-column">ITEM</span>
-                        <span class="cart-price cart-header cart-column">PRICE</span>
-                        <span class="cart-quantity cart-header cart-column">QUANTITY</span>
+                        <span id="cart-item-header" class="cart-item cart-header cart-column"></span>
+                        <span id="cart-price-header" class="cart-price cart-header cart-column"></span>
+                        <span id="cart-quantity-header" class="cart-quantity cart-header cart-column"></span>
                     </div>
                     <div class="cart-items">
         
                     </div>
                     <div class="cart-total">
-                        <strong class="cart-total-title">Total</strong>
+                        <strong id="total-price-label" class="cart-total-title">Total</strong>
                         <span class="cart-total-price">$0.00</span>
                     </div>
-                    <button class="btn btn-primary btn-purchase" type="button" onclick=order()>ORDER</button>
+                    <button id="order-button" class="btn btn-primary btn-purchase" type="button" onclick=order()></button>
                     <div id="customer-vip"></div>
                 </div>
         

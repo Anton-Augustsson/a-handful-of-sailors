@@ -36,24 +36,11 @@ dict = {
                   'vip-see-balance', 'vip-payment', 'vip-see-special-drink', 'vip-balance-text',
                   'vip-balance-amount', 'vip-add-balance', 'cancel-vip-balance', 'cancel-vip-special-drink',
                   'select-all-items-label', 'login-select-mode', 'login-select-mode1',
-                  'login-select-mode2', 'login-select-mode3'],
+                  'login-select-mode2', 'login-select-mode3', 'cart-header-name', 'cart-item-header','cart-price-header',
+                  'cart-quantity-header', 'order-button', 'total-price-label', 'drinks-content-header'],
                   // keys for strings
 
 
-        /*LÄGG TILL
-        Producer / tillverkare
-        Country  / land
-        Type     / typ
-        Alcohol  / Alkoholhalt
-        Size     / Storlek
-        ADD TO CART / LÄGG TILL KUNDVAGN
-        CART / KUNDVAGN
-        ITEM     / VARA
-        PRICE    / PRIS
-        QUANTITY / Antal
-        Total    / Totalt
-        Order    / Beställ
-         */
 
 
 
@@ -102,6 +89,15 @@ dict = {
             'login-select-mode1': "VIP",
             'login-select-mode2': "Manager",
             'login-select-mode3': "Staff",
+            'cart-header-name' : "CART",
+            'cart-item-header' : "ITEM",
+            'cart-price-header' : "PRICE",
+            'cart-quantity-header' : "QUANTITY",
+            'order-button' : "ORDER",
+            'total-price-label' : "Total",
+            'drinks-content-header' : "Beverages",
+
+
         },
         'sv' : {
             'selected-language': 'Svenska',
@@ -143,14 +139,22 @@ dict = {
             'login-select-mode1': "VIP",
             'login-select-mode2': "Direktör",
             'login-select-mode3': "Personal",
+            'cart-header-name' : "VARUKORG",
+            'cart-item-header' : "VARA",
+            'cart-price-header' : "PRIS",
+            'cart-quantity-header' : "ANTAL",
+            'order-button' : "BESTÄLL",
+            'total-price-label' : "Totalt",
+            'drinks-content-header' : "Drycker",
+
         }
     },
 
-    // The other Dictionary is class (cl) spesific dictionares make sure that each class name
+    // The other Dictionary is class (cl) specific dictionaries make sure that each class name
     // matches the with the key. That is how it is identified.
     'cl': {
         'keys' : ['on-the-house','not-on-the-house', 'remove-item-order', 'item-mod-qty', 'item-mod-price',
-                  'buy-special-drink'],
+                  'buy-special-drink', 'shop-item-button'],
 
         'en': {
             'on-the-house': "Add on the house",
@@ -159,6 +163,7 @@ dict = {
             'item-mod-qty': "Qty",
             'item-mod-price': "Price",
             'buy-special-drink': "Buy",
+            'shop-item-button' : "ADD TO CART",
 
         },
         'sv': {
@@ -168,6 +173,7 @@ dict = {
             'item-mod-qty': "Antal",
             'item-mod-price': "Pris",
             'buy-special-drink': "Köp",
+            'shop-item-button' : "LÄGG TILL VARUKORG",
         }
     },
 

@@ -274,7 +274,7 @@ function printAllDrinks(drinks) {
                 <span class="shop-item-title">${name}</span>
                 <div class="shop-item-details">
                     <span class="shop-item-price">${price}</span>
-                    <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+                    <button id="shop-item-button" class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
                 </div>
             </div>
             <div class="shop-item-more-info">
