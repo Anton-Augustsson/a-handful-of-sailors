@@ -595,6 +595,9 @@ function changeCapital(username, qty){
 
 function pay(username, articleno, qty){
     try{
+        // update stock
+        replenishStock(articleno, qty);
+        // update balance
         changeCapital(username, -(getItemPrice(articleno)*parseInt(qty)));
     }
     catch(error){
