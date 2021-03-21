@@ -108,7 +108,7 @@ function vipPayment(){
     if(total < getCapital(getItemUser())){
         for (let i = 0; i < orders.length; i++) {
             order = orders[i];
-            pay(username, order[0], order[1]);
+            pay(username, order[0], -order[1]);
         }
 
         finnishCustomerSession();
