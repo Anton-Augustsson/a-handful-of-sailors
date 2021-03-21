@@ -1,3 +1,13 @@
+/*
+
+File table_info.css
+
+Author: Pontus Ljungren, Henrik Alderborn
+
+style for the customer page
+*/
+
+/* General styles for customer*/
 .customer{
     background-color: var(--color-one);
     display: flex;
@@ -12,6 +22,7 @@
     flex-grow: 1;
 }
 
+/* Menu */
 .menu-wrapper{
     display: flex;
     flex-direction: row;
@@ -25,9 +36,13 @@
     max-width: 300px;
 }
 
+#selected-table {
+    text-align: left;
+
+}
+
 .pick-table-menu .selected-table {
     display: flex;
-    justify-content: space-between;
     line-height: 2;
     cursor: pointer;
 }
@@ -126,6 +141,74 @@
     height: 100%;
 }
 
+.shop-item {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.shop-item-default{
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+}
+
+.shop-item-title {
+    display: block;
+    width: 200px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.shop-item-title:hover{
+    cursor: pointer;
+}
+
+.shop-item-image {
+    height: 250px;
+}
+
+.shop-item-details {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.shop-item-price {
+    flex-grow: 1;
+    color: #333;
+    text-align: end;
+    width: 60px;
+    margin-right: 5px;
+}
+
+.shop-items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.shop-item-more-info{
+    display: none;
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+
+}
+
+.extra-info{
+    padding: 5px;
+    border-top: 1px solid black;
+    width: 50%;
+    margin-left: 5px;
+}
+
+/* Cart */
 .cart{
     background-color: var(--color-three);
     overflow: scroll;
@@ -221,73 +304,7 @@
     font-size: 1.75em;
 }
 
-.shop-item {
-    display: flex;
-    flex-direction: column;
-    border: 3px solid;
-    border-radius: 10px;
-    margin: 10px;
-}
-
-.shop-item-default{
-    display: flex;
-    flex-direction: row;
-    height: 80px;
-}
-
-.shop-item-title {
-    display: block;
-    width: 200px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.5em;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.shop-item-title:hover{
-    cursor: pointer;
-}
-
-.shop-item-image {
-    height: 250px;
-}
-
-.shop-item-details {
-    display: flex;
-    align-items: center;
-    padding: 5px;
-}
-
-.shop-item-price {
-    flex-grow: 1;
-    color: #333;
-    text-align: end;
-    width: 60px;
-    margin-right: 5px;
-}
-
-.shop-items {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.shop-item-more-info{
-    display: none;
-    max-height: 0;
-    transition: max-height 0.2s ease-out;
-
-}
-
-.extra-info{
-    padding: 5px;
-    border-top: 1px solid black;
-    width: 50%;
-    margin-left: 5px;
-}
-
+/* Responsive design */
 @media only screen and (max-width: 900px) {
     .customer{
         flex-direction: column;

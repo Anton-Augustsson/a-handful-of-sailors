@@ -1,5 +1,17 @@
+// =====================================================================================================
+// Control, for Customer.
+// =====================================================================================================
+// Author: Pontus Ljungren, Henrik Alderborn 2021
+//
+
+// =====================================================================================================
+// Variables
+
 var customersActiveTable;
 
+// =====================================================================================================
+
+// adds Event Listeners to interactive parts on the site after loading the customer
 $('document').ready(function() {
     var removeCartItemButtons = document.getElementsByClassName('remove-item-from-cart');
     for (var i = 0; i < removeCartItemButtons.length; i++) {
@@ -24,12 +36,15 @@ $('document').ready(function() {
     //getBeers();
 });
 
+// Sets active table for the customer
 function customersTable(index) {
     var table = getTableByIndex(index);
     customersActiveTable = table.tableid;
-    console.log(customersActiveTable);
+    var selectedTable = document.getElementById('selected-table');
+    selectedTable.innerHTML = `<h2 class="section-header">Table ${table.tableid}</h2>`;
 }
 
+// adds all tables to a list in the interface
 function getTablesForCustomer() {
     var nrOfTables = getNumTables();
 
@@ -45,9 +60,10 @@ function getTablesForCustomer() {
         list.append(listElem);
     }
 
-    customersTable(0); //TODO:  change to activeTable-element?
+    customersTable(0); //TODO:  change to activeTable-element? Shouldn't be here?
 }
 
+// gets all items from DBWarehouse of type beer/wine/cocktail(decided by str) passing active filters
 function fetchFromDb(str){
 
     let items = [];
@@ -69,6 +85,7 @@ function fetchFromDb(str){
     return items;
 }
 
+// checks if an item fulfills the conditions of checked filters in customer
 function checkFilters(itemDetails){
     var elements = document.getElementsByClassName("checkbox");
 
@@ -98,6 +115,7 @@ function checkFilters(itemDetails){
 
 }
 
+// Puts all beers in the menu interface
 function getBeers(event){
     if(document.getElementById("menu_beer").getAttribute("data-status") === "active" && event !== "filter"){
         return;
@@ -114,7 +132,7 @@ function getBeers(event){
 }
 
 
-
+// Puts all wines in the menu interface
 function getWines(event){
     if(document.getElementById("menu_wine").getAttribute("data-status") === "active" && event !== "filter"){
         return;
@@ -131,6 +149,7 @@ function getWines(event){
 
 }
 
+// Puts all cocktails in the menu interface
 function getDrinks(event){
     if(document.getElementById("menu_drinks").getAttribute("data-status") === "active" && event !== "filter"){
         return;
@@ -146,23 +165,7 @@ function getDrinks(event){
     printAllDrinks(items);
 }
 
-/*
-function FiltersAsString(){
-
-    var filterString = "";
-
-    var elements = document.getElementsByClassName("checkbox");
-
-    for(let i = 0; i < elements.length; i++){
-
-        if(elements[i].checked === true){
-            filterString += "&& d." + elements[i].getAttribute("id").toString() + " === 'nej'";
-        }
-    }
-    return filterString;
-}
-*/
-
+// Updates which drinks are shown when filters are checked
 function updateFilters(){
 
     if(document.getElementById("menu_wine").getAttribute("data-status") === "active"){
@@ -176,6 +179,7 @@ function updateFilters(){
     }
 }
 
+// Clears all items from the menu interface
 function clearItems(){
 
     var elements = document.getElementsByClassName("shop-item");
@@ -185,7 +189,7 @@ function clearItems(){
     return;
 }
 
-// Get all order items from cart inorder to process them
+// Get all order items from cart in order to process them
 // result[i][0] = articleno
 // result[i][1] = qty
 //
@@ -223,6 +227,9 @@ function finnishCustomerSession(){
 
 }
 
+// makes an order of all items in the carts
+// clears the cart interface
+// alerts that an order has been made
 function order() {
     var tableId = customersActiveTable;
     var orders = getOrders();
@@ -237,14 +244,15 @@ function order() {
 
 
     finnishCustomerSession();
-    goToPrimaryMode(); // if there is primary mode that isen't customer some one has called it
+    goToPrimaryMode(); // if there is primary mode that isn't customer some one has called it
     alert("Thank you for ordering!");
 }
 
-function printAllDrinks(allDrinks) {
+//Puts all drinks given by the argument to the menu interface
+function printAllDrinks(drinks) {
 
-    for (var i = 0; i < allDrinks.length; i++) {
-        var drink = allDrinks[i];
+    for (var i = 0; i < drinks.length; i++) {
+        var drink = drinks[i];
         var name = drink[0];
         var price = drink[1];
         var articleId = drink[2];
@@ -288,22 +296,9 @@ function printAllDrinks(allDrinks) {
         shopItem.getElementsByClassName('shop-item-title')[0].addEventListener("click", clickItemForMoreInfo);
     }
 }
-/*
-function clickItemForMoreInfo(event) {
-    var shopItem = event.target.parentElement.parentElement
-    console.log(shopItem)
-    var moreInfo = shopItem.getElementsByClassName('shop-item-more-info')[0]
-    console.log(moreInfo)
-    if (moreInfo.classList.contains('shop-item-more-info-hide')) {
-        moreInfo.classList.remove('shop-item-more-info-hide')
-        moreInfo.classList.add('shop-item-more-info-show')
-    }
-    else {
-        moreInfo.classList.remove('shop-item-more-info-show')
-        moreInfo.classList.add('shop-item-more-info-hide')
-    }
-    console.log("test2")
-}*/
+
+// Slides down a div with extra info about the item clicked
+// Slides up if the extra info is already shown
 function clickItemForMoreInfo(event) {
     this.classList.toggle("active");
     var content = this.parentElement.parentElement.children[1];
@@ -317,15 +312,17 @@ function clickItemForMoreInfo(event) {
     }
 }
 
-
+//The data of the item is transferred when dragging it
 function onDragStart(event) {
     event.dataTransfer.setData('text', event.target.className.replace('shop-item ', ''));
 }
 
+//Allows you to drop a draggable element over an item
 function onDragOver(event) {
     event.preventDefault();
 }
 
+// adds an item to the cart on dropping a draggable element over the cart
 function onDrop(event) {
     console.log(event);
     console.log(event.dataTransfer);
@@ -339,20 +336,7 @@ function onDrop(event) {
     doit (addToCartObj(title, price, id) );
 }
 
-/*
-function addToCartClicked(event) {
-    console.log(event);
-    var button = event.target
-    console.log(button);
-    var shopItem = button.parentElement.parentElement
-    console.log(shopItem);
-    var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
-    var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText
-    var artikelid = shopItem.parentElement.id;
-    addItemToCart(title,price, artikelid);
-    updateCartTotal();
-}*/
-
+// Puts a shop-item in the cart interface
 function addItemToCart(title, price, artikelid, Quantity) {
     var cartRow = document.createElement('div');
     cartRow.classList.add('cart-row');
@@ -381,6 +365,9 @@ function addItemToCart(title, price, artikelid, Quantity) {
     cartRow.getElementsByClassName('remove-item-from-cart')[0].addEventListener('click', removeCartItem);
     cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', quantityChanged);
 }
+
+// Changes the value inside the input tag
+// if the input is not a number the value will be set to 1
 function quantityChanged(event) {
     var input = event.target;
 
@@ -393,11 +380,13 @@ function quantityChanged(event) {
     doit (quantityChangedObj(artikelid, input.value));
 }
 
+// Removes associated item from the cart interface
 function removeCartItem(event) {
     var artikelid = event.target.parentElement.parentElement.id;
     doit (removeCartItemObj(artikelid));
 }
 
+// Updates the total price of all the items in the cart interface
 function updateCartTotal() {
     var cartItemContainer = document.getElementsByClassName('cart-items')[0];
     var cartRows = cartItemContainer.getElementsByClassName('cart-row');
