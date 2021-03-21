@@ -16,6 +16,7 @@ var tableNr = 0;
 function createItem(tableid, articleno, name, info, stats, qty, oldPrice, newPrice){
   var newItem = `
         <div class="item">
+            <input type="checkbox" name="selectItem" id="checkbox-${tableid}-${articleno}"><br/>
             <div class="item-general">
                 <div class="name"><p>${name}</p></div>
                 <div class="info"><p>${info}</p></div>
@@ -68,6 +69,8 @@ function createStaff(){
             </div>
         </div>
         <div id="table-info">
+            <label for="select-all-items" id="select-all-items-label"></label>
+            <input type="checkbox" id="select-all-items" onclick=selectAllItems(this)><br/>
             <div id="orders"></div>
             <div id="options-table-info">
                 <button id="new-order" onclick=newOrderCustomer()></button>
@@ -89,6 +92,17 @@ function createStaff(){
 // =====================================================================================================
 // Helper function
 
+function isSelected(tableid, articleno){
+  var checkbox = document.getElementById('checkbox-'+ tableid + '-' + articleno);
+  return checkbox.checked;
+}
+
+function selectAllItems(source) {
+  var checkboxes = document.getElementsByName('selectItem');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+}
 
 function resetStaff(){
   reset();
@@ -431,8 +445,8 @@ function update_view_staff(){
         setTable(tableid);
     }
 
-    update_view_dictionary();
     setCheckout();
+    update_view_dictionary();
 }
 
 function init_staff(){

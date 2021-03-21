@@ -215,6 +215,17 @@ function newTable(){
     return newTableObj.tableid;
 }
 
+function itemExistsInTable(tableid, articleid){
+    var result = false;
+    var table = getTableByID(tableid);
+    for(i = 0; i<table.orders.length; ++i){
+        if(table.orders[i].articleno == articleid){
+            result = true;
+        }
+    }
+    return result;
+}
+
 // creates a new order for a table
 // use articleid to point to the item in the order
 // qty>0 or faliure
@@ -222,7 +233,15 @@ function newTable(){
 //
 function newOrder(tableid, articleid, qty){
     //var index = get
+
+    if(itemExistsInTable(tableid,articleid)){
+        replenishOrder(tableid, articleid, qty);
+        update_model();
+        return;
+    }
+
     try{
+
         var aricleidIndex = getDBWarehouseItemIndex(articleid);
         var index = getTableidIndex(tableid);
 
@@ -238,6 +257,7 @@ function newOrder(tableid, articleid, qty){
         DBTable.tables[index].orders[length] = newOrderObj;
 
         update_model();
+
     } catch(error){
         console.log("Could not add order");
     }
@@ -248,8 +268,9 @@ function newOrder(tableid, articleid, qty){
 // qty<0 will decrese the stock
 // stock<0 is not allowed
 //
-function replenishOrder(tableid, articleid, qty){
+function replenishOrder(tableid, articleid, qtys){
     var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
+    var qty = parseInt(qtys);
     for(i=0; i < length; ++i){
         if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid){
             if(DBTable.tables[getTableidIndex(tableid)].orders[i].qty > -qty){
@@ -297,14 +318,23 @@ function checkoutTable(tableid){
     var articleno;
     var order;
     var result = [];
+    var deleteIndex = 0;
 
-    for(i=0; i < length; ++i){
-        order = DBTable.tables[ti].orders[0];
+    for(var i = length-1; i >= 0; i--){
+
+        console.log(i);
+        order = DBTable.tables[ti].orders[i];
         articleno = order.articleno;
-        qty = order.qty;
-        result[result.length] = [articleno,replenishStock(articleno, -qty)];
-        DBTable.tables[ti].orders.splice(0,1);
+
+        console.log(articleno);
+        if(isSelected(tableid, articleno)){
+            qty = order.qty;
+            result[result.length] = [articleno,replenishStock(articleno, -qty)];
+            DBTable.tables[ti].orders.splice(i,1);
+            console.log("checkout" + articleno);
+        }
     }
+
 
     // set warehouse to null
     update_model();
@@ -411,7 +441,8 @@ function initDBWarehouse(){
 initDBWarehouse();
 
 // replenish stock
-function replenishStock(articleno, qty){
+function replenishStock(articleno, qtys){
+    var qty = parseInt(qtys);
     var itemIndex = getDBWarehouseItemIndex(articleno);
     if(DBWarehouse.item[itemIndex].stock > -qty){
         DBWarehouse.item[itemIndex].stock += qty;
@@ -572,10 +603,11 @@ function changeCapital(username, qty){
 
 function pay(username, articleno, qty){
     try{
+        replenishStock(articleno, qty);
         changeCapital(username, -(getItemPrice(articleno)*parseInt(qty)));
     }
     catch(error){
-        console.log("Unable to pay");
+        throw("Unable to pay");
     }
 }
 

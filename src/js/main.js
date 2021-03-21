@@ -107,6 +107,7 @@ function init(){
     setUser();
 
     update_view();
+    update_view_dictionary();
 }
 
 function reset(){

@@ -34,7 +34,9 @@ dict = {
                   'addTable', 'payment','new-order','payment-checkout', 'finish-payment',
                   'cancel-payment', 'notify-security', 'remove-table',
                   'vip-see-balance', 'vip-payment', 'vip-see-special-drink', 'vip-balance-text',
-                  'vip-balance-amount', 'vip-add-balance', 'cancel-vip-balance', 'cancel-vip-special-drink'],
+                  'vip-balance-amount', 'vip-add-balance', 'cancel-vip-balance', 'cancel-vip-special-drink',
+                  'select-all-items-label', 'login-select-mode', 'login-select-mode1',
+                  'login-select-mode2', 'login-select-mode3'],
                   // keys for strings
 
 
@@ -95,6 +97,11 @@ dict = {
             'vip-add-balance': "Add",
             'cancel-vip-balance': "Cancel",
             'cancel-vip-special-drink': "Cancel",
+            'select-all-items-label': "Select all items",
+            'login-select-mode': "Select login",
+            'login-select-mode1': "VIP",
+            'login-select-mode2': "Manager",
+            'login-select-mode3': "Staff",
         },
         'sv' : {
             'selected-language': 'Svenska',
@@ -131,6 +138,11 @@ dict = {
             'vip-add-balance': "Lägg till",
             'cancel-vip-balance': "Avbryt",
             'cancel-vip-special-drink': "Avbryt",
+            'select-all-items-label': "Välj all orders",
+            'login-select-mode': "Välj login",
+            'login-select-mode1': "VIP",
+            'login-select-mode2': "Direktör",
+            'login-select-mode3': "Personal",
         }
     },
 
@@ -174,17 +186,27 @@ dict = {
     },
 
     'vars': {
-        'keys' : ['total-price-table-message', 'item-price-message', 'alcohol-content-message'],
+        'keys' : ['total-price-table-message', 'item-price-message', 'alcohol-content-message',
+                  'low-balance-message', 'purches-message', 'add-balance-to-much-message',
+                  'special-drink-code-message'],
 
         'en': {
             'total-price-table-message': "Total: ",
             'item-price-message': "Original Price: ",
             'alcohol-content-message': "Alcohol: ",
+            'low-balance-message': "Balance to low",
+            'purches-message': "Thank you for making a purches!",
+            'add-balance-to-much-message': "You have added to much",
+            'special-drink-code-message': "The code is: "
         },
         'sv' : {
             'total-price-table-message': "Summa: ",
             'item-price-message': "Orginal Pris: ",
             'alcohol-content-message': "Alkoholhalt: ",
+            'low-balance-message': "Innehav för låg",
+            'purches-message': "Tack för din beställning",
+            'add-balance-to-much-message': "Du har lagt till förmycket",
+            'special-drink-code-message': "Kåden är: ",
         }
     }
 };
