@@ -215,6 +215,17 @@ function newTable(){
     return newTableObj.tableid;
 }
 
+function itemExistsInTable(tableid, articleid){
+    var result = false;
+    var table = getTableByID(tableid);
+    for(i = 0; i<table.orders.length; ++i){
+        if(table.orders[i].articleno == articleid){
+            result = true;
+        }
+    }
+    return result;
+}
+
 // creates a new order for a table
 // use articleid to point to the item in the order
 // qty>0 or faliure
@@ -222,7 +233,15 @@ function newTable(){
 //
 function newOrder(tableid, articleid, qty){
     //var index = get
+
+    if(itemExistsInTable(tableid,articleid)){
+        replenishOrder(tableid, articleid, qty);
+        update_model();
+        return;
+    }
+
     try{
+
         var aricleidIndex = getDBWarehouseItemIndex(articleid);
         var index = getTableidIndex(tableid);
 
@@ -238,6 +257,7 @@ function newOrder(tableid, articleid, qty){
         DBTable.tables[index].orders[length] = newOrderObj;
 
         update_model();
+
     } catch(error){
         console.log("Could not add order");
     }
@@ -248,8 +268,9 @@ function newOrder(tableid, articleid, qty){
 // qty<0 will decrese the stock
 // stock<0 is not allowed
 //
-function replenishOrder(tableid, articleid, qty){
+function replenishOrder(tableid, articleid, qtys){
     var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
+    var qty = parseInt(qtys);
     for(i=0; i < length; ++i){
         if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid){
             if(DBTable.tables[getTableidIndex(tableid)].orders[i].qty > -qty){
