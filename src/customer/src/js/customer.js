@@ -40,7 +40,8 @@ $('document').ready(function() {
 function customersTable(index) {
     var table = getTableByIndex(index);
     customersActiveTable = table.tableid;
-    console.log(customersActiveTable);
+    var selectedTable = document.getElementById('selected-table');
+    selectedTable.innerHTML = `<h2 class="section-header">Table ${table.tableid}</h2>`;
 }
 
 // adds all tables to a list in the interface

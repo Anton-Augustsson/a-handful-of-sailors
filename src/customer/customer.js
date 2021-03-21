@@ -17,7 +17,6 @@ function createCustomer() {
                         <div class="pick-table">
                             <div class="pick-table-menu">
                                 <div class="selected-table" id="selected-table">    <!-- TODO: change to say what table is active-->
-                                    Table
                                 </div>
                                 <ul class="pick-table-menu-list">
                                 </ul>
