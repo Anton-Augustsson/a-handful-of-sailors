@@ -318,14 +318,18 @@ function checkoutTable(tableid){
     var articleno;
     var order;
     var result = [];
+    var deleteIndex = 0;
 
     for(i=0; i < length; ++i){
-        order = DBTable.tables[ti].orders[0];
+        order = DBTable.tables[ti].orders[i];
         articleno = order.articleno;
         if(isSelected(tableid, articleno)){
             qty = order.qty;
             result[result.length] = [articleno,replenishStock(articleno, -qty)];
-            DBTable.tables[ti].orders.splice(0,1);
+            DBTable.tables[ti].orders.splice(deleteIndex,1);
+        }
+        else{
+            deleteIndex++;
         }
     }
 
