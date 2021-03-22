@@ -3,11 +3,8 @@
 // =====================================================================================================
 // Author: Anton Augustsson, 2021
 //
-/* Requires
- * UNDOmanager
- */
+// Creates and inserts the header in the main view
 //
-
 // =====================================================================================================
 // Viewer
 
@@ -55,7 +52,6 @@ function setHeader(){
 
 // insert the header and footer when the page has loaded
 $(document).ready(function(){
-  //setFooter();
   setHeader();
 });
 

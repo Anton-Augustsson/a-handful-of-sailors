@@ -3,7 +3,8 @@
 // =====================================================================================================
 // Author: Pontus Ljungren, Henrik Alderborn 2021
 //
-
+// Loads all items from active category that are in stock into the menu(Default shows beers).
+// Handles user interactions and updates the model and view in the desired manner.
 // =====================================================================================================
 // Variables
 
@@ -129,6 +130,7 @@ function getBeers(event){
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
+    update_view_dictionary();
 }
 
 
@@ -146,6 +148,7 @@ function getWines(event){
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
+    update_view_dictionary();
 
 }
 
@@ -163,6 +166,7 @@ function getDrinks(event){
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
+    update_view_dictionary();
 }
 
 // Updates which drinks are shown when filters are checked
@@ -274,7 +278,7 @@ function printAllDrinks(drinks) {
                 <span class="shop-item-title">${name}</span>
                 <div class="shop-item-details">
                     <span class="shop-item-price">${price}</span>
-                    <button class="btn btn-primary shop-item-button" type="button">ADD TO CART</button>
+                    <button id="shop-item-button" class="btn btn-primary shop-item-button" type="button"></button>
                 </div>
             </div>
             <div class="shop-item-more-info">
