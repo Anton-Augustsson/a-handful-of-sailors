@@ -51,11 +51,20 @@ function itemDetails(artikelid){
     return details;
 }
 
-
+// get the size of DB2
+function getNumberOfItemsInDB2(){
+    return DB2.spirits.length
+}
 // get the prise of an item inorder to calculate the cost
 function getItemPrice(artikelid){
     var index = getItemIndexDBBeverages(artikelid);
     return parseInt(DB2.spirits[index].prisinklmoms);
+}
+
+
+// get articleId
+function getArticleId(itemIndex){
+    return DB2.spirits[itemIndex].artikelid;
 }
 
 // =====================================================================================================
@@ -421,7 +430,7 @@ function getDBWarehouseItemIndex(articleno){
             return i;
         }
     }
-    throw "Articleno dosen't exist";
+    return null;
 }
 
 // get the item located in the dbwarhouse
@@ -431,6 +440,9 @@ function getDBWarehouseItem(articleno){
 
 // get stock
 function getStock(articleno){
+    if(getDBWarehouseItem(articleno) == null){
+        return "No stock"
+    }
     return getDBWarehouseItem(articleno).stock;
 }
 
@@ -467,7 +479,7 @@ initDBWarehouse();
 function replenishStock(articleno, qtys){
     var qty = parseInt(qtys);
     var itemIndex = getDBWarehouseItemIndex(articleno);
-    if(DBWarehouse.item[itemIndex].stock > -qty){
+    if(DBWarehouse.item[itemIndex].stock >= -qty){
         DBWarehouse.item[itemIndex].stock += qty;
         update_model_DBWarehouse();
         update_model_DBWarehouse();
@@ -486,13 +498,15 @@ function removeWarehouseItem(articleno){
     update_model_DBWarehouse();
 }
 
+
 // add item to warhouse
 // will not check if it exists before inserting
-function addWarehouseItem(articleno){
+function addWarehouseItem(articleno, amount){
+
     var length = getNumberOfItemsInWarehouse();
     var newItemObj = {
         articleno: articleno,
-        stock: DefaultStock,
+        stock: amount,
     };
 
     DBWarehouse.item[length] = newItemObj;

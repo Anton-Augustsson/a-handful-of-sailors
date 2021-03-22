@@ -4,14 +4,14 @@
 
 ### Group 1
 
-- Victoria
-- Henrik
-- Pontus
+- Victoria v7
+- Henrik v8
+- Pontus v6
 
 ## Group 2
 
-- Isak
-- Anton
+- Isak v5
+- Anton v9
 
 ## Plan
 
@@ -28,6 +28,9 @@ Date: 2021-02-8 to 2021-02-19
 ### Group 1 tasks
 
 - Basic version of Customer (VIP and normal)
+View: Pontus
+Control: Victoria
+Model: Henrik
 
 ### Group 2 tasks
 
@@ -35,22 +38,18 @@ Date: 2021-02-8 to 2021-02-19
 
 ## Sprint 3
 
-Date: 2021-02-22 to 2021-03-26
-
+Date: 2021-02-22 to 2021-03-3
+(Requirement specification)
 - MVC
 - change presentation language dynamically
 - responsive design
-
-## Sprint 4
-
-Date: 2021-03-1 to 2021-02-9
-
 - Drag and Drop
 - Undo-Redo
 
-## Sprint 5
+## Sprint 4
 
-Date: 2021-03-10 to 2021-03-17
+Date: 2021-03-4 to 2021-03-9
 
+- Make sure it is usable friendly
 - Finalize
-- make it pretty
+- Presentation 
