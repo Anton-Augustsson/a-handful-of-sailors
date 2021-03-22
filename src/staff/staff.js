@@ -3,10 +3,15 @@
 // =====================================================================================================
 // Author: Anton Augustsson, 2021
 //
+// Staff is the view for the bartender and waters.
+// They will be able to modefie the tables in the bar.
+// They will be able to se the order add to it, remove
+// and change the price, to name a few.
 //
 // =====================================================================================================
 // Varibles
 
+// Is used to define what will be the next table to creat
 var tableNr = 0;
 
 // =====================================================================================================
@@ -92,11 +97,14 @@ function createStaff(){
 // =====================================================================================================
 // Helper function
 
+// determance if a item has been selected to determan wheter or not to
+// checkout and pay for it
 function isSelected(tableid, articleno){
   var checkbox = document.getElementById('checkbox-'+ tableid + '-' + articleno);
   return checkbox.checked;
 }
 
+// Is used to select all the items when selectin select all checkbox
 function selectAllItems(source) {
   var checkboxes = document.getElementsByName('selectItem');
   for(var i=0, n=checkboxes.length;i<n;i++) {
@@ -104,11 +112,13 @@ function selectAllItems(source) {
   }
 }
 
+// reset the localy storde data structures
 function resetStaff(){
   reset();
   setDefaultSelectedTable();
 }
 
+// calculate price of the current selected table
 function calculatePriceForTable() {
   var table = getCurrentTable();
   var articleno;
@@ -126,6 +136,7 @@ function calculatePriceForTable() {
   return sum;
 }
 
+// alert the user if we are low on stock
 function alertLowStock(articlenoQty){
   for(i = 0; i < articlenoQty.length; i++){
     if(articlenoQty[i][1]<10){
@@ -137,10 +148,14 @@ function alertLowStock(articlenoQty){
 // =====================================================================================================
 // Event functions
 
+// adds a new empty table
+// can be undone
 function addTable(){
     doit(addTableUD());
 }
 
+// removes a table. Will not effect the stock
+// can be undone
 function removeTableWindow(tableid){
     setDefaultSelectedTable();
     doit(removeTableWindowUD(tableid));
@@ -173,22 +188,27 @@ function newOrderCustomer() {
   // primary mode is set to staff
 }
 
+// make the item free
 function onHouse(tableid, articleno){
   // hide not on house
   setOnHouse(tableid,articleno,true);
   update_view_staff();
 }
 
+// undo the selected on house
 function notOnHouse(tableid, articleno){
   // hide on the house
   setOnHouse(tableid,articleno,false);
   update_view_staff();
 }
 
+// alert the user that they have called for security
 function notifySecurity(){
   alert ("Security has been notifyed!");
 }
 
+// remove a single item from a order of a table
+// can be undone
 function removeItemOrder(tableid, articleno){
   console.log("remove");
   console.log(tableid);
@@ -196,6 +216,7 @@ function removeItemOrder(tableid, articleno){
   doit(removeItemOrderUD(tableid, articleno));
 }
 
+// update the desplayed qty in the model if it has been changed by the user
 function updateTableOrderQty(tableid, articleno){
   console.log("Update qty");
   var value = $("#quantity-"+tableid+"-"+articleno).val();
@@ -209,6 +230,8 @@ function updateTableOrderQty(tableid, articleno){
   }
 }
 
+// update the price of an item for a spesific table in the model
+// will not change the price of any other order
 function updateTableOrderPrice(tableid, articleno){
   console.log("Update price");
   var value = $("#price-"+tableid+"-"+articleno).val();
@@ -225,6 +248,8 @@ function updateTableOrderPrice(tableid, articleno){
 // =====================================================================================================
 // Undo redo functions
 
+// Undo redo for removing an item from a table
+// will save the database and restores if if undo
 function removeItemOrderUD(tableid, articleno){
     var temp = {
         oldDB: JSON.stringify(getDBTable()),
@@ -247,6 +272,8 @@ function removeItemOrderUD(tableid, articleno){
     return temp;
 }
 
+// Undo redo for paying for a table
+// will save the database and restores if if undo
 function finishPaymentUD(){
    var temp = {
         oldDB: JSON.stringify(getDBTable()),
@@ -273,6 +300,7 @@ function finishPaymentUD(){
 
 // We need to evaluate DBTable therfore we use JSON.stringify if you remove it the oldDB will be
 // the new DB
+// will save the database and restores if if undo
 function addTableUD() {
     var temp = {
         oldDB: JSON.stringify(getDBTable()),
@@ -301,6 +329,8 @@ function addTableUD() {
     return temp;
 }
 
+// Undo redo for removing a table
+// will save the database and restores if if undo
 function removeTableWindowUD(tableid) {
     var temp = {
         oldDB: JSON.stringify(getDBTable()),
@@ -332,11 +362,12 @@ function removeTableWindowUD(tableid) {
 // =====================================================================================================
 // View update
 
-// Insert html in view
+// Insert table view
 function setTable(tableNr){
     $('#extraTables').append(createTable(tableNr));
 }
 
+// Insert staff view
 function setStaff(id){
     $("#"+id).html(createStaff());
 }
@@ -346,12 +377,14 @@ function setItem(table, articleno, name, info, stats, qty, oldPrice, newPrice){
   $("#orders").append(createItem(table, articleno, name, info, stats, qty, oldPrice, newPrice));
 }
 
+// update the price of all items in order
 function setTotalPriceTable(){
     // need to update language before
     getLanguage();
     $("#total-price-table").text(get_string('vars', 'total-price-table-message') + calculatePriceForTable());
 }
 
+// set a price of a spesific item
 function setPriceOrder(table, articleno){
     // need to update language before
     getLanguage();
@@ -396,6 +429,7 @@ function setAllTableItems(){
   }
 }
 
+// clear the view inorder to update it
 function clear_view_staff(){
     $('#orders').html('');
     $('#extraTables').html('');
@@ -432,6 +466,8 @@ function setCheckout(){
 
 }
 
+// update the view for staff will consists of inserting the staff view,
+// all table items for the selected table and the total price.
 function update_view_staff(){
     //clear_view_staff();
 
@@ -449,6 +485,9 @@ function update_view_staff(){
     update_view_dictionary();
 }
 
+// Initial calls for staff
+// consisting of inserting the view and set default table
+// also listen for checkout
 function init_staff(){
   update_view_staff();
   setDefaultSelectedTable();

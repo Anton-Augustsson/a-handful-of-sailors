@@ -1,3 +1,48 @@
+<!---
+File: index.html
+
+This file is the main page for the fling dutchman page with is a bart web page
+were customers can order items and pay at the bar. Vip customer can pay directly
+and buy special drinks. Staff can take orders and then take payment order new items
+and manage all the tables. The last user is Manager that can manage the warehouse.
+
+Version 1
+Author: Anton Augustsson
+
+Requires the following files:
+
+jquery-3.3.1.min.js
+jquery-1.11.1.js
+Beverages.js
+DBLoaded.js
+DBTable.js
+DBWarehouse.js
+DBUser.js
+loader.js
+header-footer.js
+modelDB.js
+UNDOmanager.js
+color-scheme.css
+Dictionary.js
+main.js
+main.css
+customer.js
+customer.css
+font-awesome.min.css
+undoRedo.js
+customer.js
+vip.js
+vip.css
+staff.js
+staff.css
+manager.js
+inventory_functions.js
+inventory_style.css
+login.css
+login.js
+
+-->
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -50,8 +95,8 @@
     <script type="text/javascript" src="management/manager.js"></script>
     <script type="text/javascript" src="management/inventory_functions.js"></script>
     <link rel="stylesheet" type="text/css" href="management/inventory_style.css">
+
     <!-- Login -->
-    <!-- async is nessesary otherwise the mode menue will not show -->
     <link rel="stylesheet" href="login/login.css">
 
 </head>
@@ -97,6 +142,7 @@
         </p>
     </form>
   </div>
+  <!-- login.js needs to be at the buttom otherwise it will not be able to load properly -->
   <script type="text/javascript" src="login/login.js"></script>
 </body>
 

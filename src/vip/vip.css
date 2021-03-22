@@ -1,3 +1,13 @@
+/*
+
+File: vip.css
+
+Version 1
+Author: Anton Augustsson
+
+This will be an addon to the customer syle sheet.
+It is for the popup windows and the extra buttons.
+*/
 @import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
 
 #options-vip{
@@ -5,6 +15,7 @@
   left: 20px;
 }
 
+/* Modal is the what will popup */
 .modal-vip{
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -19,7 +30,6 @@
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-/* Modal Content */
 .modal-content-vip {
   position: relative;
   background-color: var(--color-two);
@@ -53,7 +63,7 @@
   padding-left: 30px;
 }
 
-/* The Close Button */
+/* The Close Button is on the top right*/
 .modal-vip-close {
   color: #aaaaaa;
   float: right;
