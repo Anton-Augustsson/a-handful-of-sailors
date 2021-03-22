@@ -1,149 +1,103 @@
 <!DOCTYPE html>
-<html lang "en">
-  <head>
+
+<html lang="en">
+
+<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Learning</title>
-    <link rel="stylesheet" href="./style.css">
-  </head>
-  <body>
-    <div class="content">
-      <div class="menu">
-	<button class="btn btn1">bear</button>
-	<button class="btn btn1">shots</button>
-	<button class="btn btn1">drinks</button>
-	<button class="btn btn1">user-mode</button>
-      </div>
-      <div class="items">
-	<div class="item1">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item2">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item3">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item4">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item5">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item6">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item7">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item8">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item9">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item10">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item11">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item12">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item13">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item14">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item15">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item16">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item17">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item18">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item19">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item20">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item21">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item22">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item23">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item24">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item25">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item26">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-	<div class="item27">
-	  <p>item1</p>
-	  <p>item1</p>
-	</div>
-      </div>
-      <div class="ordering-list">
-	<table>
-	  <tr>
-	    <th>item</th>
-	    <th>qty</th>
-	    <th>tot price</th>
-          </tr>
-	  <tr>
-	    <td>pilsner</td>
-	    <td>2</td>
-	    <td>100</td>
-	  <tr>
-	    <td>IPA</td>
-	    <td>3</td>
-	    <td>200</td>
-	  </tr>
-	  </tr>
-	</table>
-      </div>
-    </div>
-  </body>
+    <title>The Flying Dutchman</title>
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+
+    <!-- Database -->
+    <script type="text/javascript" src="resources/db/Beverages.js"></script>
+    <script type="text/javascript" src="resources/db/DBLoaded.js"></script>
+    <script type="text/javascript" src="resources/db/DBTable.js"></script>
+    <script type="text/javascript" src="resources/db/DBWarehouse.js"></script>
+    <script type="text/javascript" src="resources/db/DBUser.js"></script>
+
+    <!-- Model -->
+    <script type="text/javascript" src="js/loader.js"></script>
+    <script type="text/javascript" src="js/header-footer.js"></script>
+    <script type="text/javascript" src="js/modelDB.js"></script>
+    <script type="text/javascript" src="js/UNDOmanager.js"></script>
+
+    <!-- Color scheme that is used for all css files -->
+    <link rel="stylesheet" type="text/css" href="css/color-scheme.css">
+
+    <!-- Dictionary needs to be last since everything needs to be set -->
+    <script type="text/javascript" src="js/Dictionary.js"></script>
+
+    <!-- The main files spesific for index.html -->
+    <script type="text/javascript" src="js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <!-- Customer functions and styling -->
+    <script type="text/javascript" src="customer/customer.js"></script>
+    <link rel="stylesheet" type="text/css" href="customer/customer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="customer/src/js/undoRedo.js"></script>
+    <script src="customer/src/js/customer.js" defer></script>
+
+    <!-- Vip functions and styling -->
+    <script type="text/javascript" src="vip/vip.js"></script>
+    <link rel="stylesheet" type="text/css" href="vip/vip.css">
+
+    <!-- Staff functions and styling -->
+    <script type="text/javascript" src="staff/staff.js"></script>
+    <link rel="stylesheet" type="text/css" href="staff/staff.css">
+
+    <!-- Manager functions and styling -->
+    <script type="text/javascript" src="management/manager.js"></script>
+    <script type="text/javascript" src="management/inventory_functions.js"></script>
+    <link rel="stylesheet" type="text/css" href="management/inventory_style.css">
+    <!-- Login -->
+    <!-- async is nessesary otherwise the mode menue will not show -->
+    <link rel="stylesheet" href="login/login.css">
+
+</head>
+
+<body>
+  <input type="checkbox" id="showButtonCheckbox">
+  <header id="header"></header>
+
+  <div id="content">
+      <div class="mode" id="mode1">customer</div>
+      <!--  <div class="mode" id="mode2">vip</div> -->
+      <div class="mode" id="mode3">staff</div>
+      <div class="mode" id="mode4">manager</div>
+  </div>
+
+  <div class="loginContainer">
+    <label id="close_login_window" for="showButtonCheckbox" class="close-btn fas fa-times" title="close"> </label>
+    <form class="form" id="loginForm">
+        <h1 class="form__title" id="login_header"></h1>
+        <div class="custom-select">
+            <select id="custom-select-mode">
+                <option value="0" id="login-select-mode">Select Login</option>
+                <option value="1" id="login-select-mode1">VIP</option>
+                <option value="2" id="login-select-mode2">Manager</option>
+                <option value="3" id="login-select-mode3">Staff</option>
+            </select>
+        </div>
+        <div class="form__message form__message--error"></div>
+        <div class="form__input-group">
+            <input id="username_input_field" type="text" class="form__input" autofocus>
+            <div class="form__input-error-message"></div>
+        </div>
+        <div class="form__input-group">
+            <input id="password_input_field" type="password" class="form__input" autofocus>
+            <div class="form__input-error-message"></div>
+        </div>
+        <button id="login_continue_button" class="form__button" type="submit"></button>
+        <p class="form__text">
+            <a href="#" class="form__link">Forgot your password?</a>
+        </p>
+        <p class="form__text">
+            <a class="form__link" href="./" id="linkCreateAccount">Don't have an account? Create account</a>
+        </p>
+    </form>
+  </div>
+  <script type="text/javascript" src="login/login.js"></script>
+</body>
+
 </html>
