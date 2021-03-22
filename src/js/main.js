@@ -48,6 +48,7 @@ function getMode(){
     return parseInt(localStorage.getItem(modeVarible));
 }
 
+// set default mode for normal and primary
 function resetMode(){
     setPrimaryMode(defaultMode);
     setMode(defaultMode);
@@ -55,6 +56,7 @@ function resetMode(){
     update_view();
 }
 
+// set the mode with is what the user has signd in to
 function setPrimaryMode(modeid){
     localStorage.setItem("primaryMode", modeid);
 }
@@ -68,6 +70,7 @@ function goToPrimaryMode(){
     setMode(getPrimaryMode());
 }
 
+// set username and titel in the header
 function setUser(){
     // Desplay username and mode in header
     var primaryMode = getPrimaryMode();
@@ -83,17 +86,19 @@ function setUser(){
 // =====================================================================================================
 // Helper function
 
+// hides all modes
 function hideModes(){
     for(i = 1; i<=numOfMode; i++){
         $("#"+modeHtmlId+i).fadeOut(0);
     }
 }
 
-// uses jqure to show a spesific div
+// uses jqure to show a the spesified mode
 function showMode(modeid){
     $("#"+modeHtmlId+modeid).fadeIn(0);
 }
 
+// run all things that only requres to run once from varius diffrent modes
 function init(){
     // we need to update all views or we
     getLanguage();
@@ -110,6 +115,7 @@ function init(){
     update_view_dictionary();
 }
 
+// reset all database and other localy stored files
 function reset(){
     resetDBTable();
     resetDBWarehouse();
@@ -119,24 +125,27 @@ function reset(){
 // =====================================================================================================
 // Mode functions
 
+// show customer and updates its view
 function customerMode(){
     showMode(customer);
     update_view_customer();
 }
 
+// show customer and updates vip view
 function vipMode(){
     showMode(customer);
     update_view_vip();
 }
 
+// show staff and updates its view
 function staffMode(){
     showMode(staff);
     update_view_staff();
 }
 
+// show manager and updates its view
 function managerMode(){
     showMode(manager);
-    // TODO: update view for manager mode
     update_view_manager();
 }
 

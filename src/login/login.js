@@ -3,7 +3,13 @@
 // =====================================================================================================
 // Author: Anton Augustsson, 2021
 //
-// https://www.youtube.com/watch?v=3GsKEtBcGTk&t=2001s
+// used the following tutorial for the implementation of login
+// https://www.youtube.com/watch?v=3GsKEtBcGTk
+//
+// It is used to login to the varius diffrent modes
+// by varifying creadentials (admin username = u, password = p)
+// it will then set the mode that should be shown and
+// the mode that the user is on
 //
 // =====================================================================================================
 // User interface

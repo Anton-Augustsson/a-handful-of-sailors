@@ -3,6 +3,12 @@
 // =====================================================================================================
 // Author: Anton Augustsson, 2021
 //
+// VIP mode is a sits untop of the customer view. In the customer view there is a
+// destinated div for the vip view to be inserted. The view prevides with some extra buttons
+// and featchers that the normal customer dose not have. The showMode = customer but will
+// have the mode as vip with update_view_vip instead of normal cutomer with is also included
+// in that function.
+//
 // =====================================================================================================
 // View
 
@@ -136,7 +142,7 @@ function addBalance(){
     $("#lamount").val('0');
 }
 
-// set what the will happen when clicking on spesific divs for vip balance
+// set what will happen when clicking on spesific divs for vip balance
 function setViewBalance(){
     var modal  = document.getElementById("modal-vip-balance");
     var view   = document.getElementById("vip-see-balance");
@@ -165,7 +171,7 @@ function setViewBalance(){
     };
 }
 
-// set what the will happen when clicking on spesific divs for special drinks
+// set what will happen when clicking on spesific divs for special drinks
 function setViewSpecialDrink(){
     var modal  = document.getElementById("modal-vip-special-drink");
     var view   = document.getElementById("vip-see-special-drink");
@@ -244,8 +250,6 @@ function update_view_vip(){
     update_view_dictionary();
 }
 
-function init_vip(){
-}
 
 // =====================================================================================================
 // =====================================================================================================
