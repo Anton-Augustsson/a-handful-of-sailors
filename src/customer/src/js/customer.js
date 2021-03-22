@@ -130,6 +130,7 @@ function getBeers(event){
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
+    update_view_dictionary();
 }
 
 
@@ -147,6 +148,7 @@ function getWines(event){
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
+    update_view_dictionary();
 
 }
 
@@ -164,6 +166,7 @@ function getDrinks(event){
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
+    update_view_dictionary();
 }
 
 // Updates which drinks are shown when filters are checked
