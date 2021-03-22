@@ -3,7 +3,11 @@
 // =====================================================================================================
 // Author: Pontus Ljungren, Henrik Alderborn 2021
 //
-
+// Manages so that actions can be undone and redone
+// Actions that can be undone/redone:
+//  * add to cart
+//  * remove from cart
+//  * quantity of cart item changed
 // =====================================================================================================
 // Variables
 
