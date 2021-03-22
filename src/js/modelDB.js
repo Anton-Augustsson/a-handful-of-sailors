@@ -431,7 +431,6 @@ function getDBWarehouseItemIndex(articleno){
         }
     }
     return null;
-    //throw "Articleno dosen't exist";
 }
 
 // get the item located in the dbwarhouse
