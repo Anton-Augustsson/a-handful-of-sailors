@@ -107,6 +107,13 @@ function init(){
     setUser();
 
     update_view();
+    update_view_dictionary();
+}
+
+function reset(){
+    resetDBTable();
+    resetDBWarehouse();
+    resetDBUser();
 }
 
 // =====================================================================================================
@@ -118,8 +125,8 @@ function customerMode(){
 }
 
 function vipMode(){
-    showMode(vip);
-    // TODO: update view for vip mode
+    showMode(customer);
+    update_view_vip();
 }
 
 function staffMode(){

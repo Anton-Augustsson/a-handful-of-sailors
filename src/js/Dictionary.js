@@ -32,7 +32,12 @@ dict = {
                   'close_login_window', 'menu_categories', 'menu_beer', 'menu_wine', 'menu_drinks',
                   'without_gluten_text', 'without_lactose_text', 'without_nuts_text',
                   'addTable', 'payment','new-order','payment-checkout', 'finish-payment',
-                  'cancel-payment', 'notify-security', 'remove-table'],     // keys for strings
+                  'cancel-payment', 'notify-security', 'remove-table',
+                  'vip-see-balance', 'vip-payment', 'vip-see-special-drink', 'vip-balance-text',
+                  'vip-balance-amount', 'vip-add-balance', 'cancel-vip-balance', 'cancel-vip-special-drink',
+                  'select-all-items-label', 'login-select-mode', 'login-select-mode1',
+                  'login-select-mode2', 'login-select-mode3'],
+                  // keys for strings
 
 
         /*LÄGG TILL
@@ -84,7 +89,19 @@ dict = {
             'cancel-payment': "Cancel",
             'notify-security': "Notify security",
             'remove-table': "-",
-
+            'vip-see-balance': "See balance",
+            'vip-payment': "Payment",
+            'vip-see-special-drink': "See special drinks",
+            'vip-balance-text': "Amount: ",
+            'vip-balance-amount': "Add Amount",
+            'vip-add-balance': "Add",
+            'cancel-vip-balance': "Cancel",
+            'cancel-vip-special-drink': "Cancel",
+            'select-all-items-label': "Select all items",
+            'login-select-mode': "Select login",
+            'login-select-mode1': "VIP",
+            'login-select-mode2': "Manager",
+            'login-select-mode3': "Staff",
         },
         'sv' : {
             'selected-language': 'Svenska',
@@ -113,22 +130,44 @@ dict = {
             'cancel-payment': "Avbryt",
             'notify-security': "Informera säkerhet",
             'remove-table': "-",
+            'vip-see-balance': "Se innehav",
+            'vip-payment': "Betala",
+            'vip-see-special-drink': "Se spesial drikor",
+            'vip-balance-text': "Innehav: ",
+            'vip-balance-amount': "Lägg till innehav",
+            'vip-add-balance': "Lägg till",
+            'cancel-vip-balance': "Avbryt",
+            'cancel-vip-special-drink': "Avbryt",
+            'select-all-items-label': "Välj all orders",
+            'login-select-mode': "Välj login",
+            'login-select-mode1': "VIP",
+            'login-select-mode2': "Direktör",
+            'login-select-mode3': "Personal",
         }
     },
 
     // The other Dictionary is class (cl) spesific dictionares make sure that each class name
     // matches the with the key. That is how it is identified.
     'cl': {
-        'keys' : ['on-the-house','not-on-the-house'],
+        'keys' : ['on-the-house','not-on-the-house', 'remove-item-order', 'item-mod-qty', 'item-mod-price',
+                  'buy-special-drink'],
 
         'en': {
             'on-the-house': "Add on the house",
             'not-on-the-house': "Remove on the house",
+            'remove-item-order': "Remove",
+            'item-mod-qty': "Qty",
+            'item-mod-price': "Price",
+            'buy-special-drink': "Buy",
 
         },
         'sv': {
             'on-the-house': "Lägg till huset bjuder",
             'not-on-the-house': "Ta bort huset bjuder",
+            'remove-item-order': "Ta bort",
+            'item-mod-qty': "Antal",
+            'item-mod-price': "Pris",
+            'buy-special-drink': "Köp",
         }
     },
 
@@ -147,13 +186,27 @@ dict = {
     },
 
     'vars': {
-        'keys' : ['total-price-table-message'],
+        'keys' : ['total-price-table-message', 'item-price-message', 'alcohol-content-message',
+                  'low-balance-message', 'purches-message', 'add-balance-to-much-message',
+                  'special-drink-code-message'],
 
         'en': {
             'total-price-table-message': "Total: ",
+            'item-price-message': "Original Price: ",
+            'alcohol-content-message': "Alcohol: ",
+            'low-balance-message': "Balance to low",
+            'purches-message': "Thank you for making a purches!",
+            'add-balance-to-much-message': "You have added to much",
+            'special-drink-code-message': "The code is: "
         },
         'sv' : {
             'total-price-table-message': "Summa: ",
+            'item-price-message': "Orginal Pris: ",
+            'alcohol-content-message': "Alkoholhalt: ",
+            'low-balance-message': "Innehav för låg",
+            'purches-message': "Tack för din beställning",
+            'add-balance-to-much-message': "Du har lagt till förmycket",
+            'special-drink-code-message': "Kåden är: ",
         }
     }
 };

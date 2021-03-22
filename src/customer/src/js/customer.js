@@ -1,3 +1,17 @@
+// =====================================================================================================
+// Control, for Customer.
+// =====================================================================================================
+// Author: Pontus Ljungren, Henrik Alderborn 2021
+//
+
+// =====================================================================================================
+// Variables
+
+var customersActiveTable;
+
+// =====================================================================================================
+
+// adds Event Listeners to interactive parts on the site after loading the customer
 $('document').ready(function() {
     var removeCartItemButtons = document.getElementsByClassName('remove-item-from-cart');
     for (var i = 0; i < removeCartItemButtons.length; i++) {
@@ -18,11 +32,19 @@ $('document').ready(function() {
     }
 
     //document.getElementsByClassName('btn-purchase')[0].addEventListener('click', order);
-
     //getTablesForCustomer();
     //getBeers();
 });
 
+// Sets active table for the customer
+function customersTable(index) {
+    var table = getTableByIndex(index);
+    customersActiveTable = table.tableid;
+    var selectedTable = document.getElementById('selected-table');
+    selectedTable.innerHTML = `<h2 class="section-header">Table ${table.tableid}</h2>`;
+}
+
+// adds all tables to a list in the interface
 function getTablesForCustomer() {
     var nrOfTables = getNumTables();
 
@@ -31,31 +53,69 @@ function getTablesForCustomer() {
         var listElem = document.createElement('div');
         var listElemContent = `
         <li>
-            <a href="#" onclick="">Table ${i}</a>
+            <a href="#" id="table-${i}" onclick="customersTable(${i})">Table ${i + 1}</a>
         </li>`
         listElem.innerHTML = listElemContent;
         var list = document.getElementsByClassName('pick-table-menu-list')[0];
         list.append(listElem);
     }
+
+    customersTable(0); //TODO:  change to activeTable-element? Shouldn't be here?
 }
 
+// gets all items from DBWarehouse of type beer/wine/cocktail(decided by str) passing active filters
 function fetchFromDb(str){
 
     let items = [];
+    var artikelid;
+    var item;
 
-    for (let i = 0; i < DB2.spirits.length; i++) {
+    for (let i = 0; i < getNumberOfItemsInWarehouse(); i++) {
 
-        if(eval(str)){
-            items.push([DB2.spirits[i].namn, DB2.spirits[i].prisinklmoms,
-                DB2.spirits[i].artikelid, DB2.spirits[i].producent,
-                DB2.spirits[i].ursprunglandnamn, DB2.spirits[i].varugrupp,
-                DB2.spirits[i].alkoholhalt, DB2.spirits[i].volymiml]);
+        artikelid = getArticleNumber(i);
+        item = itemDetails(artikelid);
+
+        if(checkFilters(item) && eval(str)) {
+
+            items.push([item.name, item.price, item.artikelNo, item.producer, item.country, item.itemKind,
+                        item.stats, item.volume]);
         }
     }
 
     return items;
 }
 
+// checks if an item fulfills the conditions of checked filters in customer
+function checkFilters(itemDetails){
+    var elements = document.getElementsByClassName("checkbox");
+
+    for(let i = 0; i < elements.length; i++){
+
+        if(elements[i].checked === true){
+
+            if(i === 0){
+                if(itemDetails.gluten !== "nej"){
+                    return false;
+                }
+            }
+            else if(i === 1){
+                if(itemDetails.laktos !== "nej"){
+                    return false;
+                }
+            }
+            else if(i === 2){
+                if(itemDetails.nötter !== "nej"){
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+
+}
+
+// Puts all beers in the menu interface
 function getBeers(event){
     if(document.getElementById("menu_beer").getAttribute("data-status") === "active" && event !== "filter"){
         return;
@@ -65,15 +125,14 @@ function getBeers(event){
     document.getElementById("menu_wine").setAttribute("data-status", "inactive");
     document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
 
-    var str = FiltersAsString();
-    str = "DB2.spirits[i].varugrupp.includes('\u00c3\u2013l') " + str;
+    var str = "item.itemKind.includes('') ";    // TODO: sökning efter faktiskt namn.
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
 }
 
 
-
+// Puts all wines in the menu interface
 function getWines(event){
     if(document.getElementById("menu_wine").getAttribute("data-status") === "active" && event !== "filter"){
         return;
@@ -83,14 +142,14 @@ function getWines(event){
     document.getElementById("menu_wine").setAttribute("data-status", "active");
     document.getElementById("menu_drinks").setAttribute("data-status", "inactive");
 
-    var str = FiltersAsString();
-    str = "DB2.spirits[i].varugrupp.includes('vin') " + str;
+    var str = "item.itemKind.includes('v') ";   // TODO: sökning efter faktiskt namn.
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
 
 }
 
+// Puts all cocktails in the menu interface
 function getDrinks(event){
     if(document.getElementById("menu_drinks").getAttribute("data-status") === "active" && event !== "filter"){
         return;
@@ -100,29 +159,13 @@ function getDrinks(event){
     document.getElementById("menu_wine").setAttribute("data-status", "inactive");
     document.getElementById("menu_drinks").setAttribute("data-status", "active");
 
-
-    var str = FiltersAsString();
-    str = "DB2.spirits[i].varugrupp.includes('Lik\u00c3\u00b6r') " + str;
+    var str = "item.itemKind.includes('Lik\u00c3\u00b6r') ";    // TODO: sökning efter faktiskt namn.
     var items = fetchFromDb(str);
     clearItems();
     printAllDrinks(items);
 }
 
-function FiltersAsString(){
-
-    var filterString = "";
-
-    var elements = document.getElementsByClassName("checkbox");
-
-    for(let i = 0; i < elements.length; i++){
-
-        if(elements[i].checked === true){
-            filterString += "&& DB2.spirits[i]." + elements[i].getAttribute("id").toString() + " === 'nej'";
-        }
-    }
-    return filterString;
-}
-
+// Updates which drinks are shown when filters are checked
 function updateFilters(){
 
     if(document.getElementById("menu_wine").getAttribute("data-status") === "active"){
@@ -136,6 +179,7 @@ function updateFilters(){
     }
 }
 
+// Clears all items from the menu interface
 function clearItems(){
 
     var elements = document.getElementsByClassName("shop-item");
@@ -145,24 +189,33 @@ function clearItems(){
     return;
 }
 
-
-function order() {
-
+// Get all order items from cart in order to process them
+// result[i][0] = articleno
+// result[i][1] = qty
+//
+function getOrders(){
     var cartItems = document.getElementsByClassName('cart-items')[0];
     var cartItemArticleNrs = cartItems.getElementsByClassName('cart-row');
     var cartItemQuantities = cartItems.getElementsByClassName('cart-quantity-input');
     var artikelid;
     var quantity;
+    var result = []; // [(articleno,qty),..]
 
     console.log(cartItemArticleNrs.length);
 
-    for (i = 0; i < cartItemArticleNrs.length; ++i) {
+    for (var i = 0; i < cartItemArticleNrs.length; ++i) {
         artikelid= cartItemArticleNrs[i].id;
         quantity = cartItemQuantities[i].value;
+
         console.log(artikelid);
         console.log(quantity);
-        newOrder(1, artikelid, quantity);
+        result[result.length] = [artikelid, quantity];
     }
+    return result;
+}
+
+// When an order has been made then to clean up use this funtion
+function finnishCustomerSession(){
 
     clearCart();
     updateCartTotal();
@@ -172,14 +225,34 @@ function order() {
     undostack = [];
     redostack = [];
 
-    goToPrimaryMode(); // if there is primary mode that isen't customer some one has called it
+}
+
+// makes an order of all items in the carts
+// clears the cart interface
+// alerts that an order has been made
+function order() {
+    var tableId = customersActiveTable;
+    var orders = getOrders();
+    var order;
+    console.log(orders);
+
+    for (let i = 0; i < orders.length; i++) {
+        order = orders[i];
+        console.log(order);
+        newOrder(tableId, order[0], order[1]);
+    }
+
+
+    finnishCustomerSession();
+    goToPrimaryMode(); // if there is primary mode that isn't customer some one has called it
     alert("Thank you for ordering!");
 }
 
-function printAllDrinks(allDrinks) {
+//Puts all drinks given by the argument to the menu interface
+function printAllDrinks(drinks) {
 
-    for (var i = 0; i < allDrinks.length; i++) {
-        var drink = allDrinks[i];
+    for (var i = 0; i < drinks.length; i++) {
+        var drink = drinks[i];
         var name = drink[0];
         var price = drink[1];
         var articleId = drink[2];
@@ -223,22 +296,9 @@ function printAllDrinks(allDrinks) {
         shopItem.getElementsByClassName('shop-item-title')[0].addEventListener("click", clickItemForMoreInfo);
     }
 }
-/*
-function clickItemForMoreInfo(event) {
-    var shopItem = event.target.parentElement.parentElement
-    console.log(shopItem)
-    var moreInfo = shopItem.getElementsByClassName('shop-item-more-info')[0]
-    console.log(moreInfo)
-    if (moreInfo.classList.contains('shop-item-more-info-hide')) {
-        moreInfo.classList.remove('shop-item-more-info-hide')
-        moreInfo.classList.add('shop-item-more-info-show')
-    }
-    else {
-        moreInfo.classList.remove('shop-item-more-info-show')
-        moreInfo.classList.add('shop-item-more-info-hide')
-    }
-    console.log("test2")
-}*/
+
+// Slides down a div with extra info about the item clicked
+// Slides up if the extra info is already shown
 function clickItemForMoreInfo(event) {
     this.classList.toggle("active");
     var content = this.parentElement.parentElement.children[1];
@@ -252,15 +312,17 @@ function clickItemForMoreInfo(event) {
     }
 }
 
-
+//The data of the item is transferred when dragging it
 function onDragStart(event) {
     event.dataTransfer.setData('text', event.target.className.replace('shop-item ', ''));
 }
 
+//Allows you to drop a draggable element over an item
 function onDragOver(event) {
     event.preventDefault();
 }
 
+// adds an item to the cart on dropping a draggable element over the cart
 function onDrop(event) {
     console.log(event);
     console.log(event.dataTransfer);
@@ -274,20 +336,7 @@ function onDrop(event) {
     doit (addToCartObj(title, price, id) );
 }
 
-/*
-function addToCartClicked(event) {
-    console.log(event);
-    var button = event.target
-    console.log(button);
-    var shopItem = button.parentElement.parentElement
-    console.log(shopItem);
-    var title = shopItem.getElementsByClassName('shop-item-title')[0].innerText
-    var price = shopItem.getElementsByClassName('shop-item-price')[0].innerText
-    var artikelid = shopItem.parentElement.id;
-    addItemToCart(title,price, artikelid);
-    updateCartTotal();
-}*/
-
+// Puts a shop-item in the cart interface
 function addItemToCart(title, price, artikelid, Quantity) {
     var cartRow = document.createElement('div');
     cartRow.classList.add('cart-row');
@@ -316,6 +365,9 @@ function addItemToCart(title, price, artikelid, Quantity) {
     cartRow.getElementsByClassName('remove-item-from-cart')[0].addEventListener('click', removeCartItem);
     cartRow.getElementsByClassName('cart-quantity-input')[0].addEventListener('change', quantityChanged);
 }
+
+// Changes the value inside the input tag
+// if the input is not a number the value will be set to 1
 function quantityChanged(event) {
     var input = event.target;
 
@@ -328,11 +380,13 @@ function quantityChanged(event) {
     doit (quantityChangedObj(artikelid, input.value));
 }
 
+// Removes associated item from the cart interface
 function removeCartItem(event) {
     var artikelid = event.target.parentElement.parentElement.id;
     doit (removeCartItemObj(artikelid));
 }
 
+// Updates the total price of all the items in the cart interface
 function updateCartTotal() {
     var cartItemContainer = document.getElementsByClassName('cart-items')[0];
     var cartRows = cartItemContainer.getElementsByClassName('cart-row');

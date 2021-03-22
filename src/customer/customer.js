@@ -1,3 +1,12 @@
+// =====================================================================================================
+// View, for Customer.
+// =====================================================================================================
+// Author: Pontus Ljungren, Henrik Alderborn 2021
+//
+//
+// =====================================================================================================
+
+//Sets the html structure for customer
 function createCustomer() {
     return `
     <!-- html -->
@@ -7,8 +16,7 @@ function createCustomer() {
                     <div class="categories">
                         <div class="pick-table">
                             <div class="pick-table-menu">
-                                <div class="selected-table" id="selected-table">
-                                    table 1
+                                <div class="selected-table" id="selected-table">    <!-- TODO: change to say what table is active-->
                                 </div>
                                 <ul class="pick-table-menu-list">
                                 </ul>
@@ -59,19 +67,23 @@ function createCustomer() {
                         <span class="cart-total-price">$0.00</span>
                     </div>
                     <button class="btn btn-primary btn-purchase" type="button" onclick=order()>ORDER</button>
+                    <div id="customer-vip"></div>
                 </div>
         
             </div>
         </div>
-    `
+    `;
 }
 
+//Loads customer into given div
 function setCustomer(id) {
     $("#"+id).html(createCustomer());
 }
 
+//Loads and updates all data in customer
 function update_view_customer() {
     setCustomer(modeHtmlId + customer);
+    update_view_dictionary();
     getTablesForCustomer();
     getBeers();
 }

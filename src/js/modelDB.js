@@ -34,8 +34,13 @@ function itemDetails(artikelid){
         artikelNo: artikelid,
         price: DB2.spirits[index].prisinklmoms,
         ursprung: DB2.spirits[index].ursprunglandnamn,
-        producer: DB2.spirits[index].producent,
         yearMade: DB2.spirits[index].argang,
+        producer: DB2.spirits[index].producent,
+        country: DB2.spirits[index].ursprunglandnamn,
+        volume: DB2.spirits[index].volymiml,
+        gluten: DB2.spirits[index].gluten,
+        laktos: DB2.spirits[index].laktos,
+        nötter: DB2.spirits[index].nötter,
         };
     return details;
 }
@@ -151,11 +156,25 @@ function getOrderQty(tableid, articleno){
     return DBTable.tables[it].orders[io].qty;
 }
 
+function getOrderPrice(tableid, articleno){
+    var it = getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleno);
+    return DBTable.tables[it].orders[io].price;
+}
+
 // =====================================================================================================
 // Interface update database
 
 // Initialise the DBTable
 initDBTable();
+
+function setOrderPrice(tableid, articleno, newPrice){
+    var it = getTableidIndex(tableid);
+    var io = getOrderdIndex(tableid, articleno);
+    var result = (DBTable.tables[it].orders[io].price = parseInt(newPrice));
+    update_model();
+    return result;
+}
 
 // update the quantity in the stock database
 function updateDB(articleid, qty){
@@ -196,6 +215,17 @@ function newTable(){
     return newTableObj.tableid;
 }
 
+function itemExistsInTable(tableid, articleid){
+    var result = false;
+    var table = getTableByID(tableid);
+    for(i = 0; i<table.orders.length; ++i){
+        if(table.orders[i].articleno == articleid){
+            result = true;
+        }
+    }
+    return result;
+}
+
 // creates a new order for a table
 // use articleid to point to the item in the order
 // qty>0 or faliure
@@ -203,7 +233,15 @@ function newTable(){
 //
 function newOrder(tableid, articleid, qty){
     //var index = get
+
+    if(itemExistsInTable(tableid,articleid)){
+        replenishOrder(tableid, articleid, qty);
+        update_model();
+        return;
+    }
+
     try{
+
         var aricleidIndex = getDBWarehouseItemIndex(articleid);
         var index = getTableidIndex(tableid);
 
@@ -212,12 +250,14 @@ function newOrder(tableid, articleid, qty){
         var newOrderObj = {
             "articleno": articleid,
             "onHouse": false,
-            "qty": qty
+            "qty": parseInt(qty),
+            "price": getItemPrice(articleid)
         };
 
         DBTable.tables[index].orders[length] = newOrderObj;
 
         update_model();
+
     } catch(error){
         console.log("Could not add order");
     }
@@ -228,8 +268,9 @@ function newOrder(tableid, articleid, qty){
 // qty<0 will decrese the stock
 // stock<0 is not allowed
 //
-function replenishOrder(tableid, articleid, qty){
+function replenishOrder(tableid, articleid, qtys){
     var length = DBTable.tables[getTableidIndex(tableid)].orders.length;
+    var qty = parseInt(qtys);
     for(i=0; i < length; ++i){
         if(DBTable.tables[getTableidIndex(tableid)].orders[i].articleno == articleid){
             if(DBTable.tables[getTableidIndex(tableid)].orders[i].qty > -qty){
@@ -277,14 +318,23 @@ function checkoutTable(tableid){
     var articleno;
     var order;
     var result = [];
+    var deleteIndex = 0;
 
-    for(i=0; i < length; ++i){
-        order = DBTable.tables[ti].orders[0];
+    for(var i = length-1; i >= 0; i--){
+
+        console.log(i);
+        order = DBTable.tables[ti].orders[i];
         articleno = order.articleno;
-        qty = order.qty;
-        result[result.length] = [articleno,replenishStock(articleno, -qty)];
-        DBTable.tables[ti].orders.splice(0,1);
+
+        console.log(articleno);
+        if(isSelected(tableid, articleno)){
+            qty = order.qty;
+            result[result.length] = [articleno,replenishStock(articleno, -qty)];
+            DBTable.tables[ti].orders.splice(i,1);
+            console.log("checkout" + articleno);
+        }
     }
+
 
     // set warehouse to null
     update_model();
@@ -391,7 +441,8 @@ function initDBWarehouse(){
 initDBWarehouse();
 
 // replenish stock
-function replenishStock(articleno, qty){
+function replenishStock(articleno, qtys){
+    var qty = parseInt(qtys);
     var itemIndex = getDBWarehouseItemIndex(articleno);
     if(DBWarehouse.item[itemIndex].stock > -qty){
         DBWarehouse.item[itemIndex].stock += qty;
@@ -422,6 +473,197 @@ function addWarehouseItem(articleno){
     DBWarehouse.item[length] = newItemObj;
     update_model_DBWarehouse();
 }
+
+// =====================================================================================================
+// Model, for DB5 aka DBUser
+
+// =====================================================================================================
+// varible
+
+// global varible for doing the operations for the database
+var DBUser;
+
+
+// =====================================================================================================
+// Helper functions
+
+function setDBUser(NewDBUser){
+    DBUser = NewDBUser;
+    localStorage.setItem("DBUser", JSON.stringify(NewDBUser));
+}
+
+function update_model_DBUser(){
+    setDBUser(DBUser);
+}
+
+function initDBUser(){
+    DBUser = JSON.parse(localStorage.getItem("DBUser"));
+
+    // if there is no local DB then use the default one
+    if(DBUser == null){
+        DBUser = DB5;
+        update_model_DBUser();
+    }
+}
+
+function resetDBUser(){
+    setDBUser(DB5);
+}
+
+function getUserIndexUserId(user_id){
+    for(i = 0; i < DBUser.users.length; i++){
+        if(DBUser.users[i].user_id == user_id){
+            return i;
+        }
+    }
+    throw "User can not be found by user_id";
+}
+
+function getUserIndexUsername(username){
+    for(i = 0; i < DBUser.users.length; i++){
+        if(DBUser.users[i].username == username){
+            return i;
+        }
+    }
+    throw "User can not be found by username";
+}
+
+function getCapitalIndex(index){
+    return DBUser.users[index].capital;
+}
+
+function changeCapitalIndex(index, qty){
+    var amount = parseInt(qty);
+    var capital = DBUser.users[index].capital;
+    if(capital > -amount){
+        return DBUser.users[index].capital += amount;
+    }
+    else {
+        throw "Can not change capital, unallowed operation";
+    }
+}
+
+// =====================================================================================================
+// Get information functions
+
+function getUserDetails(username){
+    var index = getUserIndexUsername(username);
+
+    var details = {
+        firstName: DBUser.users[index].first_name, // name on item
+        lastName: DBUser.users[index].last_name, // name on item
+        email: DBUser.users[index].email, // name on item
+        phone: DBUser.users[index].phone, // name on item
+        capital: DBUser.users[index].capital, // name on item
+        };
+    return details;
+
+}
+
+function getCapitalUserID(user_id){
+    capital = getCapitalIndex(getUserIndexUserId(user_id));
+    update_model_DBUser();
+    return capital;
+}
+
+function getCapital(username){
+    capital = getCapitalIndex(getUserIndexUsername(username));
+    update_model_DBUser();
+    return capital;
+}
+
+function verifyVipCredentials(username, password){
+    try{
+        index = getUserIndexUsername(username);
+        if(DBUser.users[index].password == password){
+            return true;
+        }
+        return false;
+    } catch(error){
+        return false;
+    }
+}
+
+// =====================================================================================================
+// Model update funtions
+
+initDBUser();
+
+function changeCapitalUserID(user_id, qty){
+    capital = changeCapitalIndex(getUserIndexUserId(user_id), qty);
+    update_model_DBUser();
+    return capital;
+}
+
+function changeCapital(username, qty){
+    capital = changeCapitalIndex(getUserIndexUsername(username), qty);
+    update_model_DBUser();
+    return capital;
+}
+
+function pay(username, articleno, qty){
+    try{
+        replenishStock(articleno, qty);
+        changeCapital(username, -(getItemPrice(articleno)*parseInt(qty)));
+    }
+    catch(error){
+        throw("Unable to pay");
+    }
+}
+
+function addUser(){
+   //TODO
+}
+
+function removeUser(){
+   //TODO
+}
+
+// =====================================================================================================
+// Model, special drinks
+
+// =====================================================================================================
+// varible
+
+// global varible for doing the operations for the database
+var DBSpecialDrinks = [596562, 689471, 343315, 582074, 342442];
+
+// =====================================================================================================
+// Get information functions
+
+function getSpecialDrink(index){
+    return DBSpecialDrinks[parseInt(index)];
+}
+
+function getSpecialDrinkLength(){
+    return DBSpecialDrinks.length;
+}
+
+// =====================================================================================================
+// Model, selected table
+
+// =====================================================================================================
+
+
+var defaultSelectedTable = 1;
+
+function initSellectedTable(){
+  var selectedTable = localStorage.getItem("selectedTable");
+  if(selectedTable==null){
+    setDefaultSelectedTable();
+  }
+}
+
+initSellectedTable();
+
+function getCurrentTable(){
+  return localStorage.getItem("selectedTable");
+}
+
+function setDefaultSelectedTable(){
+  localStorage.setItem("selectedTable", defaultSelectedTable);
+}
+
 
 // =====================================================================================================
 // =====================================================================================================
