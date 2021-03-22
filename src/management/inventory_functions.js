@@ -3,26 +3,10 @@
 // =====================================================================================================
 // Author: Isak Almgren, 2021
 //
-//
+// Controll functions for manager page
 // =====================================================================================================
-// Variables
-// Used to save index when going through the beverages.
-var highestIndexNr = 0;
-var lowestIndexNr = 0;
-// =====================================================================================================
-//
+//Control
 
-// Used for going back and forth between the beverages. Arg decides which kind of beverage to show.
-function changeBeverageList (arg) {
-    if ((arg === "next" && document.querySelectorAll(".spirits.spirits").length == 10) || (lowestIndexNr == 0 && arg == "next")){
-        removeBeverageList();
-        beverageList(document.getElementById("myselect").value);
-    }
-    if (arg === "back" && lowestIndexNr != 0) {
-        removeBeverageList();
-        beverageList2(document.getElementById("myselect").value);
-    }
-}
 
 // Remove all the beverages shown at moment.
 function removeBeverageList (){
@@ -34,22 +18,21 @@ function removeBeverageList (){
 
 // For reseting Variables when changing kind of beverage. Arg decides which kind of beverage to show.
 function changingKind (arg){
-    highestIndexNr = 0;
-    lowestIndexNr = 0;
     removeBeverageList();
     beverageList(arg);
 }
 
 // Creating the list of beverages consisting of DIVs for each item. This one goes forward in the for loop. Arg decides which kind of beverage to show.
 function beverageList(arg){
-    lowestIndexNr = highestIndexNr;
-    wareHouseSize = getNumberOfItemsInWarehouse()
     var beveragelist = document.getElementById("spirits");
-    for (i = highestIndexNr; document.querySelectorAll(".spirits.spirits").length < 10 && i < wareHouseSize; i++) {
-        var currentItem = getArticleNumber(i);
+    for (let i = 0;  i < getNumberOfItemsInDB2(); i++) {
+        var currentItem = getArticleId(i);
         var itemInformation = itemDetails(currentItem);
         if(arg === "all" || arg == itemInformation.itemKind || arg == undefined) {
             var stockAmount = getStock(itemInformation.artikelNo);
+            if(stockAmount < 1 || stockAmount == null){
+                removeWarehouseItem(choosenItem);
+            }
             var bevaregeContent = `
 
             <div class="spirits" id="${itemInformation.artikelNo}"   onclick=beverageInfo(${itemInformation.artikelNo}) >
@@ -64,40 +47,10 @@ function beverageList(arg){
         }
 
     }
-    highestIndexNr = getDBWarehouseItemIndex(itemInformation.artikelNo);
     var listOfBeverages = document.getElementsByClassName("spirits");
     for (j = 0; j < listOfBeverages.length; j++) {
         listOfBeverages[j].getElementsByClassName("order-iteam")[0].addEventListener('click', addToOrderClicked);
        listOfBeverages[j].getElementsByClassName("change-stock")[0].addEventListener('click', reviseInventory);
-    }
-}
-// Creating the list of beverages consisting of DIVs for each item. This one goes backward in the for loop. Arg decides which kind of beverage to show.
-function beverageList2(arg){
-    highestIndexNr = lowestIndexNr;
-    var beveragelist = document.getElementById("spirits");
-    for (i = lowestIndexNr; document.querySelectorAll(".spirits.spirits").length < 10 && i < wareHouseSize && highestIndexNr >= 0; i--) {
-        var currentItem = getArticleNumber(i);
-        var itemInformation = itemDetails(currentItem);
-        if(arg === "all" || arg == itemInformation.itemKind || arg == undefined) {
-            var stockAmount = getStock(itemInformation.artikelNo);
-            var bevaregeContent = `
-            <div class="spirits" id="${itemInformation.artikelNo}"   onclick=beverageInfo(${itemInformation.artikelNo}) >
-                <button class="btn change-stock" type="button">Change stock</button>
-                <button class="btn order-iteam" type="button">ADD TO ORDER</button>
-                <span> Namn: ${itemInformation.name} <br> Detaljer: ${itemInformation.details} <br> Article Nr: ${itemInformation.artikelNo} <br> In store: ${stockAmount} <span>
-                <input id="stockOrder-quantity-${itemInformation.artikelNo}" type="number" value="1">
-            </div>`;
-            var beverageElement = document.createElement('div');
-            beverageElement.innerHTML = bevaregeContent;
-            beveragelist.appendChild(beverageElement);
-
-        }
-    }
-    lowestIndexNr = getDBWarehouseItemIndex(itemInformation.artikelNo);
-    var listOfBeverages = document.getElementsByClassName("spirits");
-    for (j = 0; j < listOfBeverages.length; j++) {
-        listOfBeverages[j].getElementsByClassName("order-iteam")[0].addEventListener('click', addToOrderClicked)
-        listOfBeverages[j].getElementsByClassName("change-stock")[0].addEventListener('click', reviseInventory);
     }
 }
 
@@ -122,6 +75,10 @@ function reviseInventory(event) {
     var choosenItem = button.parentElement.id;
     var reviseAmount = $("#stockOrder-quantity-"+choosenItem).val();
     replenishStock(choosenItem, parseInt(reviseAmount));
+    var stockAmount = getStock(choosenItem);
+    if(stockAmount < 1){
+        removeWarehouseItem(choosenItem);
+    }
     changingKind();
 }
 
@@ -135,7 +92,7 @@ function addToOrderClicked(event) {
 
 }
 
-// Creating a new item and adding it to the order cart.
+// Creating a new item and adding it to the order cart. Arg title = name of product, Arg price = price of product, Arg artId = article Id
 function addItemTostockOrder(title, price, artId) {
     var stockOrderRow = document.createElement('div')
     stockOrderRow.classList.add('stockOrder-row')
@@ -202,13 +159,19 @@ function updatestockOrderTotal() {
 function makeInvOrder (){
     var stockOrderItems = document.getElementById('stockOrder-items')
     var stockOrderItemsArtId = stockOrderItems.getElementsByClassName("stockOrder-item-artId")
+    if(getStock(stockOrderItemsArtId))
     var stockOrderItemsQuantity = stockOrderItems.getElementsByClassName("stockOrder-quantity-input")
     for (var i = 0; i < stockOrderItemsArtId.length; i++) {
-          replenishStock(stockOrderItemsArtId[i].innerText,parseInt(stockOrderItemsQuantity[i].value))
-            }
+        if(getStock(stockOrderItemsArtId[i].innerText) == "No stock"){
+            addWarehouseItem(stockOrderItemsArtId[i].innerText,parseInt(stockOrderItemsQuantity[i].value))
+        }
+        else {
+            replenishStock(stockOrderItemsArtId[i].innerText, parseInt(stockOrderItemsQuantity[i].value))
+        }}
     while(stockOrderItemsArtId.length > 0){
         stockOrderItemsArtId[0].parentElement.parentElement.remove()    }
         changingKind();
+    updatestockOrderTotal();
 }
 
 // =====================================================================================================

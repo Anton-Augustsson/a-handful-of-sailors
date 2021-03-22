@@ -1,13 +1,15 @@
 // =====================================================================================================
-// Helper functions
+// View functions for manager.
+// =====================================================================================================
+// Author: Isak Almgren, 2021
+// =====================================================================================================
+// View
 
 // create whole html manager page
 function createManager () {
     return `
     <section class="container">
 <div class="beverages" id="spirits">
-    <button class="beveragebtn back" onclick=changeBeverageList("back")>Back</button>
-    <button class="beveragebtn next" onclick=changeBeverageList("next")>Next</button>
     <select id="myselect" onchange="changingKind(this.value)">
         <option value="all">Choose an option:</option>
         <option value="Cognac">Cognac</option>
@@ -40,7 +42,7 @@ function createManager () {
 }
 
 // ======================================================================================================
-// View update
+// Controler: View update
 
 // Insert html in view
 function setManager (id) {

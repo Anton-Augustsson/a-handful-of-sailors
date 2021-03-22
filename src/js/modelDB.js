@@ -6,9 +6,15 @@
 // DB: users account
 // DB2: beverages
 // DB3: table
+// DB4: Warehouse
+//
+// Contains all the database handeling functions
 //
 // =====================================================================================================
-// Model, for for DB2
+// Model, for DB2
+//
+// Get informaton from the database of all items
+//
 // =====================================================================================================
 
 function getItemIndexDBBeverages(artikelid){
@@ -45,16 +51,27 @@ function itemDetails(artikelid){
     return details;
 }
 
-
+// get the size of DB2
+function getNumberOfItemsInDB2(){
+    return DB2.spirits.length
+}
 // get the prise of an item inorder to calculate the cost
 function getItemPrice(artikelid){
     var index = getItemIndexDBBeverages(artikelid);
     return parseInt(DB2.spirits[index].prisinklmoms);
 }
 
+
+// get articleId
+function getArticleId(itemIndex){
+    return DB2.spirits[itemIndex].artikelid;
+}
+
 // =====================================================================================================
 // Model, for DB3 aka DBTable
-
+//
+// Handle orders for a table
+//
 // =====================================================================================================
 // varible
 
@@ -78,6 +95,7 @@ function getTableidIndex(tableid){
     throw "Tableid dosen't exist";    // throw a text
 }
 
+// get the index in DBTable of the item orderd from a table
 function getOrderdIndex(tableid, articleno){
     var table = getTableByID(tableid);
     var length = table.orders.length;
@@ -89,6 +107,8 @@ function getOrderdIndex(tableid, articleno){
     throw "Orderid dosen't exist";    // throw a text
 }
 
+// fetches the localy stored varible DBTable in the global varible DBTable
+// if not found the reset it
 function initDBTable(){
     // get the local DB
     DBTable = JSON.parse(localStorage.getItem("DBTable"));
@@ -144,18 +164,21 @@ function getNumOfOrders(tableid){
     }
 }
 
+// get the status (false true) that a item is on the house
 function getOrderOnHouseStatus(tableid, articleno){
     var it = getTableidIndex(tableid);
     var io = getOrderdIndex(tableid, articleno);
     return DBTable.tables[it].orders[io].onHouse;
 }
 
+// get the quantity of an item
 function getOrderQty(tableid, articleno){
     var it = getTableidIndex(tableid);
     var io = getOrderdIndex(tableid, articleno);
     return DBTable.tables[it].orders[io].qty;
 }
 
+// get the price of the item in table order
 function getOrderPrice(tableid, articleno){
     var it = getTableidIndex(tableid);
     var io = getOrderdIndex(tableid, articleno);
@@ -168,6 +191,7 @@ function getOrderPrice(tableid, articleno){
 // Initialise the DBTable
 initDBTable();
 
+// makes it posible to change the price of a item for a spesific table
 function setOrderPrice(tableid, articleno, newPrice){
     var it = getTableidIndex(tableid);
     var io = getOrderdIndex(tableid, articleno);
@@ -215,6 +239,9 @@ function newTable(){
     return newTableObj.tableid;
 }
 
+// checkes if the item is already in the table order
+// false: not in table order
+// true: in table order
 function itemExistsInTable(tableid, articleid){
     var result = false;
     var table = getTableByID(tableid);
@@ -287,6 +314,7 @@ function replenishOrder(tableid, articleid, qtys){
     throw "articleno dosent exist (replenishOrder)";
 }
 
+// set the quantity of a table item
 function setOrderQty(tableid, articleid, qty){
     var ti =  getTableidIndex(tableid);
     var io = getOrderdIndex(tableid, articleid);
@@ -352,6 +380,7 @@ function removeTable(tableid){
     update_model();
 }
 
+// set the satus to true for on the house atremute for an item in a table
 function setOnHouse(tableid, articleno, status){
     var it = getTableidIndex(tableid);
     var io = getOrderdIndex(tableid, articleno);
@@ -361,8 +390,10 @@ function setOnHouse(tableid, articleno, status){
 }
 
 // =====================================================================================================
-// Model, for DB4 aka DBTable
-
+// Model, for DB4 aka DBWarehouse
+//
+// Handle stock for all items in the warehouse
+//
 // =====================================================================================================
 // varible
 
@@ -399,15 +430,19 @@ function getDBWarehouseItemIndex(articleno){
             return i;
         }
     }
-    throw "Articleno dosen't exist";
+    return null;
 }
 
+// get the item located in the dbwarhouse
 function getDBWarehouseItem(articleno){
     return DBWarehouse.item[getDBWarehouseItemIndex(articleno)];
 }
 
 // get stock
 function getStock(articleno){
+    if(getDBWarehouseItem(articleno) == null){
+        return "No stock"
+    }
     return getDBWarehouseItem(articleno).stock;
 }
 
@@ -444,7 +479,7 @@ initDBWarehouse();
 function replenishStock(articleno, qtys){
     var qty = parseInt(qtys);
     var itemIndex = getDBWarehouseItemIndex(articleno);
-    if(DBWarehouse.item[itemIndex].stock > -qty){
+    if(DBWarehouse.item[itemIndex].stock >= -qty){
         DBWarehouse.item[itemIndex].stock += qty;
         update_model_DBWarehouse();
         update_model_DBWarehouse();
@@ -455,19 +490,23 @@ function replenishStock(articleno, qtys){
     }
 }
 
-// remove
+// remove item from warhouse
+// error if it dose not exists
 function removeWarehouseItem(articleno){
     var itemIndex = getDBWarehouseItemIndex(articleno);
     DBWarehouse.item.splice(itemIndex,1);
     update_model_DBWarehouse();
 }
 
-// add
-function addWarehouseItem(articleno){
+
+// add item to warhouse
+// will not check if it exists before inserting
+function addWarehouseItem(articleno, amount){
+
     var length = getNumberOfItemsInWarehouse();
     var newItemObj = {
         articleno: articleno,
-        stock: DefaultStock,
+        stock: amount,
     };
 
     DBWarehouse.item[length] = newItemObj;
@@ -476,7 +515,9 @@ function addWarehouseItem(articleno){
 
 // =====================================================================================================
 // Model, for DB5 aka DBUser
-
+//
+// Handle vip users
+//
 // =====================================================================================================
 // varible
 
@@ -487,15 +528,19 @@ var DBUser;
 // =====================================================================================================
 // Helper functions
 
+// set the local storage item to a new databse object
 function setDBUser(NewDBUser){
     DBUser = NewDBUser;
     localStorage.setItem("DBUser", JSON.stringify(NewDBUser));
 }
 
+// updates the localy stored varble DBUser
 function update_model_DBUser(){
     setDBUser(DBUser);
 }
 
+// retrives the localy stored DBUser in to global warible DBUser
+// if it dose not exist then set it to the diffult (DB5)
 function initDBUser(){
     DBUser = JSON.parse(localStorage.getItem("DBUser"));
 
@@ -510,6 +555,8 @@ function resetDBUser(){
     setDBUser(DB5);
 }
 
+// get the index of a user in the database
+// with user id
 function getUserIndexUserId(user_id){
     for(i = 0; i < DBUser.users.length; i++){
         if(DBUser.users[i].user_id == user_id){
@@ -519,6 +566,8 @@ function getUserIndexUserId(user_id){
     throw "User can not be found by user_id";
 }
 
+// get the index of a user in the database
+// with username
 function getUserIndexUsername(username){
     for(i = 0; i < DBUser.users.length; i++){
         if(DBUser.users[i].username == username){
@@ -528,10 +577,12 @@ function getUserIndexUsername(username){
     throw "User can not be found by username";
 }
 
+// get the balance by index of the user
 function getCapitalIndex(index){
     return DBUser.users[index].capital;
 }
 
+// change the balance by the index of use
 function changeCapitalIndex(index, qty){
     var amount = parseInt(qty);
     var capital = DBUser.users[index].capital;
@@ -546,32 +597,40 @@ function changeCapitalIndex(index, qty){
 // =====================================================================================================
 // Get information functions
 
+// get all information that is stored for a cutomer
+// details.firstName
+// details.lastName
+// details.email
+// details.capital
 function getUserDetails(username){
     var index = getUserIndexUsername(username);
 
     var details = {
-        firstName: DBUser.users[index].first_name, // name on item
-        lastName: DBUser.users[index].last_name, // name on item
-        email: DBUser.users[index].email, // name on item
-        phone: DBUser.users[index].phone, // name on item
-        capital: DBUser.users[index].capital, // name on item
+        firstName: DBUser.users[index].first_name,
+        lastName: DBUser.users[index].last_name,
+        email: DBUser.users[index].email,
+        phone: DBUser.users[index].phone,
+        capital: DBUser.users[index].capital,
         };
     return details;
 
 }
 
+// get the balance for user by user id
 function getCapitalUserID(user_id){
     capital = getCapitalIndex(getUserIndexUserId(user_id));
     update_model_DBUser();
     return capital;
 }
 
+// get the balance for user by username
 function getCapital(username){
     capital = getCapitalIndex(getUserIndexUsername(username));
     update_model_DBUser();
     return capital;
 }
 
+// verify the customer username and password
 function verifyVipCredentials(username, password){
     try{
         index = getUserIndexUsername(username);
@@ -587,20 +646,24 @@ function verifyVipCredentials(username, password){
 // =====================================================================================================
 // Model update funtions
 
+// initialize DBUser
 initDBUser();
 
+// change the capital by use id
 function changeCapitalUserID(user_id, qty){
     capital = changeCapitalIndex(getUserIndexUserId(user_id), qty);
     update_model_DBUser();
     return capital;
 }
 
+// change the capital by usename
 function changeCapital(username, qty){
     capital = changeCapitalIndex(getUserIndexUsername(username), qty);
     update_model_DBUser();
     return capital;
 }
 
+// change the capital of a user and update the stock
 function pay(username, articleno, qty){
     try{
         replenishStock(articleno, qty);
@@ -611,17 +674,11 @@ function pay(username, articleno, qty){
     }
 }
 
-function addUser(){
-   //TODO
-}
-
-function removeUser(){
-   //TODO
-}
-
 // =====================================================================================================
 // Model, special drinks
-
+//
+// Simple database for special items
+//
 // =====================================================================================================
 // varible
 
@@ -641,7 +698,9 @@ function getSpecialDrinkLength(){
 
 // =====================================================================================================
 // Model, selected table
-
+//
+// Manage the selected table
+//
 // =====================================================================================================
 
 
@@ -654,6 +713,7 @@ function initSellectedTable(){
   }
 }
 
+// inizalice the value of the localy stored selectedTable
 initSellectedTable();
 
 function getCurrentTable(){
@@ -663,7 +723,6 @@ function getCurrentTable(){
 function setDefaultSelectedTable(){
   localStorage.setItem("selectedTable", defaultSelectedTable);
 }
-
 
 // =====================================================================================================
 // =====================================================================================================
