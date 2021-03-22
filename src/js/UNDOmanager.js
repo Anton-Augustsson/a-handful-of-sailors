@@ -1,7 +1,7 @@
 // =====================================================================================================
 // Control, for table info.
 // =====================================================================================================
-// Author: Anton Augustsson, 2021
+// Author: Lars Oestreicher, Anton Augustsson, 2021
 //
 // The UNDO-manager consists of three functions. In this version they are
 // rudimentary, in that they don't check for an empty stack before trying.
@@ -18,9 +18,6 @@
 //
 // You need to implement update_view for the spesific javascript file for the control of the html page
 //
-/* Requires
-* update_view()
-*/
 //
 // =====================================================================================================
 // Varibles

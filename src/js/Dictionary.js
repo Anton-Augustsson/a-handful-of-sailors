@@ -1,7 +1,7 @@
 // =====================================================================================================
 // Control and Model, for handeling languages.
 // =====================================================================================================
-// Author: Anton Augustsson, 2021
+// Author: Lars Oestreicher, Anton Augustsson, 2021
 //
 // Two dictionaries are presented. To create a new item in the dictionary, Found out
 // the 'id' or 'cl' (class) of the item wich you witch to have in the dictionary
