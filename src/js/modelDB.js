@@ -55,6 +55,7 @@ function getItemPrice(artikelid){
     return parseInt(DB2.spirits[index].prisinklmoms);
 }
 
+
 // get articleId
 function getArticleId(itemIndex){
     return DB2.spirits[itemIndex].artikelid;
