@@ -3,7 +3,8 @@
 // =====================================================================================================
 // Author: Pontus Ljungren, Henrik Alderborn 2021
 //
-
+// Loads all items from active category that are in stock into the menu(Default shows beers).
+// Handles user interactions and updates the model and view in the desired manner.
 // =====================================================================================================
 // Variables
 

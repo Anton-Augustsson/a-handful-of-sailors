@@ -3,7 +3,7 @@
 // =====================================================================================================
 // Author: Pontus Ljungren, Henrik Alderborn 2021
 //
-//
+// Is used to set the view for customer when the mode is switched
 // =====================================================================================================
 
 //Sets the html structure for customer
