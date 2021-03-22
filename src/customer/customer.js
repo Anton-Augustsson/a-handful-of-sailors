@@ -27,7 +27,7 @@ function createCustomer() {
                         <div class="category" id="menu_wine" data-status="inactive" onclick="getWines()"></div>
                         <div class="category" id="menu_drinks" data-status="inactive" onclick="getDrinks()"></div>
         
-                        <h1>Filters</h1>
+                        <h1 id="filters"></h1>
         
         
                             <input type="checkbox" class="checkbox" id="gluten" onclick="updateFilters()">
@@ -63,7 +63,7 @@ function createCustomer() {
         
                     </div>
                     <div class="cart-total">
-                        <strong id="total-price-label" class="cart-total-title">Total</strong>
+                        <strong id="total-price-label" class="cart-total-title"></strong>
                         <span class="cart-total-price">$0.00</span>
                     </div>
                     <button id="order-button" class="btn btn-primary btn-purchase" type="button" onclick=order()></button>

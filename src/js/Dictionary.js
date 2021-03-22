@@ -37,7 +37,7 @@ dict = {
                   'vip-balance-amount', 'vip-add-balance', 'cancel-vip-balance', 'cancel-vip-special-drink',
                   'select-all-items-label', 'login-select-mode', 'login-select-mode1',
                   'login-select-mode2', 'login-select-mode3', 'cart-header-name', 'cart-item-header','cart-price-header',
-                  'cart-quantity-header', 'order-button', 'total-price-label', 'drinks-content-header'],
+                  'cart-quantity-header', 'order-button', 'total-price-label', 'drinks-content-header', 'filters'],
                   // keys for strings
 
 
@@ -96,6 +96,7 @@ dict = {
             'order-button' : "ORDER",
             'total-price-label' : "Total",
             'drinks-content-header' : "Beverages",
+            'filters' : "Filters",
 
 
         },
@@ -146,6 +147,7 @@ dict = {
             'order-button' : "BESTÄLL",
             'total-price-label' : "Totalt",
             'drinks-content-header' : "Drycker",
+            'filters' : "Filter",
 
         }
     },
